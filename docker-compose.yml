@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  api:
+    image: node:18
+    network_mode: host
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./api:/usr/app/
+    working_dir: /usr/app/
