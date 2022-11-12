@@ -8,3 +8,15 @@ services:
     volumes:
       - ./api:/usr/app/
     working_dir: /usr/app/
+  db:
+    image: postgres:15
+    network_mode: host
+    volumes: 
+      - statle-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=statle
+      - POSTGRES_USER=statle
+      - POSTGRES_PASSWORD=statle
+volumes:
+  statle-db:
+    external: true
