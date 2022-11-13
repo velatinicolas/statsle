@@ -1,13 +1,13 @@
 version: '3.4'
 services:
   api:
-    image: node:18
+    build:
+      context: ./api
     network_mode: host
     stdin_open: true
     tty: true
     volumes:
       - ./api:/usr/app/
-    working_dir: /usr/app/
   db:
     image: postgres:15
     network_mode: host
