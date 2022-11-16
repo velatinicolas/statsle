@@ -5,11 +5,11 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   identifier: string
 
-  @Column({ type: 'text' })
-  pseudonym: string
+  @Column({ type: 'text', unique: true })
+  username: string
 
-  @Column({ type: 'text' })
-  email: string
+  @Column({ type: 'text', nullable: true })
+  email: string | null
 
   @Column({ type: 'text' })
   password: string

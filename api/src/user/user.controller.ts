@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { map, Observable, of } from 'rxjs';
+import { Body, Controller, Post } from '@nestjs/common';
+import { map, Observable } from 'rxjs';
 import { User } from './user.entity';
-import { UserService } from './user.servce';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
@@ -10,8 +10,8 @@ export class UserController {
   ) {}
 
   @Post()
-  post(@Body() user: Pick<User, 'pseudonym' | 'password' | 'email'>): Observable<void> {
-    return this.userService.create(user.pseudonym, user.password, user.email)
+  post(@Body() user: Pick<User, 'username' | 'password'>): Observable<void> {
+    return this.userService.create(user.username, user.password)
       .pipe(map(() => void 0))
   }
 }

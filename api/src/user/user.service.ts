@@ -10,13 +10,16 @@ export class UserService
     private userRepository: Repository<User>,
   ) {}
 
-  create(pseudonym: string, password: string, email: string): Observable<User> {
+  create(username: string, password: string): Observable<User> {
     const user = this.userRepository.create({
-      pseudonym,
+      username,
       password,
-      email,
     })
 
     return from(this.userRepository.save(user))
+  }
+
+  findOne(username: string): Observable<User | null> {
+    return from(this.userRepository.findOneBy({ username }))
   }
 }
