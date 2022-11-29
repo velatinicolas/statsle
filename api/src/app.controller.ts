@@ -1,11 +1,17 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { Request } from 'express';
 import { AppService } from './app.service';
+import { AuthService } from './auth/auth.service';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtTokenInterface } from './auth/jwt-token.interface';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { PassportRequest } from './passport-request';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -14,7 +20,13 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Req() req: Request) {
+  login(@Req() req: PassportRequest): JwtTokenInterface {
+    return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('auth/me')
+  getProfile(@Req() req: PassportRequest) {
     return req.user;
   }
 }

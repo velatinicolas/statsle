@@ -18,7 +18,7 @@ down: ## Down the containers
 logs: ## Display all containers logs
 	docker-compose logs -f
 
-.PHONY: postrgres
+.PHONY: postgres
 postgres: ## Open a postgresql client in database container
 	docker-compose exec db bash -c "psql -U statle statle"
 
