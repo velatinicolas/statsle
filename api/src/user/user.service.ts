@@ -7,7 +7,7 @@ export class UserService
 {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>,
   ) {}
 
   create(username: string, password: string): Observable<User> {
