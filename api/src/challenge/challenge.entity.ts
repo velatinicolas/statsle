@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('challenges')
+@Entity({ name: 'challenges' })
 export class Challenge {
   @PrimaryGeneratedColumn('increment')
   identifier: number

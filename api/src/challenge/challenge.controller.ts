@@ -1,5 +1,5 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChallengeDto } from './challenge.dto';
 import { Challenge } from './challenge.entity';
