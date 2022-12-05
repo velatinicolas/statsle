@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { User } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
 import { JwtTokenInterface } from './jwt-token.interface';
+import { compare } from './hash.helper';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   validateUser(username: string, password: string): Observable<Omit<User, 'password'> | null> {
     return this.userService.findOne(username)
       .pipe(map(user => {
-        if (user && user.password === password) {
+        if (user && compare(password, user.password)) {
           const { password, ...result } = user
           return result
         }

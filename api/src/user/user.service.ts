@@ -1,5 +1,6 @@
 import { InjectRepository } from "@nestjs/typeorm";
-import { from, Observable } from "rxjs";
+import { from, Observable, of } from "rxjs";
+import { hash } from "src/auth/hash.helper";
 import { Repository } from "typeorm";
 import { User } from "./user.entity";
 
@@ -13,7 +14,7 @@ export class UserService
   create(username: string, password: string): Observable<User> {
     const user = this.userRepository.create({
       username,
-      password,
+      password: hash(password),
     })
 
     return from(this.userRepository.save(user))
