@@ -2,13 +2,14 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { TurnParserInterface } from "./turn-parser.interface";
 
 @Injectable()
-export class TusmoSeriesParser implements TurnParserInterface {
+export class TusmoWordParser implements TurnParserInterface {
+  constructor() {}
   getChallengeName(): string {
-    return 'Tusmo Series'
+    return 'Tusmo Word'
   }
 
   handles(rawResult: string): boolean {
-    return rawResult.split('\n')[0].match(/TUSMO \(@tusmo_xyz\) Suite de mots #[0-9]+/) !== null
+    return rawResult.split('\n')[0].match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null
   }
 
   extractGameNumber(rawResult: string): number {
@@ -18,6 +19,6 @@ export class TusmoSeriesParser implements TurnParserInterface {
       return +(matches[0])
     }
 
-    throw new InternalServerErrorException('Failed extracting Tusmo Series game number')
+    throw new InternalServerErrorException('Failed extracting Tusmo Word game number')
   }
 }

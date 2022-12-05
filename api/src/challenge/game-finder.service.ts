@@ -4,7 +4,7 @@ import { from, mergeMap, Observable, of } from "rxjs";
 import { Repository } from "typeorm";
 import { Challenge } from "./challenge.entity";
 import { Game } from "./game.entity";
-import { TurnParserChain } from "./parser-chain.service";
+import { TurnParserChain } from "./parsers/parser-chain.service";
 
 @Injectable()
 export class GameFinder {

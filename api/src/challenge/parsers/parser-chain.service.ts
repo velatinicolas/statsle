@@ -6,7 +6,9 @@ export class TurnParserChain {
   constructor(
     @Inject('TURN_PARSERS')
     private readonly turnParsers: TurnParserInterface[],
-  ) {}
+  ) {
+    console.info(turnParsers)
+  }
 
   addTurnParser(turnParser: TurnParserInterface): void {
     this.turnParsers.push(turnParser)

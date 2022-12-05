@@ -6,12 +6,12 @@ import { ChallengeService } from './challenge.service';
 import { GameFinder } from './game-finder.service';
 import { Game } from './game.entity';
 import { TurnService } from './turn.service';
-import { GrumbleParser } from './grumble.parser';
 import { Turn } from './turn.entity';
 import { TurnController } from './turn.controller';
-import { TusmoWordParser } from './tusmo-word.parser';
-import { TurnParserChain } from './parser-chain.service';
-import { TusmoSeriesParser } from './tusmo-series.parser';
+import { readdirSync } from 'fs';
+import { TurnParserConstructorInterface } from './parsers/grumble-parser-constructor.interface';
+import { TurnParserInterface } from './parsers/turn-parser.interface';
+import { TurnParserChain } from './parsers/parser-chain.service';
 
 @Module({
   imports: [
@@ -23,26 +23,27 @@ import { TusmoSeriesParser } from './tusmo-series.parser';
     GameFinder,
     TurnService,
     TurnParserChain,
-    GrumbleParser,
-    TusmoWordParser,
-    TusmoSeriesParser,
     {
+      // This dynamically import in `TURN_PARSERS` token
+      // every turn parsers stored in the `parsers` directory
       provide: 'TURN_PARSERS',
-      useFactory: (
-        grumbleParser: GrumbleParser,
-        tusmoWordParser: TusmoWordParser,
-        tusmoSeriesParser: TusmoSeriesParser,
-      ) => [
-        grumbleParser,
-        tusmoWordParser,
-        tusmoSeriesParser,
-      ],
-      inject: [
-        GrumbleParser,
-        TusmoWordParser,
-        TusmoSeriesParser,
-      ],
-    },
+      useFactory: async () => {
+        const parsers: TurnParserInterface[] = []
+        // Find every parser in the directory
+        // Check is done on `.js` files because this is done on runtime
+        const files = readdirSync(`${__dirname}/parsers`).filter(fn => fn.endsWith('parser.js'))
+        files.forEach(async (file) =>
+          await import(`${__dirname}/parsers/${file}`)
+            .then(importData => {
+              // Extract class name, and assume that is an instance of `TurnParserConstructorInterface` 
+              // so TypeScript allows the dynamic new below.
+              const className = Object.values<TurnParserConstructorInterface>(importData)[0]
+              parsers.push(new className())
+            })
+        )
+        return parsers
+      }
+    }
   ],
 })
 export class ChallengeModule {}
