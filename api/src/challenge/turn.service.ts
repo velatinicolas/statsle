@@ -9,26 +9,30 @@ import { Turn } from "./turn.entity";
 @Injectable()
 export class TurnService {
   constructor(
-    @InjectRepository(Turn) private readonly turnRepository: Repository<Turn>,
+    @InjectRepository(Turn) private readonly turnRepository: Repository<Turn>
   ) {}
 
   create(user: User, game: Game, rawResult: string): Observable<Turn> {
-    return from(this.turnRepository.findOneBy({ user: { username: user.username }, game: { identifier: game.identifier } }))
-      .pipe(
-        tap(turn => {
-          if (turn) {
-            throw new ConflictException('You already played this game!')
-          }
-        }),
-        mergeMap(() => {
-          const turn = new Turn()
-          turn.user = user
-          turn.game = game
-          turn.date = new Date()
-          turn.rawResult = rawResult
+    return from(
+      this.turnRepository.findOneBy({
+        user: { username: user.username },
+        game: { identifier: game.identifier },
+      })
+    ).pipe(
+      tap((turn) => {
+        if (turn) {
+          throw new ConflictException("You already played this game!");
+        }
+      }),
+      mergeMap(() => {
+        const turn = new Turn();
+        turn.user = user;
+        turn.game = game;
+        turn.date = new Date();
+        turn.rawResult = rawResult;
 
-          return from(this.turnRepository.save(turn))
-        })
-      ) 
+        return from(this.turnRepository.save(turn));
+      })
+    );
   }
 }

@@ -1,27 +1,34 @@
 import { User } from "../user/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Game } from "./game.entity";
 
-@Entity('turns')
+@Entity("turns")
 export class Turn {
-  @PrimaryGeneratedColumn('uuid')
-  identifier: string
+  @PrimaryGeneratedColumn("uuid")
+  identifier: string;
 
   @ManyToOne(() => Game)
-  game: Game
+  game: Game;
 
   @ManyToOne(() => User)
-  user: User
+  user: User;
 
-  @Column({ type: 'date' })
-  date: Date
+  @Column({ type: "date" })
+  date: Date;
 
-  @Column({ type: 'text' })
-  rawResult: string
+  @Column({ type: "text" })
+  rawResult: string;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 }

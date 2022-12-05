@@ -1,20 +1,27 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
-import { Challenge } from "./challenge.entity"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { Challenge } from "./challenge.entity";
 
-@Entity({ name: 'games' })
+@Entity({ name: "games" })
 export class Game {
-  @PrimaryGeneratedColumn('increment')
-  identifier: number
+  @PrimaryGeneratedColumn("increment")
+  identifier: number;
 
   @ManyToOne(() => Challenge)
-  challenge: Challenge
+  challenge: Challenge;
 
-  @Column({ type: 'integer'})
-  number: number
+  @Column({ type: "integer" })
+  number: number;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 }

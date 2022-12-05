@@ -8,16 +8,16 @@ import { Challenge } from "./challenge.entity";
 export class ChallengeService {
   constructor(
     @InjectRepository(Challenge)
-    private readonly challengeRepository: Repository<Challenge>,
+    private readonly challengeRepository: Repository<Challenge>
   ) {}
 
   get(identifier: number): Observable<Challenge | null> {
-    return from(this.challengeRepository.findOneBy({ identifier }))
+    return from(this.challengeRepository.findOneBy({ identifier }));
   }
 
   create(name: string, url: string): Observable<Challenge> {
-    const challenge = this.challengeRepository.create({ name, url })
+    const challenge = this.challengeRepository.create({ name, url });
 
-    return from(this.challengeRepository.save(challenge))
+    return from(this.challengeRepository.save(challenge));
   }
 }

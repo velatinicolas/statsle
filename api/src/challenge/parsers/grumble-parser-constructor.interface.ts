@@ -4,5 +4,5 @@ import { TurnParserInterface } from "./turn-parser.interface";
 // when providing the `TURN_PARSERS` token in `ChallengeModule`
 //
 export interface TurnParserConstructorInterface {
-  new(): TurnParserInterface
+  new (): TurnParserInterface;
 }

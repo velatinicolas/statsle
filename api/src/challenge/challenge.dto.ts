@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString, IsUrl } from "class-validator"
+import { IsNotEmpty, IsString, IsUrl } from "class-validator";
 
 export class ChallengeDto {
   @IsString()
   @IsNotEmpty()
-  name: string
+  name: string;
 
   @IsUrl()
   @IsNotEmpty()
-  url: string
+  url: string;
 }

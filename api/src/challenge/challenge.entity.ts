@@ -1,19 +1,25 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
-@Entity({ name: 'challenges' })
+@Entity({ name: "challenges" })
 export class Challenge {
-  @PrimaryGeneratedColumn('increment')
-  identifier: number
+  @PrimaryGeneratedColumn("increment")
+  identifier: number;
 
-  @Column({ type: 'text', unique: true })
-  name: string
+  @Column({ type: "text", unique: true })
+  name: string;
 
-  @Column({ type: 'text' })
-  url: string
+  @Column({ type: "text" })
+  url: string;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
 }
