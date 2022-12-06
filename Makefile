@@ -1,3 +1,5 @@
+### COMMON
+
 .PHONY: help
 help: ## Display Makefile available commands
 	@sed -nr 's/^([a-z\-]*): ## (.*)$$/\1;\2/p' Makefile | column -t -s ';'
@@ -18,9 +20,13 @@ down: ## Down the containers
 logs: ## Display all containers logs
 	docker-compose logs -f
 
+### DB
+
 .PHONY: postgres
 postgres: ## Open a postgresql client in database container
 	docker-compose exec db bash -c "psql -U statle statle"
+
+### API
 
 .PHONY: api-shell
 api-shell: ## Open a bash shell in API container
@@ -38,3 +44,9 @@ api-migration-generate: ## Generate a TypeORM migration. Syntax: make api-migrat
 .PHONY: api-migration-run
 api-migration-run: ## Run TypeORM migrations
 	docker-compose exec api npm run typeorm migration:run -- -d typeorm-config.ts
+
+### FRONT
+
+.PHONY: front-shell
+front-shell: ## Open a bash shell in Front container
+	docker-compose exec front bash

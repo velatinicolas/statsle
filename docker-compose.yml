@@ -17,6 +17,14 @@ services:
       - POSTGRES_DB=statle
       - POSTGRES_USER=statle
       - POSTGRES_PASSWORD=statle
+  front:
+    image: node:18
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /usr/app
+    volumes:
+      - ./front:/usr/app/
 volumes:
   statle-db:
     external: true
