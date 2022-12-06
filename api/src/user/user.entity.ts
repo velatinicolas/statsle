@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { RoleEnum } from "./role.enum";
 
 @Entity({ name: "users" })
 export class User {
@@ -20,8 +21,11 @@ export class User {
   @Column({ type: "text" })
   password: string;
 
-  @Column({ type: "boolean", default: false })
+  @Column({ type: "boolean", default: true })
   active: boolean;
+
+  @Column({ type: "text" })
+  role: string = RoleEnum.USER; // Hardcode role user to avoid unwanted admin
 
   @CreateDateColumn()
   createdAt: Date;

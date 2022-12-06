@@ -9,6 +9,9 @@ import {
 } from "@nestjs/common";
 import { map, Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { RoleEnum } from "src/user/role.enum";
+import { Roles } from "src/user/roles.decorator";
+import { RolesGuard } from "src/user/roles.guard";
 import { ChallengeDto } from "./challenge.dto";
 import { Challenge } from "./challenge.entity";
 import { ChallengeService } from "./challenge.service";
@@ -30,7 +33,8 @@ export class ChallengeController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(RoleEnum.ADMIN)
   @Post()
   post(@Body() challengeDto: ChallengeDto): Observable<Challenge> {
     return this.challengeService.create(challengeDto.name, challengeDto.url);

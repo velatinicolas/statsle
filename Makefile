@@ -26,6 +26,11 @@ postgres: ## Open a postgresql client in database container
 api-shell: ## Open a bash shell in API container
 	docker-compose exec api bash
 
+.PHONY: api-format
+api-format: ## Run lint and prettier on API
+	docker-compose exec api npm run lint
+	docker-compose exec api npm run prettier
+
 .PHONY: api-migration-generate
 api-migration-generate: ## Generate a TypeORM migration. Syntax: make api-migration-generate MIGRATION_NAME=TheMigrationName
 	docker-compose exec api npm run typeorm migration:generate -- -d typeorm-config.ts migrations/$(MIGRATION_NAME)
