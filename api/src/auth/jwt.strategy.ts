@@ -3,7 +3,6 @@ import { PassportStrategy } from "@nestjs/passport";
 import {
   Inject,
   Injectable,
-  InternalServerErrorException,
   UnauthorizedException,
 } from "@nestjs/common";
 import { User } from "src/user/user.entity";
