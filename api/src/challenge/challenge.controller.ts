@@ -13,7 +13,7 @@ import { RoleEnum } from "src/user/role.enum";
 import { Roles } from "src/user/roles.decorator";
 import { RolesGuard } from "src/user/roles.guard";
 import { ChallengeDto } from "./challenge.dto";
-import { Challenge } from "./challenge.entity";
+import { ChallengeResource } from "./challenge.resource";
 import { ChallengeService } from "./challenge.service";
 
 @Controller("challenges")
@@ -21,14 +21,14 @@ export class ChallengeController {
   constructor(private readonly challengeService: ChallengeService) {}
 
   @Get(":identifier")
-  get(@Param("identifier") identifier: number): Observable<Challenge> {
+  get(@Param("identifier") identifier: number): Observable<ChallengeResource> {
     return this.challengeService.get(identifier).pipe(
       map((challenge) => {
         if (challenge === null) {
           throw new NotFoundException();
         }
 
-        return challenge;
+        return new ChallengeResource(challenge);
       })
     );
   }
@@ -36,7 +36,20 @@ export class ChallengeController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RoleEnum.ADMIN)
   @Post()
-  post(@Body() challengeDto: ChallengeDto): Observable<Challenge> {
-    return this.challengeService.create(challengeDto.name, challengeDto.url);
+  post(@Body() challengeDto: ChallengeDto): Observable<ChallengeResource> {
+    return this.challengeService
+      .create(challengeDto.name, challengeDto.url)
+      .pipe(map((challenge) => new ChallengeResource(challenge)));
+  }
+
+  @Get()
+  getAll(): Observable<ChallengeResource[]> {
+    return this.challengeService
+      .getAll()
+      .pipe(
+        map((challenges) =>
+          challenges.map((challenge) => new ChallengeResource(challenge))
+        )
+      );
   }
 }

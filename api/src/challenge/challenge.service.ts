@@ -15,6 +15,10 @@ export class ChallengeService {
     return from(this.challengeRepository.findOneBy({ identifier }));
   }
 
+  getAll(): Observable<Challenge[]> {
+    return from(this.challengeRepository.find());
+  }
+
   create(name: string, url: string): Observable<Challenge> {
     const challenge = this.challengeRepository.create({ name, url });
 
