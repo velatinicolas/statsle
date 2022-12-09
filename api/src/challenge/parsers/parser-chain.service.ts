@@ -28,7 +28,7 @@ export class TurnParserChain {
       throw new BadRequestException("Challenge not recognized!");
     } else if (validTurnParsers.length > 1) {
       throw new InternalServerErrorException(
-        "More than one parser handles this result!"
+        "More than one parser handle this result!"
       );
     }
 

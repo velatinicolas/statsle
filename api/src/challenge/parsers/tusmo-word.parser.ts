@@ -1,4 +1,5 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { TurnResultEnum } from "../turn-result.enum";
 import { TurnParserInterface } from "./turn-parser.interface";
 
 @Injectable()
@@ -23,5 +24,17 @@ export class TusmoWordParser implements TurnParserInterface {
     throw new InternalServerErrorException(
       "Failed extracting Tusmo Word game number"
     );
+  }
+
+  extractScore(rawResult: string): string {
+    const score = rawResult.split("\n")[0].match(/[0-6]+\/[0-6]+/);
+
+    return score ? score[0] : "";
+  }
+
+  extractResult(rawResult: string): TurnResultEnum {
+    return this.extractScore(rawResult)
+      ? TurnResultEnum.WON
+      : TurnResultEnum.LOST;
   }
 }

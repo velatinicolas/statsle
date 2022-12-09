@@ -6,12 +6,14 @@ import { GameFinder } from "./game-finder.service";
 import { TurnService } from "./turn.service";
 import { TurnDto } from "./turn.dto";
 import { Turn } from "./turn.entity";
+import { TurnParserChain } from "./parsers/parser-chain.service";
 
 @Controller("turns")
 export class TurnController {
   constructor(
     private readonly gameFinder: GameFinder,
-    private readonly turnService: TurnService
+    private readonly turnService: TurnService,
+    private readonly turnParserChain: TurnParserChain
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -23,8 +25,14 @@ export class TurnController {
     const user = req.user;
     const rawResult = turnDto.rawResult;
 
+    const turnParser = this.turnParserChain.findParserHandling(rawResult);
+
     return this.gameFinder
-      .find(rawResult)
-      .pipe(mergeMap((game) => this.turnService.create(user, game, rawResult)));
+      .find(rawResult, turnParser)
+      .pipe(
+        mergeMap((game) =>
+          this.turnService.create(user, game, rawResult, turnParser)
+        )
+      );
   }
 }

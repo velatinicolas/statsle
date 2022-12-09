@@ -4,19 +4,17 @@ import { from, mergeMap, Observable, of } from "rxjs";
 import { Repository } from "typeorm";
 import { Challenge } from "./challenge.entity";
 import { Game } from "./game.entity";
-import { TurnParserChain } from "./parsers/parser-chain.service";
+import { TurnParserInterface } from "./parsers/turn-parser.interface";
 
 @Injectable()
 export class GameFinder {
   constructor(
     @InjectRepository(Challenge)
     private readonly challengeRepository: Repository<Challenge>,
-    @InjectRepository(Game) private readonly gameRepository: Repository<Game>,
-    private readonly turnParserChain: TurnParserChain
+    @InjectRepository(Game) private readonly gameRepository: Repository<Game>
   ) {}
 
-  find(rawResult: string): Observable<Game> {
-    const turnParser = this.turnParserChain.findParserHandling(rawResult);
+  find(rawResult: string, turnParser: TurnParserInterface): Observable<Game> {
     const challengeName = turnParser.getChallengeName();
     const gameNumber = turnParser.extractGameNumber(rawResult);
 
