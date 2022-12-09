@@ -43,4 +43,15 @@ export class TurnService {
       })
     );
   }
+
+  findByUser(user: User): Observable<Turn[]> {
+    return from(this.turnRepository.find({
+      relations: ['game', 'game.challenge'],
+      where: {
+        user: {
+          identifier: user.identifier
+        }
+      }
+    }))
+  }
 }

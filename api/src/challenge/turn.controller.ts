@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 import { mergeMap, Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PassportRequest } from "src/passport-request";
@@ -8,7 +8,7 @@ import { TurnDto } from "./turn.dto";
 import { Turn } from "./turn.entity";
 import { TurnParserChain } from "./parsers/parser-chain.service";
 
-@Controller("turns")
+@Controller()
 export class TurnController {
   constructor(
     private readonly gameFinder: GameFinder,
@@ -17,7 +17,7 @@ export class TurnController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post()
+  @Post("turns")
   post(
     @Req() req: PassportRequest,
     @Body() turnDto: TurnDto
@@ -34,5 +34,13 @@ export class TurnController {
           this.turnService.create(user, game, rawResult, turnParser)
         )
       );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("me/turns")
+  getMyTurns(
+    @Req() req: PassportRequest
+  ): Observable<Turn[]> {
+    return this.turnService.findByUser(req.user)
   }
 }

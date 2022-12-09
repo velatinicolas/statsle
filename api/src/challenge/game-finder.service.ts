@@ -19,9 +19,12 @@ export class GameFinder {
     const gameNumber = turnParser.extractGameNumber(rawResult);
 
     return from(
-      this.gameRepository.findOneBy({
-        challenge: { name: challengeName },
-        number: gameNumber,
+      this.gameRepository.findOne({
+        relations: ['challenge'],
+        where: {
+          challenge: { name: challengeName },
+          number: gameNumber,
+        }
       })
     ).pipe(
       mergeMap((game) => {
