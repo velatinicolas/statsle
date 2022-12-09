@@ -54,3 +54,21 @@
 .turn-form button {
   margin-top: 1em;
 }
+
+#main-title {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+html {
+  background-color: lightblue;
+}
+
+button {
+  /* border: darkblue; */
+  border-radius: 10px;
+  border-style: double;
+  padding: 10px;
+  font-size: 15px;
+  background-color: cornflowerblue;
+}

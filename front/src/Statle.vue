@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { defineComponent, onMounted } from "vue";
+  import { defineComponent, onMounted, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import ChallengesList from "./components/ChallengesList.vue";
 import LoggedUser from "./components/LoggedUser.vue";
@@ -7,15 +7,22 @@ import LoggedUser from "./components/LoggedUser.vue";
 import Logout from "./components/Logout.vue";
 import Signin from "./components/Signin.vue";
 import TurnForm from "./components/TurnForm.vue";
+import TurnsList from "./components/TurnsList.vue";
 import { useUserStore } from "./stores/user";
 
 const userStore = useUserStore()
+const turnsListRef = ref<typeof TurnsList | null>(null)
+
+function reloadTurnsList() {
+  turnsListRef.value?.loadTurnsList()
+}
 
 </script>
 
 <template>
   <header>
-    <h1>Welcome to Statle<sup class="version">Beta</sup></h1>
+    <p id="main-title">Statle<sup class="version">Beta</sup></p>
+    <h3>All your daily challenge stats in one place!</h3>
     <div class="user-state">
       <LoggedUser v-if="userStore.isLoggedIn" :username="userStore.user.username"></LoggedUser>
       <Logout v-if="userStore.isLoggedIn"></Logout>
@@ -28,14 +35,15 @@ const userStore = useUserStore()
         <Login></Login>
       </div>
       <div class="user-action">
-        <h3>or</h3>
+        <h2>or</h2>
       </div>
       <div class="user-action">
         <Signin></Signin>
       </div>
     </div>
     <div v-if="userStore.isLoggedIn">
-      <TurnForm></TurnForm>
+      <TurnForm @turn-saved=""></TurnForm>
+      <TurnsList ref="turnsListRef"></TurnsList>
     </div>
   </body>
 </template>

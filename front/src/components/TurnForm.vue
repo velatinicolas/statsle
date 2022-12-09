@@ -3,10 +3,8 @@
     <p>Paste the result of one of your daily challenges!</p>
     <textarea rows="20" cols="50" v-model="turnResult"></textarea><br/>
     <button v-on:click="submitTurn()">Submit</button>
-    <div v-if="turn">
-      Saved <Turn :turn="turn"></Turn>
-    </div>
-    <p v-if="error">{{ error }}</p>
+    <p v-if="info" class="info">{{ info }}</p>
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -17,6 +15,7 @@ import { defineComponent } from 'vue';
 import Turn from './Turn.vue';
 
 export default defineComponent({
+    emits: ['turnSaved'],
     setup() {
         const userStore = useUserStore();
         return { userStore };
@@ -24,21 +23,28 @@ export default defineComponent({
     data() {
         return {
             turnResult: "",
-            turn: undefined,
+            info: "",
             error: "",
         };
     },
     methods: {
         submitTurn() {
-            this.turn = undefined
+            this.info = ""
+            this.error = ""
             return axios.post("http://localhost:3000/turns", {
                 rawResult: this.turnResult
             }, {
                 headers: {
                     authorization: `Bearer ${this.userStore.user.jwt}`
                 }
-            }).then(response => { console.info(response.data);this.turn = response.data })
-            .catch(error => { this.error = error.response.data.message })
+            })
+            .then(response => {
+                this.info = "Result saved!"
+                this.$emit('turnSaved')
+            })
+            .catch(error => {
+                this.error = error.response.data.message
+            })
         }
     },
     components: { Turn }

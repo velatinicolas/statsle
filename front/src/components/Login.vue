@@ -1,9 +1,9 @@
 <template>
   <div class="user-prompt">
-    <h3>Log in</h3>
+    <h2>Log in</h2>
     <input type="text" v-model="username" placeholder="pseudo"/>
     <input type="password" v-model="password" placeholder="password"/>
-    <button v-on:click="tryLogin()">Log in!</button>
+    <button v-on:click="tryLogin()">Log in</button>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
@@ -12,14 +12,9 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useUserStore } from '@/stores/user';
+import type { UserResourceInterface } from '@/interfaces/from-api.interface';
 
-// TODO use SDK to share API interface
-export interface UserResource {
-  identifier: string
-  username: string
-  email: string | null
-  createdAt: Date
-}
+
 
 export default defineComponent({
   setup() {
@@ -48,7 +43,7 @@ export default defineComponent({
       )
       .then(response => response.data.access_token)
       .then(jwt =>
-        axios.get<UserResource>('http://localhost:3000/auth/me', {
+        axios.get<UserResourceInterface>('http://localhost:3000/auth/me', {
           headers: {
             authorization: `Bearer ${jwt}`
           }

@@ -8,19 +8,14 @@
 </template>
 
 <script lang="ts">
+import type { ChallengeResourceInterface } from '@/interfaces/from-api.interface';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 
-// TODO use SDK to share API interface
-export interface ChallengeResource {
-  identifier: number
-  name: string
-  url: string
-}
 
 export default defineComponent({
   data(): {
-    challengesList: ChallengeResource[]
+    challengesList: ChallengeResourceInterface[]
   } {
     return {
       challengesList: [],
@@ -31,7 +26,7 @@ export default defineComponent({
   },
   methods: {
     loadChallengesList() {
-      return axios.get<ChallengeResource[]>(
+      return axios.get<ChallengeResourceInterface[]>(
         'http://localhost:3000/challenges'
       ).then(response => { this.challengesList = response.data.sort((a, b) => a.name > b.name ? 1 : -1) })
     }

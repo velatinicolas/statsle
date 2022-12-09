@@ -1,10 +1,10 @@
 <template>
   <div class="user-prompt">
-    <h3>Sign in</h3>
+    <h2>Sign in</h2>
     <input type="text" v-model="username" placeholder="pseudo"/>
     <input type="password" v-model="password" placeholder="password"/>
     <input type="password" v-model="confirm" placeholder="confirm"/>
-    <button v-on:click="trySignin()">Sign in!</button>
+    <button v-on:click="trySignin()">Sign in</button>
     <p v-if="error" class="error">{{ error }}</p>
     <p v-if="info" class="info">{{ info }}</p>
   </div>
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
-import type { UserResource } from './Login.vue';
+import type { UserResourceInterface } from '@/interfaces/from-api.interface';
 
 export default defineComponent({
   data() {
@@ -41,7 +41,7 @@ export default defineComponent({
         return
       }
       
-      return axios.post<UserResource>(
+      return axios.post<UserResourceInterface>(
         'http://localhost:3000/users',
         {
           username: this.username,
