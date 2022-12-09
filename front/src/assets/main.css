@@ -1,35 +1,56 @@
-@import './base.css';
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: normal;
+  text-align: center;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.version {
+  font-size: small;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.user-prompt input {
+  display: block;
+  text-align: center;
+  margin: 1em
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.user-prompt button {
+  text-align: center;
+  margin: 1em
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.error {
+  color: tomato;
+  font-weight: bold;
+}
+
+.info {
+  color: forestgreen;
+  font-weight: bold;
+}
+
+.user-state span {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+.user-actions {
+  padding-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.user-action {
+  display: inline-flex;
+}
+
+.turn-form {
+  padding-top: 1em;
+}
+
+.turn-form button {
+  margin-top: 1em;
 }

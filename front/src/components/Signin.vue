@@ -1,11 +1,13 @@
 <template>
-  Sign in: 
-  <input type="text" v-model="username" placeholder="pseudo"/>
-  <input type="password" v-model="password" placeholder="password"/>
-  <input type="password" v-model="confirm" placeholder="confirm"/>
-  <input type="button" v-on:click="trySignin()" value="Sign in!">
-  <span v-if="error">{{ error }}</span>
-  <span v-if="info">{{ info }}</span>
+  <div class="user-prompt">
+    <h3>Sign in</h3>
+    <input type="text" v-model="username" placeholder="pseudo"/>
+    <input type="password" v-model="password" placeholder="password"/>
+    <input type="password" v-model="confirm" placeholder="confirm"/>
+    <button v-on:click="trySignin()">Sign in!</button>
+    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="info" class="info">{{ info }}</p>
+  </div>
 </template>
 
 <script lang="ts">

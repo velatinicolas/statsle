@@ -1,5 +1,5 @@
 <template>
-  <input type="button" v-on:click="logout()" value="Logout!">
+  <button v-on:click="logout()">Log out</button>
 </template>
 
 <script lang="ts">
@@ -13,7 +13,7 @@ export default defineComponent({
   },
   methods: {
     logout() {
-      // Logout only consists in a removing the access token from the store
+      // Logout only consists in removing the access token from the store
       this.userStore.user.jwt = ""
       this.userStore.user.username = ""
     }
