@@ -50,3 +50,7 @@ api-migration-run: ## Run TypeORM migrations
 .PHONY: front-shell
 front-shell: ## Open a bash shell in Front container
 	docker-compose exec front bash
+
+.PHONY: front-format
+front-format: ## Run lint and prettier on API
+	docker-compose exec front npm run lint

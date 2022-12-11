@@ -37,6 +37,10 @@
   margin-left: 0.5em;
 }
 
+.user-state button {
+  margin-right: 4px;
+}
+
 .user-actions {
   padding-top: 1em;
   display: flex;
@@ -47,17 +51,18 @@
   display: inline-flex;
 }
 
-.turn-form {
-  padding-top: 1em;
-}
-
-.turn-form button {
+#turn-form button {
   margin-top: 1em;
 }
 
 #main-title {
   font-weight: bold;
   font-size: 50px;
+  margin-bottom: 10px;
+}
+
+#subtitle {
+  margin-bottom: 40px;
 }
 
 html {
@@ -65,10 +70,29 @@ html {
 }
 
 button {
-  /* border: darkblue; */
   border-radius: 10px;
   border-style: double;
   padding: 10px;
   font-size: 15px;
   background-color: cornflowerblue;
+}
+
+#challenges-list-main {
+  margin-top: 50px;
+}
+
+#challenges-list {
+  margin: auto;
+  padding-top: 10px;
+  width: 50%;
+}
+
+#challenges-list a {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+#header {
+  margin-bottom: 50px;
 }
