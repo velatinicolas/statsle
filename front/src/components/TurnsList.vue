@@ -1,5 +1,5 @@
 <template>
-  <div v-if="turnsList.length > 0">
+  <div id="turns-list" v-if="turnsList.length > 0">
     <TurnDisplay
       v-for="turn in turnsList"
       :key="turn.identifier"

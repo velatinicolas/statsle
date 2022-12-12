@@ -1,7 +1,10 @@
 <template>
   <div>
-    {{ turn.game.challenge.name }} #{{ turn.game.number }} : {{ turn.result
-    }}<span v-if="turn.score"> with score {{ turn.score }}</span>
+    <a :href="turn.game.challenge.url">{{ turn.game.challenge.name }}</a> #{{
+      turn.game.number
+    }}
+    - <b>{{ turn.result }}</b
+    ><span v-if="turn.score"> with score {{ turn.score }}</span>
   </div>
 </template>
 

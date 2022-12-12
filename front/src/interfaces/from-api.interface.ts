@@ -4,6 +4,7 @@ export interface TurnInterface {
   game: {
     challenge: {
       name: string;
+      url: string;
     };
     number: number;
   };
