@@ -1,4 +1,4 @@
-<script setup lang="ts">;
+<script setup lang="ts">
 import Signin from "./Signin.vue";
 import Login from "./Login.vue";
 import { useUserStore } from "@/stores/user";

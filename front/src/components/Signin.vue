@@ -12,10 +12,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
-import type { UserResourceInterface } from "@/interfaces/from-api.interface";
+import { useStatleApiClientStore } from "@/stores/statle-api-client";
 
 export default defineComponent({
+  setup() {
+    const statleApiClientStore = useStatleApiClientStore();
+    return { statleApiClientStore };
+  },
   data() {
     return {
       username: "",
@@ -41,11 +44,8 @@ export default defineComponent({
         return;
       }
 
-      return axios
-        .post<UserResourceInterface>("http://localhost:3000/users", {
-          username: this.username,
-          password: this.password,
-        })
+      return this.statleApiClientStore.client
+        .createUser(this.username, this.password)
         .then(() => {
           this.info = "Successfully signed in!";
           this.reinitInputs();

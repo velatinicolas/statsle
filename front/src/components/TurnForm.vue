@@ -9,15 +9,16 @@
 </template>
 
 <script lang="ts">
+import { useStatleApiClientStore } from "@/stores/statle-api-client";
 import { useUserStore } from "@/stores/user";
-import axios from "axios";
 import { defineComponent } from "vue";
 import Turn from "./Turn.vue";
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    const statleApiClientStore = useStatleApiClientStore();
+    return { userStore, statleApiClientStore };
   },
   data() {
     return {
@@ -30,18 +31,8 @@ export default defineComponent({
     submitTurn() {
       this.info = "";
       this.error = "";
-      return axios
-        .post(
-          "http://localhost:3000/turns",
-          {
-            rawResult: this.turnResult,
-          },
-          {
-            headers: {
-              authorization: `Bearer ${this.userStore.user.jwt}`,
-            },
-          }
-        )
+      return this.statleApiClientStore.client
+        .createTurn(this.turnResult, this.userStore.user.jwt)
         .then(() => {
           this.info = "Result saved!";
         })

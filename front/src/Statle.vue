@@ -17,8 +17,16 @@ const userStore = useUserStore();
         v-if="userStore.isLoggedIn"
         :username="userStore.user.username"
       ></LoggedUser>
-      <ButtonLink path="/welcome" label="Home" v-if="userStore.isLoggedIn"></ButtonLink>
-      <ButtonLink path="/stats" label="My saved challenges" v-if="userStore.isLoggedIn"></ButtonLink>
+      <ButtonLink
+        path="/welcome"
+        label="Home"
+        v-if="userStore.isLoggedIn"
+      ></ButtonLink>
+      <ButtonLink
+        path="/stats"
+        label="My saved challenges"
+        v-if="userStore.isLoggedIn"
+      ></ButtonLink>
       <Logout v-if="userStore.isLoggedIn"></Logout>
     </div>
   </header>

@@ -16,7 +16,7 @@ export default defineComponent({
       // Logout only consists in removing the access token from the store
       this.userStore.user.jwt = "";
       this.userStore.user.username = "";
-      this.$router.push('/')
+      this.$router.push("/");
     },
   },
 });

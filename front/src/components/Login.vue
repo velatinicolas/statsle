@@ -10,14 +10,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
 import { useUserStore } from "@/stores/user";
-import type { UserResourceInterface } from "@/interfaces/from-api.interface";
+import { useStatleApiClientStore } from "@/stores/statle-api-client";
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    const statleApiClientStore = useStatleApiClientStore();
+    return { userStore, statleApiClientStore };
   },
   data() {
     return {
@@ -32,27 +32,16 @@ export default defineComponent({
       this.password = "";
     },
     tryLogin() {
-      axios
-        .post<{ access_token: string }>("http://localhost:3000/auth/login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then((response) => response.data.access_token)
+      this.statleApiClientStore.client
+        .login(this.username, this.password)
         .then((jwt) =>
-          axios
-            .get<UserResourceInterface>("http://localhost:3000/auth/me", {
-              headers: {
-                authorization: `Bearer ${jwt}`,
-              },
-            })
-            .then((response) => response.data.username)
-            .then((username) => {
-              this.userStore.user.jwt = jwt;
-              this.userStore.user.username = username;
-              this.$router.push('/welcome')
-            })
+          this.statleApiClientStore.client.me(jwt.access_token).then((user) => {
+            this.userStore.user.jwt = jwt.access_token;
+            this.userStore.user.username = user.username;
+            this.$router.push("/welcome");
+          })
         )
-        .catch((error) => {
+        .catch(() => {
           this.error = "Invalid username or password!";
           this.reinitInputs();
         });
