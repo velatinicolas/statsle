@@ -4,6 +4,7 @@
     <div id="challenges-list">
       <a
         v-for="challenge in challengesList"
+        :key="challenge.identifier"
         :href="challenge.url"
         target="_blank"
         rel="noopener noreferer"

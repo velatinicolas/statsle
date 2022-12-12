@@ -12,7 +12,6 @@
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
 import { useUserStore } from "@/stores/user";
 import { defineComponent } from "vue";
-import Turn from "./Turn.vue";
 
 export default defineComponent({
   setup() {
@@ -41,6 +40,5 @@ export default defineComponent({
         });
     },
   },
-  components: { Turn },
 });
 </script>

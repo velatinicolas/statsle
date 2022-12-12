@@ -1,25 +1,23 @@
 import { createApp, h } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
-import axios from "axios";
 
 import "./assets/main.css";
-import Statle from "./Statle.vue";
-import Authentication from "./components/Authentication.vue";
+import StatleApp from "./StatleApp.vue";
 import { createPinia } from "pinia";
 import ChallengesList from "./components/ChallengesList.vue";
 import TurnForm from "./components/TurnForm.vue";
 import TurnsList from "./components/TurnsList.vue";
 
-import { useUserStore } from "@/stores/user";
+import AuthenticationPanel from "./components/AuthenticationPanel.vue";
 const routes = [
-  { path: "/", component: Authentication },
+  { path: "/", component: AuthenticationPanel },
   { path: "/challenges", component: ChallengesList },
   { path: "/welcome", component: TurnForm },
   { path: "/stats", component: TurnsList },
 ];
 
 const app = createApp({
-  render: () => h(Statle),
+  render: () => h(StatleApp),
 });
 const pinia = createPinia();
 const router = createRouter({

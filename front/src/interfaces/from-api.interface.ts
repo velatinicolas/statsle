@@ -1,5 +1,6 @@
 // TODO use SDK to share API interface
 export interface TurnInterface {
+  identifier: string;
   game: {
     challenge: {
       name: string;

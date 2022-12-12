@@ -2,7 +2,7 @@
 import { RouterView } from "vue-router";
 import ButtonLink from "./components/ButtonLink.vue";
 import LoggedUser from "./components/LoggedUser.vue";
-import Logout from "./components/Logout.vue";
+import ButtonLogout from "./components/ButtonLogout.vue";
 import { useUserStore } from "./stores/user";
 
 const userStore = useUserStore();
@@ -27,7 +27,7 @@ const userStore = useUserStore();
         label="My saved challenges"
         v-if="userStore.isLoggedIn"
       ></ButtonLink>
-      <Logout v-if="userStore.isLoggedIn"></Logout>
+      <ButtonLogout v-if="userStore.isLoggedIn"></ButtonLogout>
     </div>
   </header>
   <body>

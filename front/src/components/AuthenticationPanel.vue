@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Signin from "./Signin.vue";
-import Login from "./Login.vue";
+import SigninForm from "./SigninForm.vue";
+import LoginForm from "./LoginForm.vue";
 import { useUserStore } from "@/stores/user";
 import ChallengesList from "./ChallengesList.vue";
 
@@ -10,13 +10,13 @@ const userStore = useUserStore();
 <template>
   <div v-if="!userStore.isLoggedIn" class="user-actions">
     <div class="user-action">
-      <Login></Login>
+      <LoginForm></LoginForm>
     </div>
     <div class="user-action">
       <h2>or</h2>
     </div>
     <div class="user-action">
-      <Signin></Signin>
+      <SigninForm></SigninForm>
     </div>
   </div>
   <div>

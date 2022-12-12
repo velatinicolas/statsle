@@ -1,6 +1,10 @@
 <template>
   <div v-if="turnsList.length > 0">
-    <Turn v-for="turn in turnsList" :turn="turn"></Turn>
+    <TurnDisplay
+      v-for="turn in turnsList"
+      :key="turn.identifier"
+      :turn="turn"
+    ></TurnDisplay>
   </div>
   <div v-else>
     <h3>No challenges saved yet!</h3>
@@ -12,7 +16,7 @@ import type { TurnInterface } from "@/interfaces/from-api.interface";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
 import { useUserStore } from "@/stores/user";
 import { defineComponent } from "vue";
-import Turn from "./Turn.vue";
+import TurnDisplay from "./TurnDisplay.vue";
 
 export default defineComponent({
   setup() {
@@ -39,6 +43,6 @@ export default defineComponent({
         });
     },
   },
-  components: { Turn },
+  components: { TurnDisplay },
 });
 </script>

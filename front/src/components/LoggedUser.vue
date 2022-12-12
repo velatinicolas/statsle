@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps(["username"]);
+defineProps(["username"]);
 </script>

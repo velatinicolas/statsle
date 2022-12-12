@@ -5,7 +5,6 @@ import type {
 } from "@/interfaces/from-api.interface";
 import axios from "axios";
 import { defineStore } from "pinia";
-import process from "process";
 
 export interface User {
   jwt: string;
