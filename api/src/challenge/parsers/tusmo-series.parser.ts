@@ -5,7 +5,7 @@ import { TurnParserInterface } from "./turn-parser.interface";
 @Injectable()
 export class TusmoSeriesParser implements TurnParserInterface {
   getChallengeName(): string {
-    return "Tusmo Series";
+    return "Tusmo série du jour";
   }
 
   handles(rawResult: string): boolean {
@@ -24,7 +24,7 @@ export class TusmoSeriesParser implements TurnParserInterface {
     }
 
     throw new InternalServerErrorException(
-      "Failed extracting Tusmo Series game number"
+      "Failed extracting Tusmo série du jour game number"
     );
   }
 

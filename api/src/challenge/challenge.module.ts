@@ -9,7 +9,7 @@ import { TurnService } from "./turn.service";
 import { Turn } from "./turn.entity";
 import { TurnController } from "./turn.controller";
 import { readdirSync } from "fs";
-import { TurnParserConstructorInterface } from "./parsers/grumble-parser-constructor.interface";
+import { TurnParserConstructorInterface } from "./parsers/turn-parser-constructor.interface";
 import { TurnParserInterface } from "./parsers/turn-parser.interface";
 import { TurnParserChain } from "./parsers/parser-chain.service";
 

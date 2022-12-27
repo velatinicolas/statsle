@@ -5,7 +5,7 @@ import { TurnParserInterface } from "./turn-parser.interface";
 @Injectable()
 export class TusmoWordParser implements TurnParserInterface {
   getChallengeName(): string {
-    return "Tusmo Word";
+    return "Tusmo mot du jour";
   }
 
   handles(rawResult: string): boolean {
@@ -22,7 +22,7 @@ export class TusmoWordParser implements TurnParserInterface {
     }
 
     throw new InternalServerErrorException(
-      "Failed extracting Tusmo Word game number"
+      "Failed extracting Tusmo mot du jour game number"
     );
   }
 
