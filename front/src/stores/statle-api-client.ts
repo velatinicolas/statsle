@@ -12,7 +12,6 @@ export interface User {
 }
 
 export const useStatleApiClientStore = defineStore("statle-api-client", () => {
-  console.info(import.meta.env);
   const baseUrl = import.meta.env.VITE_STATLE_API_BASE_URL;
   const client = {
     getChallengesList(): Promise<ChallengeResourceInterface[]> {
