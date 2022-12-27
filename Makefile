@@ -54,3 +54,7 @@ front-shell: ## Open a bash shell in Front container
 .PHONY: front-format
 front-format: ## Run lint and prettier on API
 	docker-compose exec front npm run lint
+
+.PHONY: front-build
+front-build: ## Build project, specifies npm folder to bypass a right access bug
+	docker-compose exec front bash -c "export npm_config_cache=/usr/npm_cache && npm run build"
