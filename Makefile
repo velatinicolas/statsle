@@ -45,6 +45,18 @@ api-migration-generate: ## Generate a TypeORM migration. Syntax: make api-migrat
 api-migration-run: ## Run TypeORM migrations
 	docker-compose exec api npm run typeorm migration:run -- -d typeorm-config.ts
 
+.PHONY: api-generate-jwt-key
+api-generate-jwt-key: ## Generate a JWT key
+	openssl rand -base64 32
+
+.PHONY: front-build
+api-build: ## Build project, specifies npm folder to bypass a right access bug
+	docker-compose exec api bash -c "npm run build"
+
+.PHONY: api-deploy
+api-deploy: ## Deploy API in production
+	./scripts/deploy-api.sh
+
 ### FRONT
 
 .PHONY: front-shell
@@ -60,5 +72,5 @@ front-build: ## Build project, specifies npm folder to bypass a right access bug
 	docker-compose exec front bash -c "export npm_config_cache=/usr/npm_cache && npm run type-check && npm run build-only -- --mode prod"
 
 .PHONY: front-deploy
-front-deploy: ## Deploy in production
+front-deploy: ## Deploy front in production
 	./scripts/deploy-front.sh
