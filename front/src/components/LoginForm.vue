@@ -4,7 +4,6 @@
     <input type="text" v-model="username" placeholder="pseudo" />
     <input type="password" v-model="password" placeholder="password" />
     <button v-on:click="tryLogin()">Log in</button>
-    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -12,18 +11,19 @@
 import { defineComponent } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useToasterStore } from "@/stores/toaster";
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
+    const toasterStore = useToasterStore();
     const statleApiClientStore = useStatleApiClientStore();
-    return { userStore, statleApiClientStore };
+    return { userStore, toasterStore, statleApiClientStore };
   },
   data() {
     return {
       username: "",
       password: "",
-      error: "",
     };
   },
   methods: {
@@ -42,7 +42,7 @@ export default defineComponent({
           })
         )
         .catch(() => {
-          this.error = "Invalid username or password!";
+          this.toasterStore.error("Invalid username or password!");
           this.reinitInputs();
         });
     },

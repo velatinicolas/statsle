@@ -2,7 +2,6 @@
 import SigninForm from "./SigninForm.vue";
 import LoginForm from "./LoginForm.vue";
 import { useUserStore } from "@/stores/user";
-import ChallengesList from "./ChallengesList.vue";
 
 const userStore = useUserStore();
 </script>
@@ -18,8 +17,5 @@ const userStore = useUserStore();
     <div class="user-action">
       <SigninForm></SigninForm>
     </div>
-  </div>
-  <div>
-    <ChallengesList></ChallengesList>
   </div>
 </template>

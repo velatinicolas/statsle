@@ -5,27 +5,25 @@
     <input type="password" v-model="password" placeholder="password" />
     <input type="password" v-model="confirm" placeholder="confirm" />
     <button v-on:click="trySignin()">Sign in</button>
-    <p v-if="error" class="error">{{ error }}</p>
-    <p v-if="info" class="info">{{ info }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useToasterStore } from "@/stores/toaster";
 
 export default defineComponent({
   setup() {
     const statleApiClientStore = useStatleApiClientStore();
-    return { statleApiClientStore };
+    const toasterStore = useToasterStore();
+    return { statleApiClientStore, toasterStore };
   },
   data() {
     return {
       username: "",
       password: "",
       confirm: "",
-      error: "",
-      info: "",
     };
   },
   methods: {
@@ -35,11 +33,8 @@ export default defineComponent({
       this.confirm = "";
     },
     trySignin() {
-      this.error = "";
-      this.info = "";
-
       if (this.password !== this.confirm) {
-        this.error = "Password and confirmation don't match!";
+        this.toasterStore.error("Password and confirmation don't match!");
         this.reinitInputs();
         return;
       }
@@ -47,13 +42,13 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .createUser(this.username, this.password)
         .then(() => {
-          this.info = "Successfully signed in!";
+          this.toasterStore.info("Successfully signed in!");
           this.reinitInputs();
         })
         .catch((error) => {
-          this.error = `Sign in failed: ${JSON.stringify(
-            error.response.data.message
-          )}`;
+          this.toasterStore.error(
+            `Sign in failed: ${JSON.stringify(error.response.data.message)}`
+          );
           this.reinitInputs();
         });
     },

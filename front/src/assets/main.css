@@ -51,6 +51,12 @@
   display: inline-flex;
 }
 
+#turn-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
 #turn-form button {
   margin-top: 1em;
 }
@@ -77,20 +83,21 @@ button {
   background-color: cornflowerblue;
 }
 
-#challenges-list-main {
-  margin-top: 50px;
+#challenges-list-main h5 {
+  margin: 0px;
 }
 
 #challenges-list {
   margin: auto;
   padding-top: 10px;
-  width: 50%;
+  width: 40%;
 }
 
 #challenges-list a {
   display: inline-block;
   padding-right: 5px;
   padding-left: 5px;
+  font-size: 12px;
 }
 
 #header {

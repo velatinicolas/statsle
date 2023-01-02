@@ -4,8 +4,10 @@ import ButtonLink from "./components/ButtonLink.vue";
 import LoggedUser from "./components/LoggedUser.vue";
 import ButtonLogout from "./components/ButtonLogout.vue";
 import { useUserStore } from "./stores/user";
+import { useToasterStore } from "./stores/toaster";
 
 const userStore = useUserStore();
+const toasterStore = useToasterStore();
 </script>
 
 <template>
@@ -33,4 +35,9 @@ const userStore = useUserStore();
   <body>
     <router-view></router-view>
   </body>
+  <footer>
+    <p :class="toasterStore.message?.level">
+      {{ toasterStore.message?.message }}
+    </p>
+  </footer>
 </template>

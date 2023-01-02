@@ -1,6 +1,6 @@
 <template>
   <div id="challenges-list-main" v-if="challengesList.length > 0">
-    <h3>Challenges we recognize so far:</h3>
+    <h5>Challenges recognized so far:</h5>
     <div id="challenges-list">
       <a
         v-for="challenge in challengesList"

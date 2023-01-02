@@ -31,6 +31,7 @@ app.use(pinia);
 // const userStore = useUserStore()
 
 // router.beforeEach((to) => {
+
 //   if (to.name !== '/') {
 //     return axios
 //       .head("http://localhost:3000/auth/me", {
