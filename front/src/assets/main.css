@@ -111,3 +111,15 @@ button {
   flex-direction: column;
   row-gap: 20px;
 }
+
+.raw-result {
+  position: absolute;
+  width: 20%;
+  white-space: pre-line;
+  text-align: left;
+  border-radius: 10px;
+  border-style: double;
+  background-color: cornflowerblue;
+  padding: 10px;
+  /* margin: auto; */
+}
