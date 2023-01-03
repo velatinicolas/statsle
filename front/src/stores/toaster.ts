@@ -21,17 +21,24 @@ export const useToasterStore = defineStore("toaster", () => {
       })
     )
     .subscribe();
-  function error(message: string) {
+  function error(messages: string | string[]) {
     subjectMessage.next({
-      message,
+      message: formatMessages(messages),
       level: "error",
     });
   }
-  function info(message: string) {
+  function info(messages: string | string[]) {
     subjectMessage.next({
-      message,
+      message: formatMessages(messages),
       level: "info",
     });
+  }
+  function formatMessages(messages: string | string[]): string {
+    if (!Array.isArray(messages)) {
+      messages = [messages];
+    }
+
+    return messages.join("\r\n");
   }
 
   return { message, error, info };

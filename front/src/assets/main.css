@@ -25,11 +25,13 @@
 .error {
   color: tomato;
   font-weight: bold;
+  white-space: pre-line;
 }
 
 .info {
   color: forestgreen;
   font-weight: bold;
+  white-space: pre-line;
 }
 
 .user-state span {

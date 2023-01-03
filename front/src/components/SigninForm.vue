@@ -42,13 +42,11 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .createUser(this.username, this.password)
         .then(() => {
-          this.toasterStore.info("Successfully signed in!");
+          this.toasterStore.info("Successfully signed in! You can now log in.");
           this.reinitInputs();
         })
         .catch((error) => {
-          this.toasterStore.error(
-            `Sign in failed: ${JSON.stringify(error.response.data.message)}`
-          );
+          this.toasterStore.error(error.response.data.message);
           this.reinitInputs();
         });
     },
