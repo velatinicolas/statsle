@@ -38,9 +38,7 @@ export class TurnController {
 
   @UseGuards(JwtAuthGuard)
   @Get("me/turns")
-  getMyTurns(
-    @Req() req: PassportRequest
-  ): Observable<Turn[]> {
-    return this.turnService.findByUser(req.user)
+  getMyTurns(@Req() req: PassportRequest): Observable<Turn[]> {
+    return this.turnService.findByUser(req.user);
   }
 }

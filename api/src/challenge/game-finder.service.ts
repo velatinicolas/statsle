@@ -20,11 +20,11 @@ export class GameFinder {
 
     return from(
       this.gameRepository.findOne({
-        relations: ['challenge'],
+        relations: ["challenge"],
         where: {
           challenge: { name: challengeName },
           number: gameNumber,
-        }
+        },
       })
     ).pipe(
       mergeMap((game) => {

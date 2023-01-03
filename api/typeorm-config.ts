@@ -7,11 +7,11 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 // Ugly trick to load environment variable,
 // the path being different between local and production.
 // Don't know what have been messed up in the project to have such a situation.
-let envPath = join(__dirname, '.env')
+let envPath = join(__dirname, ".env");
 if (!existsSync(envPath)) {
-  envPath = join(__dirname, '..', '.env')
+  envPath = join(__dirname, "..", ".env");
 }
-config({path: envPath});
+config({ path: envPath });
 
 const typeormConfig: PostgresConnectionOptions = {
   type: "postgres",
