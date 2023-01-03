@@ -12,7 +12,7 @@ const toasterStore = useToasterStore();
 
 <template>
   <header id="header">
-    <p id="main-title">Statle<sup class="version">Beta</sup></p>
+    <p id="main-title">Statsle<sup class="version">Beta</sup></p>
     <h3 id="subtitle">All stats of your daily challenges in one place!</h3>
     <div class="user-state">
       <LoggedUser
