@@ -32,6 +32,16 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
         .then((response) => response.data);
     },
 
+    checkAuthenticated(jwt: string): Promise<void> {
+      return axios
+        .head(`${baseUrl}/auth/me`, {
+          headers: {
+            authorization: `Bearer ${jwt}`,
+          },
+        })
+        .then(() => void 0);
+    },
+
     me(jwt: string): Promise<UserResourceInterface> {
       return axios
         .get<UserResourceInterface>(`${baseUrl}/auth/me`, {
