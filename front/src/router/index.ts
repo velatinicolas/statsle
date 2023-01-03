@@ -3,6 +3,7 @@ import ChallengesList from "@/components/ChallengesList.vue";
 import TurnForm from "@/components/TurnForm.vue";
 import TurnsList from "@/components/TurnsList.vue";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useToasterStore } from "@/stores/toaster";
 import { useUserStore } from "@/stores/user";
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -19,6 +20,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+  // Remove any message in toaster on a page change
+  const toasterStore = useToasterStore();
+  toasterStore.reset();
+
   const userStore = useUserStore();
   const statleApiClientStore = useStatleApiClientStore();
   if (to.path !== "/") {

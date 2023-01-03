@@ -33,6 +33,9 @@ export const useToasterStore = defineStore("toaster", () => {
       level: "info",
     });
   }
+  function reset() {
+    message.value = undefined;
+  }
   function formatMessages(messages: string | string[]): string {
     if (!Array.isArray(messages)) {
       messages = [messages];
@@ -41,5 +44,5 @@ export const useToasterStore = defineStore("toaster", () => {
     return messages.join("\r\n");
   }
 
-  return { message, error, info };
+  return { message, error, info, reset };
 });
