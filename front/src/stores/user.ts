@@ -12,6 +12,10 @@ export const useUserStore = defineStore("user", () => {
     username: "",
   });
   const isLoggedIn = computed(() => user.value.jwt !== "");
+  function reset() {
+    user.value.jwt = "";
+    user.value.username = "";
+  }
 
-  return { user, isLoggedIn };
+  return { user, isLoggedIn, reset };
 });

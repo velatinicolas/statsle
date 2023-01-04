@@ -32,7 +32,10 @@ router.beforeEach((to) => {
     return statleApiClientStore.client
       .checkAuthenticated(userStore.user.jwt)
       .then(() => true)
-      .catch(() => ({ path: "/" }));
+      .catch(() => {
+        userStore.reset();
+        return { path: "/" };
+      });
   } else {
     // If hitting homepage while authenticated, then redirect to welcome page.
     // Otherwise, stay on homepage.
