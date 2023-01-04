@@ -44,4 +44,8 @@ export abstract class TurnParser implements TurnParserInterface {
 
     return match[0];
   }
+
+  protected countOccurrences(source: string, data: string): number {
+    return source.split(data).length - 1;
+  }
 }
