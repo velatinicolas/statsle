@@ -1,4 +1,9 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  Logger,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { from, mergeMap, Observable, tap } from "rxjs";
 import { User } from "src/user/user.entity";
@@ -9,6 +14,8 @@ import { Turn } from "./turn.entity";
 
 @Injectable()
 export class TurnService {
+  private readonly logger = new Logger(TurnService.name);
+
   constructor(
     @InjectRepository(Turn) private readonly turnRepository: Repository<Turn>
   ) {}
@@ -36,8 +43,19 @@ export class TurnService {
         turn.game = game;
         turn.date = new Date();
         turn.rawResult = rawResult;
-        turn.result = turnParser.extractResult(rawResult);
-        turn.score = turnParser.extractScore(rawResult);
+
+        try {
+          turn.result = turnParser.extractResult(rawResult);
+          turn.score = turnParser.extractScore(rawResult);
+        } catch (error) {
+          this.logger.error(
+            `Failed extracting data for user ${user.identifier}, game ${game.identifier}, raw result "${rawResult}": ${error}`
+          );
+
+          throw new BadRequestException(
+            "Failed saving result, input must be wrong!"
+          );
+        }
 
         return from(this.turnRepository.save(turn));
       })

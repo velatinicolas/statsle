@@ -1,42 +1,30 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../turn-result.enum";
-import { TurnParserInterface } from "./turn-parser.interface";
+import { TurnParser } from "./turn-parser.interface";
 
 @Injectable()
-export class TusmoSeriesParser implements TurnParserInterface {
+export class TusmoSeriesParser extends TurnParser {
   getChallengeName(): string {
     return "Tusmo suite";
   }
 
   handles(rawResult: string): boolean {
     return (
-      rawResult
-        .split("\n")[0]
-        .match(/TUSMO \(@tusmo_xyz\) Suite de mots #[0-9]+/) !== null
+      this.getLine(rawResult, 1).match(
+        /TUSMO \(@tusmo_xyz\) Suite de mots #[0-9]+/
+      ) !== null
     );
   }
 
   extractGameNumber(rawResult: string): number {
-    const matches = rawResult.split("\n")[0].match(/[0-9]+/);
-
-    if (matches) {
-      return +matches[0];
-    }
-
-    throw new InternalServerErrorException(
-      "Failed extracting Tusmo suite game number"
-    );
+    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const wordLines = rawResult
-      .split("\n")
-      .filter((line) => line.includes("lettres"));
-    const wordsFound = wordLines.filter((wordLine) =>
-      wordLine.includes("-")
-    ).length;
+    const totalWords = this.findLines(rawResult, /[❌✅]/).length;
+    const wordsFound = this.findLines(rawResult, /✅/).length;
 
-    return `${wordsFound} / ${wordLines.length}`;
+    return `${wordsFound} / ${totalWords}`;
   }
 
   extractResult(rawResult: string): TurnResultEnum {

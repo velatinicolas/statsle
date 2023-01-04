@@ -1,35 +1,29 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../turn-result.enum";
-import { TurnParserInterface } from "./turn-parser.interface";
+import { TurnParser } from "./turn-parser.interface";
 
 @Injectable()
-export class TusmoWordParser implements TurnParserInterface {
+export class TusmoWordParser extends TurnParser {
   getChallengeName(): string {
     return "Tusmo mot";
   }
 
   handles(rawResult: string): boolean {
     return (
-      rawResult.split("\n")[0].match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null
+      this.getLine(rawResult, 1).match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null
     );
   }
 
   extractGameNumber(rawResult: string): number {
-    const matches = rawResult.split("\n")[0].match(/[0-9]+/);
-
-    if (matches) {
-      return +matches[0];
-    }
-
-    throw new InternalServerErrorException(
-      "Failed extracting Tusmo mot game number"
-    );
+    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const score = rawResult.split("\n")[0].match(/[0-6]+\/[0-6]+/);
-
-    return score ? score[0] : "";
+    try {
+      return this.extractData(this.getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    } catch {
+      return "";
+    }
   }
 
   extractResult(rawResult: string): TurnResultEnum {

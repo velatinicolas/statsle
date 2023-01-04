@@ -1,53 +1,26 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../turn-result.enum";
-import { TurnParserInterface } from "./turn-parser.interface";
+import { TurnParser } from "./turn-parser.interface";
 
 @Injectable()
-export class GrumbleParser implements TurnParserInterface {
+export class GrumbleParser extends TurnParser {
   getChallengeName(): string {
     return "Grumble";
   }
 
   handles(rawResult: string): boolean {
-    return rawResult.split("\n")[0].match(/^@GrumbleFR #[0-9]+/) !== null;
+    return this.getLine(rawResult, 1).match(/^@GrumbleFR #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    const matches = rawResult.split("\n")[0].match(/[0-9]+/);
-
-    if (matches) {
-      return +matches[0];
-    }
-
-    throw new InternalServerErrorException(
-      "Failed extracting Grumble game number"
-    );
+    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const lineScore = rawResult
-      .split("\n")
-      .find((line) => line.match(/^Score/));
-
-    if (!lineScore) {
-      throw new BadRequestException(
-        "Unable to extract score, input must be wrong!"
-      );
-    }
-
-    const score = lineScore.match(/[0-9]+ \/ [0-9]+/);
-
-    if (!score) {
-      throw new BadRequestException(
-        "Unable to extract score, input must be wrong!"
-      );
-    }
-
-    return score[0];
+    return this.extractData(
+      this.findLine(rawResult, /^Score/),
+      /[0-9]+ \/ [0-9]+/
+    );
   }
 
   extractResult(rawResult: string): TurnResultEnum {
