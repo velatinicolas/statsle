@@ -16,12 +16,6 @@ export abstract class TurnParser implements TurnParserInterface {
   abstract extractScore(rawResult: string): string;
 
   protected getLine(rawResult: string, lineNumber: number): string {
-    if (lineNumber >= rawResult.split("\n").length) {
-      throw new Error(
-        `Line number ${lineNumber} does not exist in "${rawResult}"`
-      );
-    }
-
     return rawResult.split("\n")[lineNumber - 1];
   }
 
