@@ -3,13 +3,13 @@ import { TurnResultEnum } from "../turn-result.enum";
 import { TurnParser } from "./turn-parser.interface";
 
 @Injectable()
-export class CemantixParser extends TurnParser {
+export class CemantleParser extends TurnParser {
   getChallengeName(): string {
-    return "Cémantix";
+    return "Cemantle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/#cemantix/) !== null;
+    return this.getLine(rawResult, 1).match(/#cemantle/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {

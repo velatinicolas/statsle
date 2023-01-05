@@ -24,9 +24,3 @@ export class PedantixParser extends TurnParser {
     return TurnResultEnum.WON;
   }
 }
-
-/*
-J'ai trouvé #pedantix nº237 en 9 coups !
-🟩🟩🟩🟧🟧🟧🟧🟧🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
-https://cemantix.certitudes.org/pedantix 
-*/
