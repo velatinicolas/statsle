@@ -113,7 +113,7 @@ button {
 }
 
 .raw-result {
-  position: absolute;
+  position: fixed;
   width: 20%;
   white-space: pre-line;
   text-align: left;
