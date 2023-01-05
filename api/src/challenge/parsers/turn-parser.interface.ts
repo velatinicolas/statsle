@@ -35,14 +35,14 @@ export abstract class TurnParser implements TurnParserInterface {
     return rawResult.split("\n").filter((line) => line.match(regex));
   }
 
-  protected extractData(source: string, regex: RegExp): string {
-    const match = source.match(regex);
+  protected extractData(source: string, regex: RegExp, matchIndex = 1): string {
+    const match = source.match(new RegExp(regex, 'g'));
 
     if (!match) {
       throw new Error(`No match with regex ${regex} found in "${source}"`);
     }
 
-    return match[0];
+    return match[matchIndex - 1];
   }
 
   protected countOccurrences(source: string, data: string): number {
