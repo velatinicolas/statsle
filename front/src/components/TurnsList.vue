@@ -14,15 +14,13 @@
 <script lang="ts">
 import type { TurnInterface } from "@/interfaces/from-api.interface";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
-import { useUserStore } from "@/stores/user";
 import { defineComponent } from "vue";
 import TurnDisplay from "./TurnDisplay.vue";
 
 export default defineComponent({
   setup() {
-    const userStore = useUserStore();
     const statleApiClientStore = useStatleApiClientStore();
-    return { userStore, statleApiClientStore };
+    return { statleApiClientStore };
   },
   data(): {
     turnsList: TurnInterface[];
@@ -37,7 +35,7 @@ export default defineComponent({
   methods: {
     loadTurnsList() {
       return this.statleApiClientStore.client
-        .getSelfTurns(this.userStore.user.jwt)
+        .getSelfTurns()
         .then((turnsList) => {
           this.turnsList = turnsList;
         });

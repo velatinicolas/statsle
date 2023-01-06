@@ -20,30 +20,79 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  // Remove any message in toaster on a page change
   const toasterStore = useToasterStore();
-  toasterStore.reset();
-
   const userStore = useUserStore();
   const statleApiClientStore = useStatleApiClientStore();
+
+  const handleExpiredConnexion = () => {
+    userStore.reset();
+    toasterStore.error("Connexion expired, please reauthenticate");
+    window.localStorage.removeItem("jwt");
+  };
+
+  // Remove any message in toaster on a page change,
+  // unless we arrive at homepage to display
+  // log out message or connexion expired message.
   if (to.path !== "/") {
-    // If hitting any other page than homepage, check if the user is authenticated.
-    // If not, redirect to homepage.
+    toasterStore.reset();
+  }
+
+  // Always go to homepage if no jwt stored
+  if (!window.localStorage.getItem("jwt")) {
+    userStore.reset();
+
+    if (to.path === "/") {
+      return true;
+    }
+
+    return { path: "/" };
+  }
+
+  if (to.path === "/") {
+    if (userStore.isLoggedIn) {
+      return statleApiClientStore.client
+        .checkAuthenticated()
+        .then(() => ({
+          path: "welcome",
+        }))
+        .catch(() => {
+          handleExpiredConnexion();
+          return true;
+        });
+    }
+
     return statleApiClientStore.client
-      .checkAuthenticated(userStore.user.jwt)
+      .me()
+      .then((user) => {
+        userStore.user.username = user.username;
+        return { path: "welcome" };
+      })
+      .catch(() => {
+        handleExpiredConnexion();
+        return true;
+      });
+  }
+
+  if (userStore.isLoggedIn) {
+    return statleApiClientStore.client
+      .checkAuthenticated()
       .then(() => true)
       .catch(() => {
-        userStore.reset();
+        handleExpiredConnexion();
         return { path: "/" };
       });
-  } else {
-    // If hitting homepage while authenticated, then redirect to welcome page.
-    // Otherwise, stay on homepage.
-    return statleApiClientStore.client
-      .checkAuthenticated(userStore.user.jwt)
-      .then(() => ({ path: "/welcome" }))
-      .catch(() => true);
   }
+
+  return statleApiClientStore.client
+    .me()
+    .then((user) => {
+      userStore.user.username = user.username;
+      return true;
+    })
+    .catch(() => {
+      handleExpiredConnexion();
+      return { path: "/" };
+    });
 });
 
 export default router;

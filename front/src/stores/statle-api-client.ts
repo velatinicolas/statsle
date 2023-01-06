@@ -32,21 +32,21 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
         .then((response) => response.data);
     },
 
-    checkAuthenticated(jwt: string): Promise<void> {
+    checkAuthenticated(): Promise<void> {
       return axios
         .head(`${baseUrl}/auth/me`, {
           headers: {
-            authorization: `Bearer ${jwt}`,
+            authorization: `Bearer ${window.localStorage.getItem("jwt")}`,
           },
         })
         .then(() => void 0);
     },
 
-    me(jwt: string): Promise<UserResourceInterface> {
+    me(): Promise<UserResourceInterface> {
       return axios
         .get<UserResourceInterface>(`${baseUrl}/auth/me`, {
           headers: {
-            authorization: `Bearer ${jwt}`,
+            authorization: `Bearer ${window.localStorage.getItem("jwt")}`,
           },
         })
         .then((response) => response.data);
@@ -64,7 +64,7 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
         .then((response) => response.data);
     },
 
-    createTurn(rawResult: string, jwt: string): Promise<void> {
+    createTurn(rawResult: string): Promise<void> {
       return axios
         .post(
           `${baseUrl}/turns`,
@@ -73,18 +73,18 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
           },
           {
             headers: {
-              authorization: `Bearer ${jwt}`,
+              authorization: `Bearer ${window.localStorage.getItem("jwt")}`,
             },
           }
         )
         .then(() => void 0);
     },
 
-    getSelfTurns(jwt: string): Promise<TurnInterface[]> {
+    getSelfTurns(): Promise<TurnInterface[]> {
       return axios
         .get<TurnInterface[]>(`${baseUrl}/me/turns`, {
           headers: {
-            authorization: `Bearer ${jwt}`,
+            authorization: `Bearer ${window.localStorage.getItem("jwt")}`,
           },
         })
         .then((response) => response.data);

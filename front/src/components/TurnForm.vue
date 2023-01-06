@@ -38,7 +38,7 @@ export default defineComponent({
   methods: {
     submitTurn() {
       return this.statleApiClientStore.client
-        .createTurn(this.turnResult, this.userStore.user.jwt)
+        .createTurn(this.turnResult)
         .then(() => {
           this.toasterStore.info("Result saved!");
         })

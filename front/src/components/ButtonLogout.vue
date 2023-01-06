@@ -3,18 +3,21 @@
 </template>
 
 <script lang="ts">
+import { useToasterStore } from "@/stores/toaster";
 import { useUserStore } from "@/stores/user";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    return { userStore };
+    const toasterStore = useToasterStore();
+    return { userStore, toasterStore };
   },
   methods: {
     logout() {
-      // Logout only consists in removing the access token from the store
       this.userStore.reset();
+      window.localStorage.removeItem("jwt");
+      this.toasterStore.info("Logged out!");
       this.$router.push("/");
     },
   },

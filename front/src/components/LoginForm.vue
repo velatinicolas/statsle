@@ -34,13 +34,13 @@ export default defineComponent({
     tryLogin() {
       this.statleApiClientStore.client
         .login(this.username, this.password)
-        .then((jwt) =>
-          this.statleApiClientStore.client.me(jwt.access_token).then((user) => {
-            this.userStore.user.jwt = jwt.access_token;
+        .then((jwt) => {
+          window.localStorage.setItem("jwt", jwt.access_token);
+          this.statleApiClientStore.client.me().then((user) => {
             this.userStore.user.username = user.username;
             this.$router.push("/welcome");
-          })
-        )
+          });
+        })
         .catch(() => {
           this.toasterStore.error("Invalid username or password!");
           this.reinitInputs();
