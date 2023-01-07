@@ -49,6 +49,10 @@ api-migration-run: ## Run TypeORM migrations
 api-generate-jwt-key: ## Generate a JWT key
 	openssl rand -base64 32
 
+.PHONY: api-generate-encryption-key
+api-generate-encryption-key: ## Generate an encryption key
+	openssl rand -base64 32 | cut -c1-32
+
 .PHONY: front-build
 api-build: ## Build project, specifies npm folder to bypass a right access bug
 	docker-compose exec api bash -c "npm run build"

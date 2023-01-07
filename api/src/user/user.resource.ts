@@ -1,11 +1,6 @@
-import { Expose, plainToClass } from "class-transformer";
+import { Expose } from "class-transformer";
 
 export class UserResource {
-  constructor(user: Partial<UserResource>) {
-    // excludeExtraneousValues MUST be used with all @Expose decorators
-    return plainToClass(UserResource, user, { excludeExtraneousValues: true });
-  }
-
   @Expose()
   identifier: string;
 

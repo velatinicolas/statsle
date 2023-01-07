@@ -15,7 +15,7 @@ export class AuthService {
   ) {}
 
   validateUser(username: string, password: string): Observable<User | null> {
-    return this.userService.findOne(username).pipe(
+    return this.userService.findOneByUsername(username).pipe(
       map((user) => {
         if (user && compare(password, user.password)) {
           return user;

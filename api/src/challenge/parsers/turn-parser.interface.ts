@@ -36,7 +36,7 @@ export abstract class TurnParser implements TurnParserInterface {
   }
 
   protected extractData(source: string, regex: RegExp, matchIndex = 1): string {
-    const match = source.match(new RegExp(regex, 'g'));
+    const match = source.match(new RegExp(regex, "g"));
 
     if (!match) {
       throw new Error(`No match with regex ${regex} found in "${source}"`);
