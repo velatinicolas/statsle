@@ -14,16 +14,10 @@ export class UserService {
   ) {}
 
   create(username: string, password: string, email: string): Observable<User> {
-    return this.findOneByUsername(username).pipe(
+    return this.findOne(username).pipe(
       tap((existingUser) => {
         if (existingUser) {
           throw new ConflictException("This username already exists!");
-        }
-      }),
-      mergeMap(() => this.findOneByEmail(email)),
-      tap((existingUser) => {
-        if (existingUser) {
-          throw new ConflictException("This email is already registered!");
         }
       }),
       mergeMap(() => {
@@ -38,11 +32,7 @@ export class UserService {
     );
   }
 
-  findOneByUsername(username: string): Observable<User | null> {
+  findOne(username: string): Observable<User | null> {
     return from(this.userRepository.findOneBy({ username }));
-  }
-
-  findOneByEmail(email: string): Observable<User | null> {
-    return from(this.userRepository.findOneBy({ email }));
   }
 }

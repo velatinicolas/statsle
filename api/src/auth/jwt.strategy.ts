@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   validate(payload: JwtContentInterface): Promise<User> {
     // If we are here, JWT has been validated, so we can directly find the user by its name
     return firstValueFrom(
-      this.userService.findOneByUsername(payload.username).pipe(
+      this.userService.findOne(payload.username).pipe(
         map((user) => {
           if (!user) {
             throw new UnauthorizedException();
