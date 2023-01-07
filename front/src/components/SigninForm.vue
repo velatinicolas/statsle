@@ -2,6 +2,7 @@
   <div class="user-prompt">
     <h2>Sign in</h2>
     <input type="text" v-model="username" placeholder="pseudo" />
+    <input type="text" v-model="email" placeholder="email" />
     <input type="password" v-model="password" placeholder="password" />
     <input type="password" v-model="confirm" placeholder="confirm" />
     <button v-on:click="trySignin()">Sign in</button>
@@ -22,6 +23,7 @@ export default defineComponent({
   data() {
     return {
       username: "",
+      email: "",
       password: "",
       confirm: "",
     };
@@ -29,6 +31,7 @@ export default defineComponent({
   methods: {
     reinitInputs() {
       this.username = "";
+      this.email = "";
       this.password = "";
       this.confirm = "";
     },
@@ -40,7 +43,7 @@ export default defineComponent({
       }
 
       return this.statleApiClientStore.client
-        .createUser(this.username, this.password)
+        .createUser(this.username, this.password, this.email)
         .then(() => {
           this.toasterStore.info("Successfully signed in! You can now log in.");
           this.reinitInputs();

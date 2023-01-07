@@ -54,12 +54,14 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
 
     createUser(
       username: string,
-      password: string
+      password: string,
+      email: string
     ): Promise<UserResourceInterface> {
       return axios
         .post<UserResourceInterface>(`${baseUrl}/users`, {
           username,
           password,
+          email,
         })
         .then((response) => response.data);
     },
