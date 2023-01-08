@@ -16,9 +16,8 @@ export class PasswordRecoveryMailService {
       throw new Error("No email defined on user");
     }
 
-    const recoveryUrl = `${this.frontBaseUrl}/recover-password/${
-      passwordRecovery.identifier
-    }?token=${encodeURIComponent(passwordRecovery.unhashedToken)}`;
+    const recoveryUrl = `${this.frontBaseUrl}/#/recover-password/${
+      passwordRecovery.identifier}/${encodeURIComponent(passwordRecovery.unhashedToken)}`;
 
     return this.mailSender
       .sendMail(
