@@ -5,14 +5,10 @@ import { JwtTokenInterface } from "./auth/jwt-token.interface";
 import { LocalAuthGuard } from "./auth/local-auth.guard";
 import { PassportRequest } from "./passport-request";
 import { UserResource } from "./user/user.resource";
-import { UserTransformer } from "./user/user.transformer";
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userTransformer: UserTransformer
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
   @Post("auth/login")
@@ -23,6 +19,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get("auth/me")
   getProfile(@Req() req: PassportRequest): UserResource {
-    return this.userTransformer.transform(req.user);
+    return new UserResource(req.user);
   }
 }

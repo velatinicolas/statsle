@@ -36,4 +36,8 @@ export class EncryptionService {
 
     return decipher.update(input.split(":")[0], "base64", "utf8");
   }
+
+  generatePasswordRecoveryToken(): string {
+    return randomBytes(32).toString("base64");
+  }
 }
