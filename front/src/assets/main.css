@@ -11,12 +11,12 @@
   font-size: small;
 }
 
-.user-prompt {
+.user-form {
   display: flex;
   flex-direction: column;
 }
 
-.user-prompt input, .user-prompt button {
+.user-form input, .user-form button {
   text-align: center;
   margin: 0.5em;
 }

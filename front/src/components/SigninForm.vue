@@ -1,5 +1,5 @@
 <template>
-  <div class="user-prompt">
+  <div class="user-form">
     <h2>Sign in</h2>
     <div>
       <input type="text" v-model="username" placeholder="username" />

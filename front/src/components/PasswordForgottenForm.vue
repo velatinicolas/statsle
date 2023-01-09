@@ -1,5 +1,5 @@
 <template>
-  <div class="user-prompt">
+  <div class="user-form">
     <h2>Ask for a password recovery</h2>
     <div>
       <input type="text" v-model="username" placeholder="username" />
