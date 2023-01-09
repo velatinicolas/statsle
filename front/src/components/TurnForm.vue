@@ -42,6 +42,7 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .createTurn(this.turnResult)
         .then(() => {
+          this.turnResult = "";
           this.toasterStore.info("Result saved!");
         })
         .catch((error) => {
