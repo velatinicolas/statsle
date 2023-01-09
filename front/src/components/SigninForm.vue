@@ -11,7 +11,12 @@
       <input type="password" v-model="password" placeholder="password" />
     </div>
     <div>
-      <input type="password" v-model="confirm" placeholder="confirm password" />
+      <input
+        type="password"
+        @keyup.enter="trySignin()"
+        v-model="confirm"
+        placeholder="confirm password"
+      />
     </div>
     <div>
       <button v-on:click="trySignin()">Sign in</button>

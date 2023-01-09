@@ -2,7 +2,12 @@
   <div class="user-form">
     <h2>Ask for a password recovery</h2>
     <div>
-      <input type="text" v-model="username" placeholder="username" />
+      <input
+        type="text"
+        @keyup.enter="submit()"
+        v-model="username"
+        placeholder="username"
+      />
     </div>
     <div>
       <button v-on:click="submit()">Submit</button>

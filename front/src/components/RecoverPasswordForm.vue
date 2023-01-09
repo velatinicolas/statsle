@@ -7,6 +7,7 @@
     <div>
       <input
         type="password"
+        @keyup.enter="submit()"
         v-model="confirm"
         placeholder="confirm new password"
       />

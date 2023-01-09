@@ -5,7 +5,12 @@
       <input type="text" v-model="username" placeholder="username" />
     </div>
     <div>
-      <input type="password" v-model="password" placeholder="password" />
+      <input
+        type="password"
+        @keyup.enter="tryLogin()"
+        v-model="password"
+        placeholder="password"
+      />
     </div>
     <div>
       <button v-on:click="tryLogin()">Log in</button>

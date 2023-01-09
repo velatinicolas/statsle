@@ -8,6 +8,8 @@
         placeholder="Paste the result of one of your daily challenges!"
         rows="20"
         cols="50"
+        @keydown.enter.prevent
+        @keyup.enter="submitTurn()"
         v-model="turnResult"
       ></textarea
       ><br />
