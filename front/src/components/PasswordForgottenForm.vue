@@ -1,10 +1,12 @@
 <template>
-  <div class="password-forgotten-prompt">
+  <div class="user-prompt">
     <h2>Ask for a password recovery</h2>
     <div>
       <input type="text" v-model="username" placeholder="username" />
     </div>
-    <button v-on:click="submit()">Submit</button>
+    <div>
+      <button v-on:click="submit()">Submit</button>
+    </div>
   </div>
 </template>
 

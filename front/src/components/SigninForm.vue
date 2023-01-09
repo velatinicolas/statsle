@@ -1,11 +1,21 @@
 <template>
   <div class="user-prompt">
     <h2>Sign in</h2>
-    <input type="text" v-model="username" placeholder="username" />
-    <input type="text" v-model="email" placeholder="email" />
-    <input type="password" v-model="password" placeholder="password" />
-    <input type="password" v-model="confirm" placeholder="confirm password" />
-    <button v-on:click="trySignin()">Sign in</button>
+    <div>
+      <input type="text" v-model="username" placeholder="username" />
+    </div>
+    <div>
+      <input type="text" v-model="email" placeholder="email" />
+    </div>
+    <div>
+      <input type="password" v-model="password" placeholder="password" />
+    </div>
+    <div>
+      <input type="password" v-model="confirm" placeholder="confirm password" />
+    </div>
+    <div>
+      <button v-on:click="trySignin()">Sign in</button>
+    </div>
   </div>
 </template>
 

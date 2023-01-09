@@ -1,8 +1,12 @@
 <template>
   <div class="user-prompt">
     <h2>Log in</h2>
-    <input type="text" v-model="username" placeholder="username" />
-    <input type="password" v-model="password" placeholder="password" />
+    <div>
+      <input type="text" v-model="username" placeholder="username" />
+    </div>
+    <div>
+      <input type="password" v-model="password" placeholder="password" />
+    </div>
     <div>
       <button v-on:click="tryLogin()">Log in</button>
     </div>

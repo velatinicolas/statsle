@@ -11,35 +11,18 @@
   font-size: small;
 }
 
-.user-prompt input {
-  display: block;
-  text-align: center;
-  margin: 1em
-}
-
-.user-prompt button {
-  text-align: center;
-  margin: 1em
-}
-
-.password-forgotten {
-  font-size: 12px;
-}
-
-.recover-password-prompt {
+.user-prompt {
   display: flex;
   flex-direction: column;
 }
 
-.recover-password-prompt input {
+.user-prompt input, .user-prompt button {
   text-align: center;
-  margin: 10px;
-  width: 20%;
+  margin: 0.5em;
 }
 
-.recover-password-prompt button {
-  text-align: center;
-  margin: auto;
+.password-forgotten {
+  font-size: 12px;
 }
 
 .error {

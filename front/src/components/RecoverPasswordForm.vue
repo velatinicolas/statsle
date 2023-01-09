@@ -1,5 +1,5 @@
 <template>
-  <div class="recover-password-prompt">
+  <div class="user-prompt">
     <h2>Recover your password</h2>
     <div>
       <input type="password" v-model="newPassword" placeholder="new password" />
@@ -7,7 +7,9 @@
     <div>
       <input type="password" v-model="confirm" placeholder="confirm new password" />
     </div>
-    <button v-on:click="submit()">Submit</button>
+    <div>
+      <button v-on:click="submit()">Submit</button>
+    </div>
   </div>
 </template>
 
