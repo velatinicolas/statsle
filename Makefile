@@ -61,6 +61,10 @@ api-build: ## Build project, specifies npm folder to bypass a right access bug
 api-deploy: ## Deploy API in production
 	./scripts/deploy-api.sh
 
+.PHONY: api-update-version
+api-update-version: ## Update version in package-lock.json according to package.json
+	docker-compose exec api npm install --package-lock-only
+
 ### FRONT
 
 .PHONY: front-shell
@@ -78,3 +82,7 @@ front-build: ## Build project, specifies npm folder to bypass a right access bug
 .PHONY: front-deploy
 front-deploy: ## Deploy front in production
 	./scripts/deploy-front.sh
+
+.PHONY: front-update-version
+front-update-version: ## Update version in package-lock.json according to package.json
+	docker-compose exec front npm install --package-lock-only
