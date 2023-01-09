@@ -1,5 +1,7 @@
 import AuthenticationPanel from "@/components/AuthenticationPanel.vue";
 import ChallengesList from "@/components/ChallengesList.vue";
+import PasswordForgottenForm from "@/components/PasswordForgottenForm.vue";
+import RecoverPasswordForm from "@/components/RecoverPasswordForm.vue";
 import TurnForm from "@/components/TurnForm.vue";
 import TurnsList from "@/components/TurnsList.vue";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
@@ -12,6 +14,8 @@ const routes = [
   { path: "/challenges", component: ChallengesList },
   { path: "/welcome", component: TurnForm },
   { path: "/stats", component: TurnsList },
+  { path: "/recover-password/:identifier/:token", component: RecoverPasswordForm, props: true },
+  { path: "/password-forgotten", component: PasswordForgottenForm },
 ];
 
 const router = createRouter({
@@ -29,6 +33,11 @@ router.beforeEach((to) => {
     toasterStore.error("Connexion expired, please reauthenticate");
     window.localStorage.removeItem("jwt");
   };
+
+  // No authentication check on password recovery page or password forgotten page
+  if (to.path.startsWith("/recover-password") || to.path === "/password-forgotten") {
+    return true;
+  }
 
   // Remove any message in toaster on a page change,
   // unless we arrive at homepage to display

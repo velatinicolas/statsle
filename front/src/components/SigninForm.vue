@@ -1,10 +1,10 @@
 <template>
   <div class="user-prompt">
     <h2>Sign in</h2>
-    <input type="text" v-model="username" placeholder="pseudo" />
+    <input type="text" v-model="username" placeholder="username" />
     <input type="text" v-model="email" placeholder="email" />
     <input type="password" v-model="password" placeholder="password" />
-    <input type="password" v-model="confirm" placeholder="confirm" />
+    <input type="password" v-model="confirm" placeholder="confirm password" />
     <button v-on:click="trySignin()">Sign in</button>
   </div>
 </template>

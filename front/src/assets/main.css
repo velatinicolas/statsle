@@ -22,6 +22,26 @@
   margin: 1em
 }
 
+.password-forgotten {
+  font-size: 12px;
+}
+
+.recover-password-prompt {
+  display: flex;
+  flex-direction: column;
+}
+
+.recover-password-prompt input {
+  text-align: center;
+  margin: 10px;
+  width: 20%;
+}
+
+.recover-password-prompt button {
+  text-align: center;
+  margin: auto;
+}
+
 .error {
   color: tomato;
   font-weight: bold;
@@ -121,5 +141,4 @@ button {
   border-style: double;
   background-color: cornflowerblue;
   padding: 10px;
-  /* margin: auto; */
 }

@@ -1,9 +1,16 @@
 <template>
   <div class="user-prompt">
     <h2>Log in</h2>
-    <input type="text" v-model="username" placeholder="pseudo" />
+    <input type="text" v-model="username" placeholder="username" />
     <input type="password" v-model="password" placeholder="password" />
-    <button v-on:click="tryLogin()">Log in</button>
+    <div>
+      <button v-on:click="tryLogin()">Log in</button>
+    </div>
+    <div class="password-forgotten">
+      <router-link to="/password-forgotten">
+        I forgot my password
+      </router-link>
+    </div>
   </div>
 </template>
 

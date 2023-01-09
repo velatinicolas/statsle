@@ -91,6 +91,24 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
         })
         .then((response) => response.data);
     },
+
+    createPasswordRecovery(username: string): Promise<void> {
+      return axios
+        .post(
+          `${baseUrl}/password-recoveries`,
+          { username }
+        )
+        .then(() => void 0)
+    },
+
+    usePasswordRecovery(identifier: string, token: string, newPassword: string): Promise<void> {
+      return axios
+        .post(
+          `${baseUrl}/password-recoveries/${identifier}/use`,
+          { token, newPassword }
+        )
+        .then(() => void 0)
+    }
   };
 
   return { client };
