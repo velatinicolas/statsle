@@ -34,7 +34,9 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .createPasswordRecovery(this.username)
         .then(() => {
-          this.toasterStore.info("You should receive an email soon to recover your password. Check your spam folder!");
+          this.toasterStore.info(
+            "You should receive an email soon to recover your password. Check your spam folder!"
+          );
           this.$router.push("/");
         })
         .catch((error) => {

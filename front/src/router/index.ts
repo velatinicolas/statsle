@@ -14,7 +14,11 @@ const routes = [
   { path: "/challenges", component: ChallengesList },
   { path: "/welcome", component: TurnForm },
   { path: "/stats", component: TurnsList },
-  { path: "/recover-password/:identifier/:token", component: RecoverPasswordForm, props: true },
+  {
+    path: "/recover-password/:identifier/:token",
+    component: RecoverPasswordForm,
+    props: true,
+  },
   { path: "/password-forgotten", component: PasswordForgottenForm },
 ];
 
@@ -35,7 +39,10 @@ router.beforeEach((to) => {
   };
 
   // No authentication check on password recovery page or password forgotten page
-  if (to.path.startsWith("/recover-password") || to.path === "/password-forgotten") {
+  if (
+    to.path.startsWith("/recover-password") ||
+    to.path === "/password-forgotten"
+  ) {
     return true;
   }
 

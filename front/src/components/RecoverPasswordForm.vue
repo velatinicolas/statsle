@@ -5,7 +5,11 @@
       <input type="password" v-model="newPassword" placeholder="new password" />
     </div>
     <div>
-      <input type="password" v-model="confirm" placeholder="confirm new password" />
+      <input
+        type="password"
+        v-model="confirm"
+        placeholder="confirm new password"
+      />
     </div>
     <div>
       <button v-on:click="submit()">Submit</button>
@@ -55,7 +59,9 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .usePasswordRecovery(this.identifier, this.token, this.newPassword)
         .then(() => {
-          this.toasterStore.info("Password successfully recovered! You can now log in.");
+          this.toasterStore.info(
+            "Password successfully recovered! You can now log in."
+          );
           this.$router.push("/");
         })
         .catch((error) => {

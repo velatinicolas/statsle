@@ -11,9 +11,7 @@
       <button v-on:click="tryLogin()">Log in</button>
     </div>
     <div class="password-forgotten">
-      <router-link to="/password-forgotten">
-        I forgot my password
-      </router-link>
+      <router-link to="/password-forgotten"> I forgot my password </router-link>
     </div>
   </div>
 </template>
