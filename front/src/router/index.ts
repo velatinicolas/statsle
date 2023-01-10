@@ -7,7 +7,7 @@ import TurnsList from "@/components/TurnsList.vue";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
 import { useToasterStore } from "@/stores/toaster";
 import { useUserStore } from "@/stores/user";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   { path: "/", component: AuthenticationPanel },
@@ -24,7 +24,7 @@ const routes = [
 
 const router = createRouter({
   routes,
-  history: createWebHashHistory(),
+  history: createWebHistory(),
 });
 
 router.beforeEach((to) => {
