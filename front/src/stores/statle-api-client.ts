@@ -84,7 +84,7 @@ export const useStatleApiClientStore = defineStore("statle-api-client", () => {
 
     getSelfTurns(): Promise<TurnInterface[]> {
       return axios
-        .get<TurnInterface[]>(`${baseUrl}/me/turns`, {
+        .get<TurnInterface[]>(`${baseUrl}/me/turns?orders[date]=DESC`, {
           headers: {
             authorization: `Bearer ${window.localStorage.getItem("jwt")}`,
           },

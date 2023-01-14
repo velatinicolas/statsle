@@ -8,6 +8,7 @@ export interface TurnInterface {
     };
     number: number;
   };
+  date: string;
   rawResult: string;
   result: string;
   score: string;
@@ -25,5 +26,5 @@ export interface UserResourceInterface {
   identifier: string;
   username: string;
   email: string | null;
-  createdAt: Date;
+  createdAt: string;
 }

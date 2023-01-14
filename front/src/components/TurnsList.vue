@@ -1,10 +1,11 @@
 <template>
-  <div id="turns-list" v-if="turnsList.length > 0">
-    <TurnDisplay
-      v-for="turn in turnsList"
-      :key="turn.identifier"
-      :turn="turn"
-    ></TurnDisplay>
+  <div id="turns-list" v-if="Object.keys(turnsList).length > 0">
+    <TurnsGroup
+      v-for="turns in turnsList"
+      :key="turns.title"
+      :turns="turns.turns"
+      :groupTitle="turns.title"
+    ></TurnsGroup>
   </div>
   <div v-else>
     <h3>No challenges saved yet!</h3>
@@ -12,10 +13,15 @@
 </template>
 
 <script lang="ts">
-import type { TurnInterface } from "@/interfaces/from-api.interface";
+import {
+  groupBy,
+  TurnsGroupByEnum,
+  type TurnsInterfaceGroups,
+} from "@/helpers/group-by.helper";
+import { sortBy, TurnsSortByEnum } from "@/helpers/sort-by.helper";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
 import { defineComponent } from "vue";
-import TurnDisplay from "./TurnDisplay.vue";
+import TurnsGroup from "./TurnsGroup.vue";
 
 export default defineComponent({
   setup() {
@@ -23,7 +29,7 @@ export default defineComponent({
     return { statleApiClientStore };
   },
   data(): {
-    turnsList: TurnInterface[];
+    turnsList: TurnsInterfaceGroups;
   } {
     return {
       turnsList: [],
@@ -37,10 +43,13 @@ export default defineComponent({
       return this.statleApiClientStore.client
         .getSelfTurns()
         .then((turnsList) => {
-          this.turnsList = turnsList;
+          this.turnsList = groupBy(turnsList, TurnsGroupByEnum.DATE);
+          this.turnsList.forEach((turns) =>
+            sortBy(turns.turns, TurnsSortByEnum.CHALLENGE)
+          );
         });
     },
   },
-  components: { TurnDisplay },
+  components: { TurnsGroup },
 });
 </script>

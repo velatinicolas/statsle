@@ -56,6 +56,11 @@
   display: inline-flex;
 }
 
+.turns-group {
+  border-style: double ;
+  border-radius: 10px;
+}
+
 #turn-form {
   display: flex;
   flex-direction: column;
@@ -117,12 +122,17 @@ button {
 
 #turns-list {
   display: flex;
+  margin: auto;
+  align-items: center;
+  align-content: center;
   flex-direction: column;
   row-gap: 20px;
 }
 
 .raw-result {
   position: fixed;
+  top: 30%;
+  left: 10%;
   width: 20%;
   white-space: pre-line;
   text-align: left;
