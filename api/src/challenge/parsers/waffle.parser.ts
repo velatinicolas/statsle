@@ -9,9 +9,7 @@ export class WaffleParser extends TurnParser {
   }
 
   handles(rawResult: string): boolean {
-    return (
-      this.getLine(rawResult, 1).match(/#waffle[0-9]+/) !== null
-    );
+    return this.getLine(rawResult, 1).match(/#waffle[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {

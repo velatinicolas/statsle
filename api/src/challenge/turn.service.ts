@@ -11,6 +11,7 @@ import { Repository } from "typeorm";
 import { Game } from "./game.entity";
 import { TurnParserInterface } from "./parsers/turn-parser.interface";
 import { Turn } from "./turn.entity";
+import { TurnsDto } from "./turns.dto";
 
 @Injectable()
 export class TurnService {
@@ -62,7 +63,7 @@ export class TurnService {
     );
   }
 
-  findByUser(user: User): Observable<Turn[]> {
+  findByUser(user: User, turns?: TurnsDto): Observable<Turn[]> {
     return from(
       this.turnRepository.find({
         relations: ["game", "game.challenge"],
@@ -71,6 +72,7 @@ export class TurnService {
             identifier: user.identifier,
           },
         },
+        order: turns?.orders,
       })
     );
   }

@@ -20,7 +20,7 @@ export class CemantleParser extends TurnParser {
     return this.extractData(this.getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
+  extractResult(): TurnResultEnum {
     return TurnResultEnum.WON;
   }
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from "@nestjs/common";
 import { mergeMap, Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { PassportRequest } from "src/passport-request";
@@ -7,6 +15,7 @@ import { TurnService } from "./turn.service";
 import { TurnDto } from "./turn.dto";
 import { Turn } from "./turn.entity";
 import { TurnParserChain } from "./parsers/parser-chain.service";
+import { TurnsDto } from "./turns.dto";
 
 @Controller()
 export class TurnController {
@@ -38,7 +47,10 @@ export class TurnController {
 
   @UseGuards(JwtAuthGuard)
   @Get("me/turns")
-  getMyTurns(@Req() req: PassportRequest): Observable<Turn[]> {
-    return this.turnService.findByUser(req.user);
+  mine(
+    @Req() req: PassportRequest,
+    @Query() turnsMine: TurnsDto
+  ): Observable<Turn[]> {
+    return this.turnService.findByUser(req.user, turnsMine);
   }
 }
