@@ -1,6 +1,10 @@
 <template>
   <fieldset class="turns-group">
-    <legend>{{ groupTitle }}</legend>
+    <legend>
+      {{ groupTitle }}&nbsp;<button class="share-group" @click="share()">
+        Share
+      </button>
+    </legend>
     <div id="turns-list" v-if="turns.length > 0">
       <TurnDisplay
         v-for="turn in turns"
@@ -30,6 +34,25 @@ export default defineComponent({
     groupTitle: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    share() {
+      const sharedContent = [
+        `My results of the ${this.groupTitle} on https://www.statsle.fr`,
+      ];
+      this.turns.forEach((turn) => {
+        const result = turn.result === "WON" ? "✅" : "❌";
+        let line = `➜ ${turn.game.challenge.name} #${turn.game.number} ${result}`;
+
+        if (turn.score) {
+          line += ` with score ${turn.score}`;
+        }
+
+        sharedContent.push(line);
+      });
+
+      navigator.clipboard.writeText(sharedContent.join("\n"));
     },
   },
   components: { TurnDisplay },
