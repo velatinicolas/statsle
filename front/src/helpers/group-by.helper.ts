@@ -19,11 +19,15 @@ export function groupBy(
     const groupedTurns: TurnsInterfaceGroups = [];
 
     return turns.reduce((groupedTurns, turn) => {
-      if (!groupedTurns.find((group) => group.title === turn.date)) {
-        groupedTurns.push({ title: turn.date, turns: [] });
+      // Date must be actually rebuilt from createdAt
+      // in order to use the correct timezone
+      const date = new Date(turn.createdAt).toLocaleDateString();
+
+      if (!groupedTurns.find((group) => group.title === date)) {
+        groupedTurns.push({ title: date, turns: [] });
       }
 
-      groupedTurns.find((group) => group.title === turn.date)!.turns.push(turn);
+      groupedTurns.find((group) => group.title === date)!.turns.push(turn);
 
       return groupedTurns;
     }, groupedTurns);
