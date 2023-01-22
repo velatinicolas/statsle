@@ -4,8 +4,8 @@
     <a :href="turn.game.challenge.url">{{ turn.game.challenge.name }}</a> #{{
       turn.game.number
     }}
-    - <b>{{ turn.result }}</b
-    ><span v-if="turn.score"> with score {{ turn.score }}</span>
+    {{ turn.result === "WON" ? "✅" : "❌" }}
+    <span v-if="turn.score"> - score {{ turn.score }}</span>
   </div>
 </template>
 
