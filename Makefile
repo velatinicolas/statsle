@@ -20,6 +20,9 @@ down: ## Down the containers
 logs: ## Display all containers logs
 	docker-compose logs -f
 
+.PHONE: deploy-all
+deploy-all: api-deploy front-deploy ## Deploy Front and API
+
 ### DB
 
 .PHONY: postgres
