@@ -2,7 +2,7 @@
   <fieldset class="turns-group">
     <legend>
       {{ groupTitle }}&nbsp;<button class="share-group" @click="share()">
-        Share
+        {{ shareButtonLabel }}
       </button>
     </legend>
     <div id="turns-list" v-if="turns.length > 0">
@@ -18,6 +18,7 @@
 <script lang="ts">
 import type { TurnInterface } from "@/interfaces/from-api.interface";
 import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { timer } from "rxjs";
 import { defineComponent, type PropType } from "vue";
 import TurnDisplay from "./TurnDisplay.vue";
 
@@ -25,6 +26,11 @@ export default defineComponent({
   setup() {
     const statleApiClientStore = useStatleApiClientStore();
     return { statleApiClientStore };
+  },
+  data() {
+    return {
+      shareButtonLabel: "Share",
+    };
   },
   props: {
     turns: {
@@ -53,6 +59,10 @@ export default defineComponent({
       });
 
       navigator.clipboard.writeText(sharedContent.join("\n"));
+      this.shareButtonLabel = "Copied! ✅";
+      timer(2000).subscribe(() => {
+        this.shareButtonLabel = "Share";
+      });
     },
   },
   components: { TurnDisplay },

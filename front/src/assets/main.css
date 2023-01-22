@@ -141,3 +141,7 @@ button {
   background-color: cornflowerblue;
   padding: 10px;
 }
+
+.share-group {
+  width: 100px;
+}
