@@ -17,13 +17,7 @@ echo "Building project..."
 make api-build
 
 echo "Uploading sources..."
-scp -r api/dist/* $API_SERVER_USER@$API_SERVER_HOST:$API_SERVER_PATH
-
-echo "Uploading environment variables..."
-scp api/.env.prod $API_SERVER_USER@$API_SERVER_HOST:$API_SERVER_PATH/.env
-
-echo "Uploading package.json and package-lock.json..."
-scp api/package*.json $API_SERVER_USER@$API_SERVER_HOST:$API_SERVER_PATH
+rsync -av --delete-after api/dist/ $API_SERVER_USER@$API_SERVER_HOST:$API_SERVER_PATH
 
 echo "Installing node_modules..."
 ssh $API_SERVER_USER@$API_SERVER_HOST "cd $API_SERVER_PATH && npm install"

@@ -59,6 +59,8 @@ api-generate-encryption-key: ## Generate an encryption key
 .PHONY: front-build
 api-build: ## Build project, specifies npm folder to bypass a right access bug
 	docker-compose exec api bash -c "npm run build"
+	cp api/.env.prod api/dist/.env
+	cp api/package*.json api/dist/
 
 .PHONY: api-deploy
 api-deploy: ## Deploy API in production

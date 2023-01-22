@@ -17,4 +17,4 @@ echo "Building project..."
 make front-build
 
 echo "Uploading sources..."
-scp -r front/dist/* $FRONT_SERVER_USER@$FRONT_SERVER_HOST:$FRONT_SERVER_PATH
+rsync -av --delete-after front/dist/ $FRONT_SERVER_USER@$FRONT_SERVER_HOST:$FRONT_SERVER_PATH
