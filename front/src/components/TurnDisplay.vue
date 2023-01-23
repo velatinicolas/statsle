@@ -6,6 +6,7 @@
     }}
     {{ turn.result === "WON" ? "✅" : "❌" }}
     <span v-if="turn.score"> - score {{ turn.score }}</span>
+    <span v-if="turn.combo > 1"> - combo {{ turn.combo }} 🔥</span>
   </div>
 </template>
 

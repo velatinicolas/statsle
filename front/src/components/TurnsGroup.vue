@@ -52,7 +52,11 @@ export default defineComponent({
         let line = `➜ ${turn.game.challenge.name} #${turn.game.number} ${result}`;
 
         if (turn.score) {
-          line += ` with score ${turn.score}`;
+          line += ` - score ${turn.score}`;
+        }
+
+        if (turn.combo > 1) {
+          line += ` - combo ${turn.combo} 🔥`;
         }
 
         sharedContent.push(line);

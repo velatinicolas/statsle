@@ -12,6 +12,7 @@ export interface TurnInterface {
   rawResult: string;
   result: string;
   score: string;
+  combo: number;
   createdAt: string;
 }
 
