@@ -12,6 +12,7 @@ import { readdirSync } from "fs";
 import { TurnParserConstructorInterface } from "./parsers/turn-parser-constructor.interface";
 import { TurnParserInterface } from "./parsers/turn-parser.interface";
 import { TurnParserChain } from "./parsers/parser-chain.service";
+import { ReintegrateTurnsCommand } from "./reintegrate-turns.command";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Challenge, Game, Turn])],
@@ -21,6 +22,7 @@ import { TurnParserChain } from "./parsers/parser-chain.service";
     GameFinder,
     TurnService,
     TurnParserChain,
+    ReintegrateTurnsCommand,
     {
       // This dynamically import in `TURN_PARSERS` token
       // every turn parsers stored in the `parsers` directory

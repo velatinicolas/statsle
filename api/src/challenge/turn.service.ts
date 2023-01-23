@@ -5,11 +5,12 @@ import {
   Logger,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { from, mergeMap, Observable, tap } from "rxjs";
+import { catchError, from, map, mergeMap, Observable, tap } from "rxjs";
 import { User } from "src/user/user.entity";
 import { Repository } from "typeorm";
 import { Game } from "./game.entity";
 import { TurnParserInterface } from "./parsers/turn-parser.interface";
+import { TurnResultEnum } from "./turn-result.enum";
 import { Turn } from "./turn.entity";
 import { TurnsDto } from "./turns.dto";
 
@@ -38,28 +39,28 @@ export class TurnService {
           throw new ConflictException("You already played this game!");
         }
       }),
-      mergeMap(() => {
+      map(() => {
         const turn = new Turn();
         turn.user = user;
         turn.game = game;
         turn.date = new Date();
         turn.rawResult = rawResult;
 
-        try {
-          turn.result = turnParser.extractResult(rawResult);
-          turn.score = turnParser.extractScore(rawResult);
-        } catch (error) {
-          this.logger.error(
-            `Failed extracting data for user ${user.identifier}, game ${game.identifier}, raw result "${rawResult}": ${error}`
-          );
-
-          throw new BadRequestException(
-            "Failed saving result, input must be wrong!"
-          );
-        }
-
-        return from(this.turnRepository.save(turn));
-      })
+        return turn;
+      }),
+      mergeMap((turn) =>
+        this.calculateScoreAndCombo(turn, turnParser).pipe(
+          catchError((error) => {
+            this.logger.error(
+              `Failed extracting data for user ${turn.user.identifier}, game ${turn.game.identifier}, raw result "${rawResult}": ${error}`
+            );
+            throw new BadRequestException(
+              "Failed saving result, input must be wrong!"
+            );
+          })
+        )
+      ),
+      mergeMap((turn) => from(this.turnRepository.save(turn)))
     );
   }
 
@@ -73,6 +74,47 @@ export class TurnService {
           },
         },
         order: turns?.orders,
+      })
+    );
+  }
+
+  calculateScoreAndCombo(
+    turn: Turn,
+    turnParser: TurnParserInterface
+  ): Observable<Turn> {
+    return this.getLastCombo(turn.user, turn.game).pipe(
+      map((lastCombo) => {
+        turn.result = turnParser.extractResult(turn.rawResult);
+        turn.score = turnParser.extractScore(turn.rawResult);
+        turn.combo = turn.result === TurnResultEnum.WON ? lastCombo + 1 : 0;
+
+        return turn;
+      })
+    );
+  }
+
+  getLastCombo(user: User, game: Game): Observable<number> {
+    return from(
+      this.turnRepository.findOne({
+        where: {
+          user: {
+            identifier: user.identifier,
+          },
+          game: {
+            challenge: {
+              identifier: game.challenge.identifier,
+            },
+            number: game.number - 1,
+          },
+        },
+      })
+    ).pipe(
+      map((lastTurn) => {
+        if (!lastTurn) {
+          return 0;
+        }
+
+        return lastTurn.combo || 0;
       })
     );
   }

@@ -30,6 +30,9 @@ export class Turn {
   @Column({ type: "text" })
   score: string;
 
+  @Column({ type: "integer", nullable: true })
+  combo: number;
+
   @Column({ type: "text" })
   rawResult: string;
 
