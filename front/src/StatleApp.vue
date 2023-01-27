@@ -17,21 +17,30 @@ const toasterStore = useToasterStore();
     </router-link>
     <h3 id="subtitle">All stats of your daily challenges in one place!</h3>
     <div class="user-state">
-      <LoggedUser
-        v-if="userStore.isLoggedIn"
-        :username="userStore.user.username"
-      ></LoggedUser>
-      <ButtonLink
-        path="/welcome"
-        label="Home"
-        v-if="userStore.isLoggedIn"
-      ></ButtonLink>
-      <ButtonLink
-        path="/stats"
-        label="My saved challenges"
-        v-if="userStore.isLoggedIn"
-      ></ButtonLink>
-      <ButtonLogout v-if="userStore.isLoggedIn"></ButtonLogout>
+      <div>
+        <LoggedUser
+          v-if="userStore.isLoggedIn"
+          :username="userStore.user.username"
+        ></LoggedUser>
+      </div>
+      <div class="user-state-buttons">
+        <ButtonLink
+          path="/welcome"
+          label="Home"
+          v-if="userStore.isLoggedIn"
+        ></ButtonLink>
+        <ButtonLink
+          path="/stats"
+          label="Results"
+          v-if="userStore.isLoggedIn"
+        ></ButtonLink>
+        <ButtonLink
+          path="/list"
+          label="List"
+          v-if="userStore.isLoggedIn"
+        ></ButtonLink>
+        <ButtonLogout v-if="userStore.isLoggedIn"></ButtonLogout>
+      </div>
     </div>
   </header>
   <body>

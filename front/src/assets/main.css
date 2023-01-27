@@ -1,10 +1,28 @@
+@media all and (max-width: 500px) {
+  #subtitle {
+    display: none;
+  }
+}
+
+
+.user-state-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
 #app {
-  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
-  padding: 2rem;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: normal;
   text-align: center;
+  gap: 50px;
 }
 
 .version {
@@ -37,13 +55,13 @@
   white-space: pre-line;
 }
 
-.user-state span {
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-}
-
-.user-state button {
-  margin-right: 4px;
+.user-state {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
 }
 
 .user-actions {
@@ -67,24 +85,20 @@
   row-gap: 20px;
 }
 
-#turn-form button {
-  margin-top: 1em;
+.turn-form-input {
+  box-sizing:border-box;
 }
 
 #main-title {
   font-weight: bold;
   font-size: 50px;
-  margin-bottom: 10px;
   text-decoration: none;
+  margin-bottom: 0px;
 }
 
 .no-decoration {
   text-decoration: none;
   color: inherit;
-}
-
-#subtitle {
-  margin-bottom: 40px;
 }
 
 html {
@@ -117,7 +131,9 @@ button {
 }
 
 #header {
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 #turns-list {
@@ -126,7 +142,7 @@ button {
   align-items: center;
   align-content: center;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 8px;
 }
 
 .raw-result {

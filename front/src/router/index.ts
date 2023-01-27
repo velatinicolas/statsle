@@ -14,6 +14,7 @@ const routes = [
   { path: "/challenges", component: ChallengesList },
   { path: "/welcome", component: TurnForm },
   { path: "/stats", component: TurnsList },
+  { path: "/list", component: ChallengesList },
   {
     path: "/recover-password/:identifier/:token",
     component: RecoverPasswordForm,

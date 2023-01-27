@@ -1,20 +1,15 @@
 <template>
   <div id="turn-form">
-    <div>
-      <ChallengesList></ChallengesList>
-    </div>
-    <div>
-      <textarea
-        placeholder="Paste the result of one of your daily challenges!"
-        rows="20"
-        cols="50"
-        @keydown.enter.prevent
-        @keyup.enter="submitTurn()"
-        v-model="turnResult"
-      ></textarea
-      ><br />
-      <button v-on:click="submitTurn()">Submit</button>
-    </div>
+    <textarea
+      class="turn-form-input"
+      placeholder="Paste the result of one of your daily challenges!"
+      rows="20"
+      cols="40"
+      @keydown.enter.prevent
+      @keyup.enter="submitTurn()"
+      v-model="turnResult"
+    ></textarea>
+    <button v-on:click="submitTurn()">Submit</button>
   </div>
 </template>
 
