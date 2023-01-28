@@ -16,7 +16,6 @@ export class MailSender {
     subject: string,
     html: string
   ): Observable<void> {
-    console.info(to);
     const transport = createTransport({
       host: this.mailTransportHost,
       port: +this.mailTransportPort,

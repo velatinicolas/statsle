@@ -22,9 +22,7 @@ import { LocalStrategy } from "./strategies/local.strategy";
       imports: [ConfigModule],
     }),
   ],
-  controllers: [
-    AuthController,
-  ],
+  controllers: [AuthController],
   providers: [
     AuthService,
     LocalStrategy,
