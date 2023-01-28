@@ -1,4 +1,4 @@
-import { TurnResultEnum } from "../turn-result.enum";
+import { TurnResultEnum } from "../enums/turn-result.enum";
 
 export interface TurnParserInterface {
   getChallengeName(): string;

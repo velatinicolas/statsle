@@ -1,18 +1,18 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ChallengeController } from "./challenge.controller";
-import { Challenge } from "./challenge.entity";
-import { ChallengeService } from "./challenge.service";
-import { GameFinder } from "./game-finder.service";
-import { Game } from "./game.entity";
-import { TurnService } from "./turn.service";
-import { Turn } from "./turn.entity";
-import { TurnController } from "./turn.controller";
+import { ChallengeController } from "./controllers/challenge.controller";
+import { Challenge } from "./entities/challenge.entity";
+import { ChallengeService } from "./services/challenge.service";
+import { GameFinder } from "./services/game-finder.service";
+import { TurnService } from "./services/turn.service";
+import { TurnController } from "./controllers/turn.controller";
 import { readdirSync } from "fs";
 import { TurnParserConstructorInterface } from "./parsers/turn-parser-constructor.interface";
 import { TurnParserInterface } from "./parsers/turn-parser.interface";
 import { TurnParserChain } from "./parsers/parser-chain.service";
-import { ReintegrateTurnsCommand } from "./reintegrate-turns.command";
+import { ReintegrateTurnsCommand } from "./commands/reintegrate-turns.command";
+import { Game } from "./entities/game.entity";
+import { Turn } from "./entities/turn.entity";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Challenge, Game, Turn])],

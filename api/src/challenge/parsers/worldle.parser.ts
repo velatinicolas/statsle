@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { TurnResultEnum } from "../turn-result.enum";
+import { TurnResultEnum } from "../enums/turn-result.enum";
 import { TurnParser } from "./turn-parser.interface";
 
 @Injectable()

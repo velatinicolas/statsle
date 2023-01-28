@@ -3,9 +3,10 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { UserModule } from "src/user/user.module";
-import { AuthService } from "./auth.service";
-import { JwtStrategy } from "./jwt.strategy";
-import { LocalStrategy } from "./local.strategy";
+import { AuthController } from "./controllers/auth.controller";
+import { AuthService } from "./services/auth.service";
+import { JwtStrategy } from "./strategies/jwt.strategy";
+import { LocalStrategy } from "./strategies/local.strategy";
 
 @Module({
   imports: [
@@ -20,6 +21,9 @@ import { LocalStrategy } from "./local.strategy";
       inject: [ConfigService],
       imports: [ConfigModule],
     }),
+  ],
+  controllers: [
+    AuthController,
   ],
   providers: [
     AuthService,
