@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { from, Observable } from "rxjs";
 import { Repository } from "typeorm";
-import { Challenge } from "./challenge.entity";
+import { Challenge } from "../entities/challenge.entity";
 
 @Injectable()
 export class ChallengeService {

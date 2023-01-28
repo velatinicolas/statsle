@@ -3,9 +3,9 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Command, CommandRunner } from "nest-commander";
 import { catchError, from, lastValueFrom, map, mergeMap, of } from "rxjs";
 import { Repository } from "typeorm";
-import { TurnParserChain } from "./parsers/parser-chain.service";
-import { Turn } from "./turn.entity";
-import { TurnService } from "./turn.service";
+import { Turn } from "../entities/turn.entity";
+import { TurnParserChain } from "../parsers/parser-chain.service";
+import { TurnService } from "../services/turn.service";
 
 @Command({ name: "reintegrateTurns", description: "A parameter parse" })
 export class ReintegrateTurnsCommand extends CommandRunner {

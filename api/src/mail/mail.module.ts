@@ -1,7 +1,7 @@
 import { Module, Provider } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { MailSender } from "./mail-sender.service";
-import { PasswordRecoveryMailService } from "./password-recovery-mail.service";
+import { MailSender } from "./services/mail-sender.service";
+import { PasswordRecoveryMailService } from "./services/password-recovery-mail.service";
 
 function provideConfig(name: string): Provider {
   return {

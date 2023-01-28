@@ -5,11 +5,11 @@ import {
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { forkJoin, from, map, mergeMap, Observable, tap } from "rxjs";
-import { compare, hash } from "src/auth/hash.helper";
-import { EncryptionService } from "src/encryption/encryption.service";
+import { compare, hash } from "src/auth/helpers/hash.helper";
+import { EncryptionService } from "src/encryption/services/encryption.service";
 import { Repository } from "typeorm";
-import { PasswordRecovery } from "./password-recovery.entity";
-import { User } from "./user.entity";
+import { PasswordRecovery } from "../entities/password-recovery.entity";
+import { User } from "../entities/user.entity";
 
 export class UserService {
   constructor(

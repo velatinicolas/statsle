@@ -1,9 +1,9 @@
 import { Body, Controller, Param, Post } from "@nestjs/common";
 import { mergeMap, Observable } from "rxjs";
-import { PasswordRecoveryMailService } from "src/mail/password-recovery-mail.service";
-import { PasswordRecoveryDto } from "./password-recovery.dto";
-import { UsePasswordRecoveryDto } from "./use-password-recovery.dto";
-import { UserService } from "./user.service";
+import { PasswordRecoveryMailService } from "src/mail/services/password-recovery-mail.service";
+import { PasswordRecoveryDto } from "../dtos/password-recovery.dto";
+import { UsePasswordRecoveryDto } from "../dtos/use-password-recovery.dto";
+import { UserService } from "../services/user.service";
 
 @Controller("password-recoveries")
 export class PasswordRecoveryController {

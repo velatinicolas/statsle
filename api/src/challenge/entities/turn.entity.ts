@@ -1,4 +1,4 @@
-import { User } from "../user/user.entity";
+import { User } from "src/user/entities/user.entity";
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { TurnResultEnum } from "../enums/turn-result.enum";
 import { Game } from "./game.entity";
-import { TurnResultEnum } from "./turn-result.enum";
 
 @Entity("turns")
 export class Turn {

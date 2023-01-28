@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { map, Observable } from "rxjs";
-import { User } from "src/user/user.entity";
-import { UserService } from "src/user/user.service";
-import { JwtTokenInterface } from "./jwt-token.interface";
-import { compare } from "./hash.helper";
-import { JwtContentInterface } from "./jwt-content.interface";
+import { User } from "src/user/entities/user.entity";
+import { UserService } from "src/user/services/user.service";
+import { JwtTokenInterface } from "../interfaces/jwt-token.interface";
+import { compare } from "../helpers/hash.helper";
+import { JwtContentInterface } from "../interfaces/jwt-content.interface";
 
 @Injectable()
 export class AuthService {

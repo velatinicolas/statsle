@@ -6,13 +6,13 @@ import {
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { catchError, from, map, mergeMap, Observable, tap } from "rxjs";
-import { User } from "src/user/user.entity";
+import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
-import { Game } from "./game.entity";
-import { TurnParserInterface } from "./parsers/turn-parser.interface";
-import { TurnResultEnum } from "./turn-result.enum";
-import { Turn } from "./turn.entity";
-import { TurnsDto } from "./turns.dto";
+import { TurnParserInterface } from "../parsers/turn-parser.interface";
+import { TurnResultEnum } from "../enums/turn-result.enum";
+import { TurnsDto } from "../dtos/turns.dto";
+import { Turn } from "../entities/turn.entity";
+import { Game } from "../entities/game.entity";
 
 @Injectable()
 export class TurnService {

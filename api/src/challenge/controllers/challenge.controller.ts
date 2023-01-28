@@ -8,13 +8,13 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { map, Observable } from "rxjs";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { RoleEnum } from "src/user/role.enum";
-import { Roles } from "src/user/roles.decorator";
-import { RolesGuard } from "src/user/roles.guard";
-import { ChallengeDto } from "./challenge.dto";
-import { ChallengeResource } from "./challenge.resource";
-import { ChallengeService } from "./challenge.service";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { RoleEnum } from "src/user/enums/role.enum";
+import { Roles } from "src/user/decorators/roles.decorator";
+import { RolesGuard } from "src/user/guards/roles.guard";
+import { ChallengeDto } from "../dtos/challenge.dto";
+import { ChallengeResource } from "../resources/challenge.resource";
+import { ChallengeService } from "../services/challenge.service";
 
 @Controller("challenges")
 export class ChallengeController {

@@ -2,9 +2,9 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { from, mergeMap, Observable, of } from "rxjs";
 import { Repository } from "typeorm";
-import { Challenge } from "./challenge.entity";
-import { Game } from "./game.entity";
-import { TurnParserInterface } from "./parsers/turn-parser.interface";
+import { Challenge } from "../entities/challenge.entity";
+import { Game } from "../entities/game.entity";
+import { TurnParserInterface } from "../parsers/turn-parser.interface";
 
 @Injectable()
 export class GameFinder {

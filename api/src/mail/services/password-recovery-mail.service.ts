@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Observable, tap } from "rxjs";
-import { PasswordRecovery } from "src/user/password-recovery.entity";
-import { MailSender } from "./mail-sender.service";
+import { PasswordRecovery } from "src/user/entities/password-recovery.entity";
+import { MailSender } from "../services/mail-sender.service";
 
 @Injectable()
 export class PasswordRecoveryMailService {

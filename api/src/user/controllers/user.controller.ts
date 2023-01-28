@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { UserDto } from "./user.dto";
-import { UserService } from "./user.service";
+import { UserDto } from "../dtos/user.dto";
+import { UserService } from "../services/user.service";
 @Controller("users")
 export class UserController {
   constructor(private readonly userService: UserService) {}
