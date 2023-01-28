@@ -39,19 +39,19 @@ router.beforeEach((to) => {
     window.localStorage.removeItem("jwt");
   };
 
+  // Remove any message in toaster on a page change,
+  // unless we arrive at homepage to display
+  // log out message or connexion expired message.
+  if (to.path !== "/") {
+    toasterStore.reset();
+  }
+
   // No authentication check on password recovery page or password forgotten page
   if (
     to.path.startsWith("/recover-password") ||
     to.path === "/password-forgotten"
   ) {
     return true;
-  }
-
-  // Remove any message in toaster on a page change,
-  // unless we arrive at homepage to display
-  // log out message or connexion expired message.
-  if (to.path !== "/") {
-    toasterStore.reset();
   }
 
   // Always go to homepage if no jwt stored
