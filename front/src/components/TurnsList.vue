@@ -1,14 +1,17 @@
 <template>
-  <div id="turns-list" v-if="Object.keys(turnsList).length > 0">
-    <TurnsGroup
-      v-for="turns in turnsList"
-      :key="turns.title"
-      :turns="turns.turns"
-      :groupTitle="turns.title"
-    ></TurnsGroup>
-  </div>
+  <div v-if="loading" class="loader"></div>
   <div v-else>
-    <h3>No challenges saved yet!</h3>
+    <div id="turns-list" v-if="Object.keys(turnsList).length > 0">
+      <TurnsGroup
+        v-for="turns in turnsList"
+        :key="turns.title"
+        :turns="turns.turns"
+        :groupTitle="turns.title"
+      ></TurnsGroup>
+    </div>
+    <div v-else>
+      <h3>No challenges saved yet!</h3>
+    </div>
   </div>
 </template>
 
@@ -30,9 +33,11 @@ export default defineComponent({
   },
   data(): {
     turnsList: TurnsInterfaceGroups;
+    loading: boolean;
   } {
     return {
       turnsList: [],
+      loading: true,
     };
   },
   created() {
@@ -40,6 +45,7 @@ export default defineComponent({
   },
   methods: {
     loadTurnsList() {
+      this.loading = true;
       return this.statleApiClientStore.client
         .getSelfTurns()
         .then((turnsList) => {
@@ -47,6 +53,7 @@ export default defineComponent({
           this.turnsList.forEach((turns) =>
             sortBy(turns.turns, TurnsSortByEnum.CHALLENGE)
           );
+          this.loading = false;
         });
     },
   },
