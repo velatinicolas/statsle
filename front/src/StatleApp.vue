@@ -15,7 +15,9 @@ const toasterStore = useToasterStore();
     <router-link class="no-decoration" to="/">
       <p id="main-title">Statsle<sup class="version">Beta</sup></p>
     </router-link>
-    <h3 id="subtitle">All stats of your daily challenges in one place!</h3>
+    <h3 class="large-screen-only">
+      All stats of your daily challenges in one place!
+    </h3>
     <div class="user-state">
       <div>
         <LoggedUser
@@ -34,11 +36,13 @@ const toasterStore = useToasterStore();
           label="Results"
           v-if="userStore.isLoggedIn"
         ></ButtonLink>
-        <ButtonLink
-          path="/list"
-          label="List"
-          v-if="userStore.isLoggedIn"
-        ></ButtonLink>
+        <div class="small-screen-only">
+          <ButtonLink
+            path="/list"
+            label="List"
+            v-if="userStore.isLoggedIn"
+          ></ButtonLink>
+        </div>
         <ButtonLogout v-if="userStore.isLoggedIn"></ButtonLogout>
       </div>
     </div>

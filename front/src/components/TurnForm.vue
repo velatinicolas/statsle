@@ -1,5 +1,8 @@
 <template>
   <div id="turn-form">
+    <div class="large-screen-only">
+      <ChallengesList></ChallengesList>
+    </div>
     <textarea
       class="turn-form-input"
       placeholder="Paste the result of one of your daily challenges!"
