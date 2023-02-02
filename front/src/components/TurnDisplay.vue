@@ -1,9 +1,13 @@
 <template>
   <div class="raw-result" v-if="showRawResult">{{ turn.rawResult }}</div>
   <div @mouseover="showRawResult = true" @mouseleave="showRawResult = false">
-    <a :href="turn.game.challenge.url">{{ turn.game.challenge.name }}</a> #{{
-      turn.game.number
-    }}
+    <a
+      :href="turn.game.challenge.url"
+      target="_blank"
+      rel="noopener noreferer"
+      >{{ turn.game.challenge.name }}</a
+    >
+    #{{ turn.game.number }}
     {{ turn.result === "WON" ? "✅" : "❌" }}
     <span v-if="turn.score"> - score {{ turn.score }}</span>
     <span v-if="turn.combo > 1"> - combo {{ turn.combo }} 🔥</span>
