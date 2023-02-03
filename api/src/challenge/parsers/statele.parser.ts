@@ -5,7 +5,7 @@ import { TurnParser } from "./turn-parser.interface";
 @Injectable()
 export class StateleParser extends TurnParser {
   getChallengeName(): string {
-    return "Worldle";
+    return "Statele";
   }
 
   handles(rawResult: string): boolean {
