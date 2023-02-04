@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { TurnResultEnum } from "../enums/turn-result.enum";
-import { TurnParser } from "./turn-parser.interface";
+import { TurnResultEnum } from "../../enums/turn-result.enum";
+import { TurnParser } from "../turn-parser.interface";
 
 @Injectable()
-export class WorldleParser extends TurnParser {
+export class StateleParser extends TurnParser {
   getChallengeName(): string {
-    return "Worldle";
+    return "Statele";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/#Worldle #[0-9]+/) !== null;
+    return this.getLine(rawResult, 1).match(/#Statele #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
@@ -28,9 +28,10 @@ export class WorldleParser extends TurnParser {
         let bonusScore = this.countOccurrences(bonus, "⭐");
         bonusScore += this.countOccurrences(bonus, "🏙️");
         bonusScore += this.countOccurrences(bonus, "🪙");
-        return score + ` bonus ${bonusScore}/5`;
+        bonusScore += this.countOccurrences(bonus, "📏");
+        return score + ` bonus ${bonusScore}/6`;
       } catch (error) {
-        return score + " bonus 0/5";
+        return score + " bonus 0/6";
       }
     } catch {
       return this.extractData(this.getLine(rawResult, 1), /[0-9]+%/);

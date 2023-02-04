@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { TurnResultEnum } from "../enums/turn-result.enum";
-import { TurnParser } from "./turn-parser.interface";
+import { TurnResultEnum } from "../../enums/turn-result.enum";
+import { TurnParser } from "../turn-parser.interface";
 
 @Injectable()
-export class FramedParser extends TurnParser {
+export class EpisodeParser extends TurnParser {
   getChallengeName(): string {
-    return "Framed";
+    return "Episode";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/^Framed #[0-9]+$/) !== null;
+    return this.getLine(rawResult, 1).match(/^Episode #[0-9]+$/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {

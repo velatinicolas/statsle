@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { TurnResultEnum } from "../enums/turn-result.enum";
-import { TurnParser } from "./turn-parser.interface";
+import { TurnResultEnum } from "../../enums/turn-result.enum";
+import { TurnParser } from "../turn-parser.interface";
 
 @Injectable()
-export class PedantixParser extends TurnParser {
+export class CemantleParser extends TurnParser {
   getChallengeName(): string {
-    return "Pédantix";
+    return "Cemantle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/#pedantix/) !== null;
+    return this.getLine(rawResult, 1).match(/#cemantle/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {

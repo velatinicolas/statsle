@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { TurnResultEnum } from "../enums/turn-result.enum";
-import { TurnParser } from "./turn-parser.interface";
+import { TurnResultEnum } from "../../enums/turn-result.enum";
+import { TurnParser } from "../turn-parser.interface";
 
 @Injectable()
-export class UnlockleParser extends TurnParser {
+export class WaffleParser extends TurnParser {
   getChallengeName(): string {
-    return "Unlockle";
+    return "Waffle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/Unlockle [0-9]+/) !== null;
+    return this.getLine(rawResult, 1).match(/#waffle[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
@@ -18,7 +18,7 @@ export class UnlockleParser extends TurnParser {
 
   extractScore(rawResult: string): string {
     try {
-      return this.extractData(this.getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      return this.extractData(this.getLine(rawResult, 1), /[0-5]+\/[0-5]+/);
     } catch {
       return "";
     }
