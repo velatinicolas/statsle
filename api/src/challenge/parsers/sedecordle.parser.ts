@@ -9,6 +9,10 @@ export class SedecordleParser extends TurnParser {
   }
 
   handles(rawResult: string): boolean {
+    if (!this.getLine(rawResult, 11)) {
+      return false;
+    }
+
     return this.getLine(rawResult, 11).match(/^#sedecordle$/) !== null;
   }
 
