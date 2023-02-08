@@ -20,7 +20,7 @@ export class NerdleParser extends TurnParser {
     return this.extractData(this.getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
+  extractResult(): TurnResultEnum {
     return TurnResultEnum.WON;
   }
 }

@@ -33,19 +33,19 @@ export class SedecordleParser extends TurnParser {
       return `${redSquares / 2} missed`;
     }
 
-    const scores = {
-      "21": /2️⃣1️⃣/,
-      "20": /2️⃣0️⃣/,
-      "19": /1️⃣9️⃣/,
-      "18": /1️⃣8️⃣/,
-      "17": /1️⃣7️⃣/,
-      "16": /1️⃣6️⃣/,
-    };
+    const scores = [
+      ["21", /2️⃣1️⃣/],
+      ["20", /2️⃣0️⃣/],
+      ["19", /1️⃣9️⃣/],
+      ["18", /1️⃣8️⃣/],
+      ["17", /1️⃣7️⃣/],
+      ["16", /1️⃣6️⃣/],
+    ];
 
-    for (const scoreRegex of Object.entries(scores)) {
+    for (const [score, regex] of scores) {
       for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
-        if (this.getLine(rawResult, lineNumber).match(scoreRegex[1])) {
-          return `${scoreRegex[0]} / 21`;
+        if (this.getLine(rawResult, lineNumber).match(regex)) {
+          return `${score} / 21`;
         }
       }
     }
