@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { extractData, getLine } from "../raw-result.helper";
+import { countOccurrences, extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { DuotrigordleScoreInterface } from "./duotrigordle-score.interface";
 
 @Injectable()
-export class DuotrigordleParser implements TurnParserInterface {
+export class DuotrigordleParser implements TurnParserInterface<DuotrigordleScoreInterface> {
   getChallengeName(): string {
     return "Duotrigordle";
   }
@@ -24,6 +25,30 @@ export class DuotrigordleParser implements TurnParserInterface {
       return extractData(getLine(rawResult, 2), /[0-9]+\/[0-9]+/);
     } catch {
       return "";
+    }
+  }
+
+  extractDetailedScore(rawResult: string): DuotrigordleScoreInterface | null {
+    let redSquares = 0;
+    for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
+      redSquares += countOccurrences(
+        getLine(rawResult, lineNumber),
+        "🟥"
+      );
+    }
+
+    if (redSquares > 0) {
+      return {
+        missed: redSquares / 2,
+        attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
+        over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2)
+      }
+    }
+
+    return {
+      missed: 0,
+      attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+      over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
     }
   }
 

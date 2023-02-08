@@ -5,7 +5,7 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { CemantixScoreInterface } from "./cemantix-score.interface";
 
 @Injectable()
-export class CemantixParser implements TurnParserInterface {
+export class CemantixParser implements TurnParserInterface<CemantixScoreInterface> {
   getChallengeName(): string {
     return "Cémantix";
   }
@@ -22,7 +22,7 @@ export class CemantixParser implements TurnParserInterface {
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractDetailedScore(rawResult: string): CemantixScoreInterface {
+  extractDetailedScore(rawResult: string): CemantixScoreInterface | null {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2)
     }

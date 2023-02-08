@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { SutomScoreInterface } from "./sutom-score.interface";
 
 @Injectable()
-export class SutomParser implements TurnParserInterface {
+export class SutomParser implements TurnParserInterface<SutomScoreInterface> {
   getChallengeName(): string {
     return "Sutom";
   }
@@ -22,6 +23,19 @@ export class SutomParser implements TurnParserInterface {
       return extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
     } catch {
       return "";
+    }
+  }
+
+  extractDetailedScore(rawResult: string): SutomScoreInterface | null {
+    try {
+      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    } catch {
+      return null;
+    }
+
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
     }
   }
 

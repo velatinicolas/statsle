@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { PedantixScoreInterface } from "./pedantix-score.interface";
 
 @Injectable()
-export class PedantixParser implements TurnParserInterface {
+export class PedantixParser implements TurnParserInterface<PedantixScoreInterface> {
   getChallengeName(): string {
     return "Pédantix";
   }
@@ -19,6 +20,12 @@ export class PedantixParser implements TurnParserInterface {
 
   extractScore(rawResult: string): string {
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
+  }
+
+  extractDetailedScore(rawResult: string): PedantixScoreInterface | null {
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2)
+    }
   }
 
   extractResult(): TurnResultEnum {

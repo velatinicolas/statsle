@@ -93,6 +93,7 @@ export class TurnService {
       map((lastCombo) => {
         turn.result = turnParser.extractResult(turn.rawResult);
         turn.score = turnParser.extractScore(turn.rawResult);
+        turn.detailedScore = turnParser.extractDetailedScore(turn.rawResult);
         turn.combo = turn.result === TurnResultEnum.WON ? lastCombo + 1 : 0;
 
         return turn;

@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { UnlockleScoreInterface } from "./unlockle-score.interface";
 
 @Injectable()
-export class UnlockleParser implements TurnParserInterface {
+export class UnlockleParser implements TurnParserInterface<UnlockleScoreInterface> {
   getChallengeName(): string {
     return "Unlockle";
   }
@@ -22,6 +23,19 @@ export class UnlockleParser implements TurnParserInterface {
       return extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
     } catch {
       return "";
+    }
+  }
+
+  extractDetailedScore(rawResult: string): UnlockleScoreInterface | null {
+    try {
+      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    } catch {
+      return null;
+    }
+
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
     }
   }
 

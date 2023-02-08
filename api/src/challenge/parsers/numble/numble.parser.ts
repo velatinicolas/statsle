@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { NumbleScoreInterface } from "./numble-score.interface";
 
 @Injectable()
-export class NumbleParser implements TurnParserInterface {
+export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
   getChallengeName(): string {
     return "Numble";
   }
@@ -26,6 +27,21 @@ export class NumbleParser implements TurnParserInterface {
     const time = getLine(rawResult, 5);
 
     return `${time}, ${number}, ${answer}`;
+  }
+
+  extractDetailedScore(rawResult: string): NumbleScoreInterface | null {
+    return {
+      time: getLine(rawResult, 5),
+      answer: +extractData(getLine(rawResult, 4), /[0-9]+/),
+      tilesUsed: +extractData(
+        getLine(rawResult, 3),
+        /[0-9]+/, 1
+      ),
+      over: +extractData(
+        getLine(rawResult, 3),
+        /[0-9]+/, 2
+      ),
+    }
   }
 
   extractResult(rawResult: string): TurnResultEnum {

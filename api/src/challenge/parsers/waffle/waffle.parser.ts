@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { WaffleScoreInterface } from "./waffle-score.interface";
 
 @Injectable()
-export class WaffleParser implements TurnParserInterface {
+export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
   getChallengeName(): string {
     return "Waffle";
   }
@@ -22,6 +23,19 @@ export class WaffleParser implements TurnParserInterface {
       return extractData(getLine(rawResult, 1), /[0-5]+\/[0-5]+/);
     } catch {
       return "";
+    }
+  }
+
+  extractDetailedScore(rawResult: string): WaffleScoreInterface | null {
+    try {
+      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    } catch {
+      return null;
+    }
+
+    return {
+      stars: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
     }
   }
 

@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { extractData, findLines, getLine } from "../raw-result.helper";
+import { countOccurrences, extractData, findLines, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { TusmoSeriesScoreInterface } from "./tusmo-series-score.interface";
 
 @Injectable()
-export class TusmoSeriesParser implements TurnParserInterface {
+export class TusmoSeriesParser implements TurnParserInterface<TusmoSeriesScoreInterface> {
   getChallengeName(): string {
     return "Tusmo suite";
   }
@@ -26,6 +27,22 @@ export class TusmoSeriesParser implements TurnParserInterface {
     const wordsFound = findLines(rawResult, /✅/).length;
 
     return `${wordsFound} / ${totalWords}`;
+  }
+
+  extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface | null {
+    let attempts = 0;
+    for (let lineNumber = 3; lineNumber <= 6; lineNumber++) {
+      attempts += countOccurrences(
+        getLine(rawResult, lineNumber),
+        "🔴"
+      );
+    }
+
+    return {
+      words: findLines(rawResult, /✅/).length,
+      over: findLines(rawResult, /[❌✅]/).length,
+      attempts,
+    }
   }
 
   extractResult(rawResult: string): TurnResultEnum {

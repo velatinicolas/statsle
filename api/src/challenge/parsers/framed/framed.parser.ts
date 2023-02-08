@@ -2,9 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
 import { countOccurrences, extractData, getLine } from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
+import { FramedScoreInterface } from "./framed-score.interface";
 
 @Injectable()
-export class FramedParser implements TurnParserInterface {
+export class FramedParser implements TurnParserInterface<FramedScoreInterface> {
   getChallengeName(): string {
     return "Framed";
   }
@@ -30,6 +31,22 @@ export class FramedParser implements TurnParserInterface {
     return `${redSquaresCount + 1} / ${
       redSquaresCount + greenSquaresCount + blackSquaresCount
     }`;
+  }
+
+  extractDetailedScore(rawResult: string): FramedScoreInterface | null {
+    const lineScore = getLine(rawResult, 2);
+    const redSquaresCount = countOccurrences(lineScore, "🟥");
+    const greenSquaresCount = countOccurrences(lineScore, "🟩");
+    const blackSquaresCount = countOccurrences(lineScore, "⬛");
+
+    if (greenSquaresCount === 0) {
+      return null;
+    }
+
+    return {
+      attempts: redSquaresCount + 1,
+      over: redSquaresCount + greenSquaresCount + blackSquaresCount
+    }
   }
 
   extractResult(rawResult: string): TurnResultEnum {
