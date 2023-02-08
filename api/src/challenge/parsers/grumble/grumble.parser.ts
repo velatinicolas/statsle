@@ -1,24 +1,25 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { extractData, findLine, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
 
 @Injectable()
-export class GrumbleParser extends TurnParser {
+export class GrumbleParser implements TurnParserInterface {
   getChallengeName(): string {
     return "Grumble";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/^@GrumbleFR #[0-9]+/) !== null;
+    return getLine(rawResult, 1).match(/^@GrumbleFR #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    return this.extractData(
-      this.findLine(rawResult, /^Score/),
+    return extractData(
+      findLine(rawResult, /^Score/),
       /[0-9]+ \/ [0-9]+/
     );
   }

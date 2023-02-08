@@ -11,7 +11,7 @@ import { TurnResultEnum } from "../enums/turn-result.enum";
 import { Game } from "./game.entity";
 
 @Entity("turns")
-export class Turn {
+export class Turn<T = Record<string, any>> {
   @PrimaryGeneratedColumn("uuid")
   identifier: string;
 
@@ -29,6 +29,9 @@ export class Turn {
 
   @Column({ type: "text" })
   score: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  detailedScore: T
 
   @Column({ type: "integer", nullable: true })
   combo: number;

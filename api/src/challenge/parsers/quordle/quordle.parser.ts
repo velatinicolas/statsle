@@ -1,28 +1,29 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { countOccurrences, extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
 
 @Injectable()
-export class QuordleParser extends TurnParser {
+export class QuordleParser implements TurnParserInterface {
   getChallengeName(): string {
     return "Quordle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/Daily Quordle [0-9]+/) !== null;
+    return getLine(rawResult, 1).match(/Daily Quordle [0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const firstScoreLine = this.getLine(rawResult, 2);
-    const secondScoreLine = this.getLine(rawResult, 3);
+    const firstScoreLine = getLine(rawResult, 2);
+    const secondScoreLine = getLine(rawResult, 3);
 
     let redSquares = 0;
-    redSquares += this.countOccurrences(this.getLine(rawResult, 2), "🟥");
-    redSquares += this.countOccurrences(this.getLine(rawResult, 3), "🟥");
+    redSquares += countOccurrences(getLine(rawResult, 2), "🟥");
+    redSquares += countOccurrences(getLine(rawResult, 3), "🟥");
 
     if (redSquares > 0) {
       return `${redSquares} missed`;

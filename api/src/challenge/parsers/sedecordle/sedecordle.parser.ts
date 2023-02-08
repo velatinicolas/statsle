@@ -1,30 +1,31 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { countOccurrences, extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
 
 @Injectable()
-export class SedecordleParser extends TurnParser {
+export class SedecordleParser implements TurnParserInterface {
   getChallengeName(): string {
     return "Sedecordle";
   }
 
   handles(rawResult: string): boolean {
-    if (!this.getLine(rawResult, 11)) {
+    if (!getLine(rawResult, 11)) {
       return false;
     }
 
-    return this.getLine(rawResult, 11).match(/^#sedecordle$/) !== null;
+    return getLine(rawResult, 11).match(/^#sedecordle$/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
     let redSquares = 0;
     for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
-      redSquares += this.countOccurrences(
-        this.getLine(rawResult, lineNumber),
+      redSquares += countOccurrences(
+        getLine(rawResult, lineNumber),
         "🟥"
       );
     }
@@ -44,7 +45,7 @@ export class SedecordleParser extends TurnParser {
 
     for (const [score, regex] of scores) {
       for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
-        if (this.getLine(rawResult, lineNumber).match(regex)) {
+        if (getLine(rawResult, lineNumber).match(regex)) {
           return `${score} / 21`;
         }
       }
