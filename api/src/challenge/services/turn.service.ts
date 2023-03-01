@@ -29,21 +29,28 @@ export class TurnService {
     turnParser: TurnParserInterface
   ): Observable<Turn> {
     return from(
-      this.turnRepository.findOneBy({
-        user: { username: user.username },
-        game: { identifier: game.identifier },
+      this.turnRepository.findOne({
+        relations: ["user", "game", "game.challenge"],
+        where: {
+          user: { username: user.username },
+          game: { identifier: game.identifier },
+        },
       })
     ).pipe(
       tap((turn) => {
-        if (turn) {
+        if (turn && !game.challenge.replayable) {
           throw new ConflictException("You already played this game!");
         }
       }),
-      map(() => {
-        const turn = new Turn();
-        turn.user = user;
-        turn.game = game;
-        turn.date = new Date();
+      map((turn) => {
+        if (!turn) {
+          turn = new Turn();
+          turn.user = user;
+          turn.game = game;
+          turn.date = new Date();
+        }
+
+        // Raw result is always overwritten
         turn.rawResult = rawResult;
 
         return turn;

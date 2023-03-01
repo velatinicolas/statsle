@@ -28,6 +28,6 @@ export class GrumbleParser extends TurnParser {
 
     return score.split(" / ")[0] === score.split(" / ")[1]
       ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
+      : TurnResultEnum.ONGOING;
   }
 }

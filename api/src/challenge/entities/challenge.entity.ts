@@ -17,6 +17,9 @@ export class Challenge {
   @Column({ type: "text" })
   url: string;
 
+  @Column({ type: "boolean", default: false })
+  replayable: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

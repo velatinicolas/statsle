@@ -8,7 +8,7 @@
       >{{ turn.game.challenge.name }}</a
     >
     #{{ turn.game.number }}
-    {{ turn.result === "WON" ? "✅" : "❌" }}
+    {{ resultIcon }}
     <span v-if="turn.score"> - score {{ turn.score }}</span>
     <span v-if="turn.combo > 1"> - combo {{ turn.combo }} 🔥</span>
   </div>
@@ -29,6 +29,18 @@ export default defineComponent({
     turn: {
       type: Object as PropType<TurnInterface>,
       required: true,
+    },
+  },
+  computed: {
+    resultIcon() {
+      switch (this.turn.result) {
+        case "WON":
+          return "✅";
+        case "ONGOING":
+          return "🔁";
+        default:
+          return "❌";
+      }
     },
   },
 });
