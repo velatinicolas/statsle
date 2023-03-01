@@ -48,7 +48,20 @@ export default defineComponent({
         `My results of the ${this.groupTitle} on https://www.statsle.fr`,
       ];
       this.turns.forEach((turn) => {
-        const result = turn.result === "WON" ? "✅" : "❌";
+        let result: string
+
+        switch (turn.result) {
+          case "WON":
+            result = "✅";
+            break;
+          case "ONGOING":
+            result = "🔁";
+            break;
+          default:
+            result = "❌";
+            break;
+        }
+
         let line = `➜ ${turn.game.challenge.name} #${turn.game.number} ${result}`;
 
         if (turn.score) {

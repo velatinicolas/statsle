@@ -2,7 +2,7 @@
 
 .PHONY: help
 help: ## Display Makefile available commands
-	@sed -nr 's/^([a-z\-]*): ## (.*)$$/\1;\2/p' Makefile | column -t -s ';'
+	@sed -nr 's/^([a-z\-]*):.*## (.*)$$/\1;\2/p' Makefile | column -t -s ';'
 
 .PHONY: start
 start: ## Up the containers
@@ -20,7 +20,7 @@ down: ## Down the containers
 logs: ## Display all containers logs
 	docker-compose logs -f
 
-.PHONE: deploy-all
+.PHONY: deploy-all
 deploy-all: api-deploy front-deploy ## Deploy Front and API
 
 ### DB
