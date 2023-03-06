@@ -11,6 +11,9 @@
     {{ resultIcon }}
     <span v-if="turn.score"> - score {{ turn.score }}</span>
     <span v-if="turn.combo > 1"> - combo {{ turn.combo }} 🔥</span>
+    <button title="Share" class="share-raw-result" @click="share()">
+      {{ shareButtonLabel }}
+    </button>
   </div>
 </template>
 
@@ -18,11 +21,13 @@
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import type { TurnInterface } from "@/interfaces/from-api.interface";
+import { timer } from "rxjs";
 
 export default defineComponent({
   data() {
     return {
       showRawResult: false,
+      shareButtonLabel: "📋",
     };
   },
   props: {
@@ -41,6 +46,15 @@ export default defineComponent({
         default:
           return "❌";
       }
+    },
+  },
+  methods: {
+    share() {
+      navigator.clipboard.writeText(this.turn.rawResult);
+      this.shareButtonLabel = "✅";
+      timer(2000).subscribe(() => {
+        this.shareButtonLabel = "📋";
+      });
     },
   },
 });

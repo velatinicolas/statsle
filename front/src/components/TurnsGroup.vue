@@ -48,7 +48,7 @@ export default defineComponent({
         `My results of the ${this.groupTitle} on https://www.statsle.fr`,
       ];
       this.turns.forEach((turn) => {
-        let result: string
+        let result: string;
 
         switch (turn.result) {
           case "WON":
