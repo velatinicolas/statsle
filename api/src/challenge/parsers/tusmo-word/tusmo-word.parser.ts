@@ -5,15 +5,15 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { TusmoWordScoreInterface } from "./tusmo-word-score.interface";
 
 @Injectable()
-export class TusmoWordParser implements TurnParserInterface<TusmoWordScoreInterface> {
+export class TusmoWordParser
+  implements TurnParserInterface<TusmoWordScoreInterface>
+{
   getChallengeName(): string {
     return "Tusmo mot";
   }
 
   handles(rawResult: string): boolean {
-    return (
-      getLine(rawResult, 1).match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null
-    );
+    return getLine(rawResult, 1).match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
@@ -36,9 +36,9 @@ export class TusmoWordParser implements TurnParserInterface<TusmoWordScoreInterf
     }
 
     return {
-      attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
-      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
-    }
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

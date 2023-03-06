@@ -1,3 +1,3 @@
 export interface TurnScorerInterface {
-  getScore(rawResult: string): any
+  getScore(rawResult: string): any;
 }

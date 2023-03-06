@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { EpisodeScoreInterface } from "./episode-score.interface";
 
 @Injectable()
-export class EpisodeParser implements TurnParserInterface<EpisodeScoreInterface> {
+export class EpisodeParser
+  implements TurnParserInterface<EpisodeScoreInterface>
+{
   getChallengeName(): string {
     return "Episode";
   }
@@ -45,8 +47,8 @@ export class EpisodeParser implements TurnParserInterface<EpisodeScoreInterface>
 
     return {
       attempts: redSquaresCount + 1,
-      over: redSquaresCount + greenSquaresCount + blackSquaresCount
-    }
+      over: redSquaresCount + greenSquaresCount + blackSquaresCount,
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

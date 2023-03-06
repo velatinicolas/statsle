@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { SedecordleScoreInterface } from "./sedecordle-score.interface";
 
 @Injectable()
-export class SedecordleParser implements TurnParserInterface<SedecordleScoreInterface> {
+export class SedecordleParser
+  implements TurnParserInterface<SedecordleScoreInterface>
+{
   getChallengeName(): string {
     return "Sedecordle";
   }
@@ -25,10 +27,7 @@ export class SedecordleParser implements TurnParserInterface<SedecordleScoreInte
   extractScore(rawResult: string): string {
     let redSquares = 0;
     for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
-      redSquares += countOccurrences(
-        getLine(rawResult, lineNumber),
-        "🟥"
-      );
+      redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
     }
 
     if (redSquares > 0) {
@@ -58,10 +57,7 @@ export class SedecordleParser implements TurnParserInterface<SedecordleScoreInte
   extractDetailedScore(rawResult: string): SedecordleScoreInterface | null {
     let redSquares = 0;
     for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
-      redSquares += countOccurrences(
-        getLine(rawResult, lineNumber),
-        "🟥"
-      );
+      redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
     }
 
     if (redSquares > 0) {
@@ -69,7 +65,7 @@ export class SedecordleParser implements TurnParserInterface<SedecordleScoreInte
         missed: redSquares / 2,
         attempts: 21,
         over: 21,
-      }
+      };
     }
 
     const scores: [number, RegExp][] = [
@@ -88,7 +84,7 @@ export class SedecordleParser implements TurnParserInterface<SedecordleScoreInte
             missed: 0,
             attempts: score,
             over: 21,
-          }
+          };
         }
       }
     }

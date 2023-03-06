@@ -1,4 +1,4 @@
 export interface WaffleScoreInterface {
-  stars: number
+  stars: number;
   over: number;
 }

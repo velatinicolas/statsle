@@ -30,8 +30,8 @@ export class Turn<T = Record<string, any>> {
   @Column({ type: "text" })
   score: string;
 
-  @Column({ type: 'jsonb', nullable: true })
-  detailedScore: T | null
+  @Column({ type: "jsonb", nullable: true })
+  detailedScore: T | null;
 
   @Column({ type: "integer", nullable: true })
   combo: number;

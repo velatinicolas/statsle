@@ -6,9 +6,7 @@ export function findLine(rawResult: string, regex: RegExp): string {
   const foundLine = rawResult.split("\n").find((line) => line.match(regex));
 
   if (!foundLine) {
-    throw new Error(
-      `Line matching regex ${regex} not found in "${rawResult}"`
-    );
+    throw new Error(`Line matching regex ${regex} not found in "${rawResult}"`);
   }
 
   return foundLine;
@@ -18,7 +16,11 @@ export function findLines(rawResult: string, regex: RegExp): string[] {
   return rawResult.split("\n").filter((line) => line.match(regex));
 }
 
-export function extractData(source: string, regex: RegExp, matchIndex = 1): string {
+export function extractData(
+  source: string,
+  regex: RegExp,
+  matchIndex = 1
+): string {
   const match = source.match(new RegExp(regex, "g"));
 
   if (!match) {

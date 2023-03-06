@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { UnlockleScoreInterface } from "./unlockle-score.interface";
 
 @Injectable()
-export class UnlockleParser implements TurnParserInterface<UnlockleScoreInterface> {
+export class UnlockleParser
+  implements TurnParserInterface<UnlockleScoreInterface>
+{
   getChallengeName(): string {
     return "Unlockle";
   }
@@ -36,7 +38,7 @@ export class UnlockleParser implements TurnParserInterface<UnlockleScoreInterfac
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
-    }
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

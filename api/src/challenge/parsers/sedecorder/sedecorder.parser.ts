@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { SedecorderScoreInterface } from "./sedecorder-score.interface";
 
 @Injectable()
-export class SedecorderParser implements TurnParserInterface<SedecorderScoreInterface> {
+export class SedecorderParser
+  implements TurnParserInterface<SedecorderScoreInterface>
+{
   getChallengeName(): string {
     return "Sedecorder";
   }
@@ -24,10 +26,7 @@ export class SedecorderParser implements TurnParserInterface<SedecorderScoreInte
     } catch {
       let redSquares = 0;
       for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
-        redSquares += countOccurrences(
-          getLine(rawResult, lineNumber),
-          "🟥"
-        );
+        redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
       }
       return `${redSquares / 2} missed`;
     }
@@ -36,10 +35,7 @@ export class SedecorderParser implements TurnParserInterface<SedecorderScoreInte
   extractDetailedScore(rawResult: string): SedecorderScoreInterface | null {
     let redSquares = 0;
     for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
-      redSquares += countOccurrences(
-        getLine(rawResult, lineNumber),
-        "🟥"
-      );
+      redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
     }
 
     if (redSquares > 0) {
@@ -47,14 +43,14 @@ export class SedecorderParser implements TurnParserInterface<SedecorderScoreInte
         missed: redSquares / 2,
         attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
         over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
-      }
+      };
     }
 
     return {
       missed: 0,
       attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
       over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
-    }
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

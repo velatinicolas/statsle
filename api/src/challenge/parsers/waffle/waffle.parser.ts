@@ -36,7 +36,7 @@ export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
     return {
       stars: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
-    }
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

@@ -1,11 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { countOccurrences, extractData, findLine, getLine } from "../raw-result.helper";
+import {
+  countOccurrences,
+  extractData,
+  findLine,
+  getLine,
+} from "../raw-result.helper";
 import { TurnParserInterface } from "../turn-parser.interface";
 import { StateleScoreInterface } from "./statele-score.interface";
 
 @Injectable()
-export class StateleParser implements TurnParserInterface<StateleScoreInterface> {
+export class StateleParser
+  implements TurnParserInterface<StateleScoreInterface>
+{
   getChallengeName(): string {
     return "Statele";
   }
@@ -20,10 +27,7 @@ export class StateleParser implements TurnParserInterface<StateleScoreInterface>
 
   extractScore(rawResult: string): string {
     try {
-      const score = extractData(
-        getLine(rawResult, 1),
-        /[0-9]+\/[0-9]+/
-      );
+      const score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
 
       try {
         const bonus = findLine(rawResult, /⭐/);
@@ -42,25 +46,16 @@ export class StateleParser implements TurnParserInterface<StateleScoreInterface>
 
   extractDetailedScore(rawResult: string): StateleScoreInterface | null {
     try {
-      extractData(
-        getLine(rawResult, 1),
-        /[0-9]+\/[0-9]+/
-      );
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return {
-        attempts: +extractData(
-          getLine(rawResult, 1),
-          /[0-9]+/, 2
-        ),
-        attemptsOver: +extractData(
-          getLine(rawResult, 1),
-          /[0-9]+/, 2
-        ),
+        attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+        attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
         percentage: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
         bonuses: 0,
         bonusesOver: 6,
-      }
-    } 
+      };
+    }
 
     const bonus = findLine(rawResult, /⭐/);
     let bonusScore = countOccurrences(bonus, "⭐");
@@ -69,18 +64,12 @@ export class StateleParser implements TurnParserInterface<StateleScoreInterface>
     bonusScore += countOccurrences(bonus, "📏");
 
     return {
-      attempts: +extractData(
-        getLine(rawResult, 1),
-        /[0-9]+/, 2
-      ),
-      attemptsOver: +extractData(
-        getLine(rawResult, 1),
-        /[0-9]+/, 3
-      ),
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
       percentage: 100,
       bonuses: bonusScore,
       bonusesOver: 6,
-    }
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

@@ -36,7 +36,7 @@ export class WordleParser implements TurnParserInterface<WordleScoreInterface> {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
-    }
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

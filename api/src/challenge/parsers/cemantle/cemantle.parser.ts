@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { CemantleScoreInterface } from "./cemantle-score.interface";
 
 @Injectable()
-export class CemantleParser implements TurnParserInterface<CemantleScoreInterface> {
+export class CemantleParser
+  implements TurnParserInterface<CemantleScoreInterface>
+{
   getChallengeName(): string {
     return "Cemantle";
   }
@@ -24,11 +26,11 @@ export class CemantleParser implements TurnParserInterface<CemantleScoreInterfac
 
   extractDetailedScore(rawResult: string): CemantleScoreInterface | null {
     return {
-      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2)
-    }
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+    };
   }
 
-  extractResult(): TurnResultEnum {
+  extractResult(rawResult: string): TurnResultEnum {
     return TurnResultEnum.WON;
   }
 }

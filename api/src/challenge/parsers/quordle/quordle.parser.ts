@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { QuordleScoreInterface } from "./quordle-score.interface";
 
 @Injectable()
-export class QuordleParser implements TurnParserInterface<QuordleScoreInterface> {
+export class QuordleParser
+  implements TurnParserInterface<QuordleScoreInterface>
+{
   getChallengeName(): string {
     return "Quordle";
   }
@@ -57,8 +59,8 @@ export class QuordleParser implements TurnParserInterface<QuordleScoreInterface>
       return {
         attempts: 9,
         over: 9,
-        missed: redSquares
-      }
+        missed: redSquares,
+      };
     }
 
     const highestOnFirstScoreLine =
@@ -76,8 +78,8 @@ export class QuordleParser implements TurnParserInterface<QuordleScoreInterface>
     return {
       attempts: score,
       over: 9,
-      missed: 0
-    }
+      missed: 0,
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

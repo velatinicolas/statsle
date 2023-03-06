@@ -5,7 +5,9 @@ import { TurnParserInterface } from "../turn-parser.interface";
 import { PedantixScoreInterface } from "./pedantix-score.interface";
 
 @Injectable()
-export class PedantixParser implements TurnParserInterface<PedantixScoreInterface> {
+export class PedantixParser
+  implements TurnParserInterface<PedantixScoreInterface>
+{
   getChallengeName(): string {
     return "Pédantix";
   }
@@ -24,8 +26,8 @@ export class PedantixParser implements TurnParserInterface<PedantixScoreInterfac
 
   extractDetailedScore(rawResult: string): PedantixScoreInterface | null {
     return {
-      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2)
-    }
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+    };
   }
 
   extractResult(): TurnResultEnum {

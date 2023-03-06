@@ -45,8 +45,8 @@ export class FramedParser implements TurnParserInterface<FramedScoreInterface> {
 
     return {
       attempts: redSquaresCount + 1,
-      over: redSquaresCount + greenSquaresCount + blackSquaresCount
-    }
+      over: redSquaresCount + greenSquaresCount + blackSquaresCount,
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {

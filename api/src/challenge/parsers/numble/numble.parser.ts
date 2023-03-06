@@ -19,10 +19,7 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
   }
 
   extractScore(rawResult: string): string {
-    const number = extractData(
-      getLine(rawResult, 3),
-      /[0-9]+\/[0-9]+/
-    );
+    const number = extractData(getLine(rawResult, 3), /[0-9]+\/[0-9]+/);
     const answer = extractData(getLine(rawResult, 4), /[0-9]+/);
     const time = getLine(rawResult, 5);
 
@@ -33,15 +30,9 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
     return {
       time: getLine(rawResult, 5),
       answer: +extractData(getLine(rawResult, 4), /[0-9]+/),
-      tilesUsed: +extractData(
-        getLine(rawResult, 3),
-        /[0-9]+/, 1
-      ),
-      over: +extractData(
-        getLine(rawResult, 3),
-        /[0-9]+/, 2
-      ),
-    }
+      tilesUsed: +extractData(getLine(rawResult, 3), /[0-9]+/, 1),
+      over: +extractData(getLine(rawResult, 3), /[0-9]+/, 2),
+    };
   }
 
   extractResult(rawResult: string): TurnResultEnum {
