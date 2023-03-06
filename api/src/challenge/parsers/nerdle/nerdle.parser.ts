@@ -25,8 +25,8 @@ export class NerdleParser implements TurnParserInterface<NerdleScoreInterface> {
   extractDetailedScore(rawResult: string): NerdleScoreInterface | null {
     try {
       return {
-        attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 1),
-        over: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
+        attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+        over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
       };
     } catch {
       return null;

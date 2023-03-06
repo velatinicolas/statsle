@@ -41,8 +41,8 @@ export class SedecorderParser
     if (redSquares > 0) {
       return {
         missed: redSquares / 2,
-        attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
-        over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
+        attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+        over: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
       };
     }
 
