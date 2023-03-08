@@ -923,7 +923,7 @@ https://worldle.teuteuf.fr`,
   },
 ];
 
-// Implement to string to have a clean test output
+// Implement toString to have a clean test output
 testDatas.forEach((testData) => {
   testData.toString = function () {
     return `${testData.parserClass} with detailed score ${JSON.stringify(
