@@ -36,24 +36,20 @@ export class TusmoSeriesParser
     return `${wordsFound} / ${totalWords}`;
   }
 
-  extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface | null {
+  extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface {
     let attempts = 0;
     for (let lineNumber = 3; lineNumber <= 6; lineNumber++) {
       attempts += countOccurrences(getLine(rawResult, lineNumber), "🔴");
     }
 
+    const words = findLines(rawResult, /✅/).length;
+    const over = findLines(rawResult, /[❌✅]/).length;
+
     return {
-      words: findLines(rawResult, /✅/).length,
-      over: findLines(rawResult, /[❌✅]/).length,
+      words,
+      over,
       attempts,
+      result: words === over ? TurnResultEnum.WON : TurnResultEnum.LOST,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    const score = this.extractScore(rawResult);
-
-    return score.split(" / ")[0] === score.split(" / ")[1]
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

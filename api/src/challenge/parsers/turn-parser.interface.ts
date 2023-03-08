@@ -1,10 +1,9 @@
-import { TurnResultEnum } from "../enums/turn-result.enum";
+import { ScoreInterface } from "./score.interface";
 
-export interface TurnParserInterface<T = Record<string, any>> {
+export interface TurnParserInterface<T = ScoreInterface> {
   getChallengeName(): string;
   handles(rawResult: string): boolean;
   extractGameNumber(rawResult: string): number;
-  extractResult(rawResult: string): TurnResultEnum;
   extractScore(rawResult: string): string;
-  extractDetailedScore(rawResult: string): T | null;
+  extractDetailedScore(rawResult: string): T;
 }

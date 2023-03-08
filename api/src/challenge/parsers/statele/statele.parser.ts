@@ -37,7 +37,11 @@ export class StateleParser
     }
 
     try {
-      const bonus = findLine(rawResult, /⭐/, false) || findLine(rawResult, /🏙️/, false) ||findLine(rawResult, /🪙/, false) || findLine(rawResult, /📏/);
+      const bonus =
+        findLine(rawResult, /⭐/, false) ||
+        findLine(rawResult, /🏙️/, false) ||
+        findLine(rawResult, /🪙/, false) ||
+        findLine(rawResult, /📏/);
       bonusScore = countOccurrences(bonus, "⭐");
       bonusScore += countOccurrences(bonus, "🏙️");
       bonusScore += countOccurrences(bonus, "🪙");
@@ -49,7 +53,7 @@ export class StateleParser
     return `${score || percentage} bonus ${bonusScore}/6`;
   }
 
-  extractDetailedScore(rawResult: string): StateleScoreInterface | null {
+  extractDetailedScore(rawResult: string): StateleScoreInterface {
     let score = "";
     let percentage = 100;
     let bonusScore: number;
@@ -57,11 +61,18 @@ export class StateleParser
     try {
       score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      percentage = +extractData(extractData(getLine(rawResult, 1), /[0-9]+%/), /[0-9]+/);
+      percentage = +extractData(
+        extractData(getLine(rawResult, 1), /[0-9]+%/),
+        /[0-9]+/
+      );
     }
 
     try {
-      const bonus = findLine(rawResult, /⭐/, false) || findLine(rawResult, /🏙️/, false) ||findLine(rawResult, /🪙/, false) || findLine(rawResult, /📏/);
+      const bonus =
+        findLine(rawResult, /⭐/, false) ||
+        findLine(rawResult, /🏙️/, false) ||
+        findLine(rawResult, /🪙/, false) ||
+        findLine(rawResult, /📏/);
       bonusScore = countOccurrences(bonus, "⭐");
       bonusScore += countOccurrences(bonus, "🏙️");
       bonusScore += countOccurrences(bonus, "🪙");
@@ -72,16 +83,15 @@ export class StateleParser
 
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
-      attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, percentage === 100 ? 3 : 2),
+      attemptsOver: +extractData(
+        getLine(rawResult, 1),
+        /[0-9]+/,
+        percentage === 100 ? 3 : 2
+      ),
       percentage,
       bonuses: bonusScore,
       bonusesOver: 6,
+      result: percentage === 100 ? TurnResultEnum.WON : TurnResultEnum.LOST,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractDetailedScore(rawResult)?.percentage === 100
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

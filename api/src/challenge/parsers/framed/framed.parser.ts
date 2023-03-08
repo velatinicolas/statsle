@@ -33,7 +33,7 @@ export class FramedParser implements TurnParserInterface<FramedScoreInterface> {
     }`;
   }
 
-  extractDetailedScore(rawResult: string): FramedScoreInterface | null {
+  extractDetailedScore(rawResult: string): FramedScoreInterface {
     const lineScore = getLine(rawResult, 2);
     const redSquaresCount = countOccurrences(lineScore, "🟥");
     const greenSquaresCount = countOccurrences(lineScore, "🟩");
@@ -43,18 +43,14 @@ export class FramedParser implements TurnParserInterface<FramedScoreInterface> {
       return {
         attempts: redSquaresCount + blackSquaresCount,
         over: redSquaresCount + blackSquaresCount,
+        result: TurnResultEnum.LOST,
       };
     }
 
     return {
       attempts: redSquaresCount + 1,
       over: redSquaresCount + greenSquaresCount + blackSquaresCount,
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

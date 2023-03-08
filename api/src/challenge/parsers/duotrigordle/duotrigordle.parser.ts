@@ -28,7 +28,7 @@ export class DuotrigordleParser
     }
   }
 
-  extractDetailedScore(rawResult: string): DuotrigordleScoreInterface | null {
+  extractDetailedScore(rawResult: string): DuotrigordleScoreInterface {
     let redSquares = 0;
     for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
       redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
@@ -39,6 +39,7 @@ export class DuotrigordleParser
         missed: redSquares / 2,
         attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
         over: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+        result: TurnResultEnum.LOST,
       };
     }
 
@@ -46,12 +47,7 @@ export class DuotrigordleParser
       missed: 0,
       attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
       over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

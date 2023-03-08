@@ -26,25 +26,21 @@ export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
     }
   }
 
-  extractDetailedScore(rawResult: string): WaffleScoreInterface | null {
+  extractDetailedScore(rawResult: string): WaffleScoreInterface {
     try {
       extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return {
         stars: 0,
         over: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+        result: TurnResultEnum.LOST,
       };
     }
 
     return {
       stars: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

@@ -26,18 +26,15 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
     return `${time}, ${number}, ${answer}`;
   }
 
-  extractDetailedScore(rawResult: string): NumbleScoreInterface | null {
+  extractDetailedScore(rawResult: string): NumbleScoreInterface {
+    const solved = extractData(getLine(rawResult, 2), /[❌✅]/);
+
     return {
       time: getLine(rawResult, 5),
       answer: +extractData(getLine(rawResult, 4), /[0-9.]+/),
       tilesUsed: +extractData(getLine(rawResult, 3), /[0-9]+/, 1),
       over: +extractData(getLine(rawResult, 3), /[0-9]+/, 2),
+      result: solved === "✅" ? TurnResultEnum.WON : TurnResultEnum.LOST,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    const solved = extractData(getLine(rawResult, 2), /[❌✅]/);
-
-    return solved === "✅" ? TurnResultEnum.WON : TurnResultEnum.LOST;
   }
 }

@@ -54,7 +54,7 @@ export class SedecordleParser
     throw new Error("Unable to extract score");
   }
 
-  extractDetailedScore(rawResult: string): SedecordleScoreInterface | null {
+  extractDetailedScore(rawResult: string): SedecordleScoreInterface {
     let redSquares = 0;
     for (let lineNumber = 2; lineNumber <= 9; lineNumber++) {
       redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
@@ -65,6 +65,7 @@ export class SedecordleParser
         missed: redSquares / 2,
         attempts: 21,
         over: 21,
+        result: TurnResultEnum.LOST,
       };
     }
 
@@ -84,17 +85,12 @@ export class SedecordleParser
             missed: 0,
             attempts: score,
             over: 21,
+            result: TurnResultEnum.WON,
           };
         }
       }
     }
 
     throw new Error("Unable to extract score");
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("missed")
-      ? TurnResultEnum.LOST
-      : TurnResultEnum.WON;
   }
 }

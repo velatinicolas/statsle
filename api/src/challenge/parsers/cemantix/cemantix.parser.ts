@@ -24,13 +24,10 @@ export class CemantixParser
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractDetailedScore(rawResult: string): CemantixScoreInterface | null {
+  extractDetailedScore(rawResult: string): CemantixScoreInterface {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(_rawResult: string): TurnResultEnum {
-    return TurnResultEnum.WON;
   }
 }

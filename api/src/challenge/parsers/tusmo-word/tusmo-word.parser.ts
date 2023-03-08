@@ -28,25 +28,21 @@ export class TusmoWordParser
     }
   }
 
-  extractDetailedScore(rawResult: string): TusmoWordScoreInterface | null {
+  extractDetailedScore(rawResult: string): TusmoWordScoreInterface {
     try {
       extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return {
         attempts: 6, // TODO count real lines
         over: 6, // TODO count real lines
+        result: TurnResultEnum.LOST,
       };
     }
 
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

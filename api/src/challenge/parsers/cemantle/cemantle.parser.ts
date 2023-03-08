@@ -24,13 +24,10 @@ export class CemantleParser
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractDetailedScore(rawResult: string): CemantleScoreInterface | null {
+  extractDetailedScore(rawResult: string): CemantleScoreInterface {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return TurnResultEnum.WON;
   }
 }

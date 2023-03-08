@@ -26,25 +26,21 @@ export class WordleParser implements TurnParserInterface<WordleScoreInterface> {
     }
   }
 
-  extractDetailedScore(rawResult: string): WordleScoreInterface | null {
+  extractDetailedScore(rawResult: string): WordleScoreInterface {
     try {
       extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return {
         attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
         over: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+        result: TurnResultEnum.LOST,
       };
     }
 
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
       over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

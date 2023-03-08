@@ -35,7 +35,7 @@ export class EpisodeParser
     }`;
   }
 
-  extractDetailedScore(rawResult: string): EpisodeScoreInterface | null {
+  extractDetailedScore(rawResult: string): EpisodeScoreInterface {
     const lineScore = getLine(rawResult, 2);
     const redSquaresCount = countOccurrences(lineScore, "🟥");
     const greenSquaresCount = countOccurrences(lineScore, "🟩");
@@ -45,18 +45,14 @@ export class EpisodeParser
       return {
         attempts: redSquaresCount + blackSquaresCount,
         over: redSquaresCount + blackSquaresCount,
+        result: TurnResultEnum.LOST,
       };
     }
 
     return {
       attempts: redSquaresCount + 1,
       over: redSquaresCount + greenSquaresCount + blackSquaresCount,
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
   }
 }

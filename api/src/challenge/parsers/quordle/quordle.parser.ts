@@ -47,7 +47,7 @@ export class QuordleParser
     return `${score} / 9`;
   }
 
-  extractDetailedScore(rawResult: string): QuordleScoreInterface | null {
+  extractDetailedScore(rawResult: string): QuordleScoreInterface {
     const firstScoreLine = getLine(rawResult, 2);
     const secondScoreLine = getLine(rawResult, 3);
 
@@ -60,6 +60,7 @@ export class QuordleParser
         attempts: 9,
         over: 9,
         missed: redSquares,
+        result: TurnResultEnum.LOST,
       };
     }
 
@@ -79,12 +80,7 @@ export class QuordleParser
       attempts: score,
       over: 9,
       missed: 0,
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("missed")
-      ? TurnResultEnum.LOST
-      : TurnResultEnum.WON;
   }
 }

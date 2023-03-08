@@ -24,13 +24,10 @@ export class PedantleParser
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractDetailedScore(rawResult: string): PedantleScoreInterface | null {
+  extractDetailedScore(rawResult: string): PedantleScoreInterface {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(): TurnResultEnum {
-    return TurnResultEnum.WON;
   }
 }

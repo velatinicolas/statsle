@@ -22,18 +22,11 @@ export class NerdleParser implements TurnParserInterface<NerdleScoreInterface> {
     return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
   }
 
-  extractDetailedScore(rawResult: string): NerdleScoreInterface | null {
-    try {
-      return {
-        attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
-        over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
-      };
-    } catch {
-      return null;
-    }
-  }
-
-  extractResult(): TurnResultEnum {
-    return TurnResultEnum.WON;
+  extractDetailedScore(rawResult: string): NerdleScoreInterface {
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
+    };
   }
 }

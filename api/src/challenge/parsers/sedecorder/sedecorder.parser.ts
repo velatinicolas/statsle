@@ -32,7 +32,7 @@ export class SedecorderParser
     }
   }
 
-  extractDetailedScore(rawResult: string): SedecorderScoreInterface | null {
+  extractDetailedScore(rawResult: string): SedecorderScoreInterface {
     let redSquares = 0;
     for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
       redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
@@ -43,6 +43,7 @@ export class SedecorderParser
         missed: redSquares / 2,
         attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
         over: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+        result: TurnResultEnum.LOST,
       };
     }
 
@@ -50,12 +51,7 @@ export class SedecorderParser
       missed: 0,
       attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
       over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("missed")
-      ? TurnResultEnum.LOST
-      : TurnResultEnum.WON;
   }
 }

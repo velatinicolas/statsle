@@ -24,18 +24,14 @@ export class GrumbleParser
     return extractData(findLine(rawResult, /^Score/), /[0-9]+ \/ [0-9]+/);
   }
 
-  extractDetailedScore(rawResult: string): GrumbleScoreInterface | null {
+  extractDetailedScore(rawResult: string): GrumbleScoreInterface {
+    const score = +extractData(findLine(rawResult, /^Score/), /[0-9]+/, 1);
+    const over = +extractData(findLine(rawResult, /^Score/), /[0-9]+/, 2);
+
     return {
-      score: +extractData(findLine(rawResult, /^Score/), /[0-9]+/, 1),
-      over: +extractData(findLine(rawResult, /^Score/), /[0-9]+/, 2),
+      score,
+      over,
+      result: score === over ? TurnResultEnum.WON : TurnResultEnum.ONGOING,
     };
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    const score = this.extractScore(rawResult);
-
-    return score.split(" / ")[0] === score.split(" / ")[1]
-      ? TurnResultEnum.WON
-      : TurnResultEnum.ONGOING;
   }
 }

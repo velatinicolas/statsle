@@ -24,13 +24,10 @@ export class PedantixParser
     return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
   }
 
-  extractDetailedScore(rawResult: string): PedantixScoreInterface | null {
+  extractDetailedScore(rawResult: string): PedantixScoreInterface {
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
     };
-  }
-
-  extractResult(): TurnResultEnum {
-    return TurnResultEnum.WON;
   }
 }
