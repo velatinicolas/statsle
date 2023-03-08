@@ -19,7 +19,7 @@ export class NerdleParser implements TurnParserInterface<NerdleScoreInterface> {
   }
 
   extractScore(rawResult: string): string {
-    return extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
   }
 
   extractDetailedScore(rawResult: string): NerdleScoreInterface | null {

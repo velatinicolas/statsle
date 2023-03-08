@@ -2,10 +2,12 @@ export function getLine(rawResult: string, lineNumber: number): string {
   return rawResult.split("\n")[lineNumber - 1];
 }
 
-export function findLine(rawResult: string, regex: RegExp): string {
+export function findLine(rawResult: string, regex: RegExp, throwException: false): string | undefined
+export function findLine(rawResult: string, regex: RegExp): string
+export function findLine(rawResult: string, regex: RegExp, throwException = true): string | undefined {
   const foundLine = rawResult.split("\n").find((line) => line.match(regex));
 
-  if (!foundLine) {
+  if (!foundLine && !throwException) {
     throw new Error(`Line matching regex ${regex} not found in "${rawResult}"`);
   }
 

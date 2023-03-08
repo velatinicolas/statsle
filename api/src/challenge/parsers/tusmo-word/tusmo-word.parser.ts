@@ -22,7 +22,7 @@ export class TusmoWordParser
 
   extractScore(rawResult: string): string {
     try {
-      return extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return "";
     }
@@ -30,9 +30,12 @@ export class TusmoWordParser
 
   extractDetailedScore(rawResult: string): TusmoWordScoreInterface | null {
     try {
-      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      return null;
+      return {
+        attempts: 6, // TODO count real lines
+        over: 6, // TODO count real lines
+      };
     }
 
     return {

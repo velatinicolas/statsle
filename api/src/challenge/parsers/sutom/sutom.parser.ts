@@ -20,7 +20,7 @@ export class SutomParser implements TurnParserInterface<SutomScoreInterface> {
 
   extractScore(rawResult: string): string {
     try {
-      return extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return "";
     }
@@ -28,14 +28,17 @@ export class SutomParser implements TurnParserInterface<SutomScoreInterface> {
 
   extractDetailedScore(rawResult: string): SutomScoreInterface | null {
     try {
-      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      return null;
+      return {
+        attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+        over: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      };
     }
 
     return {
-      attempts: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
-      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
     };
   }
 

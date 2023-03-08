@@ -26,138 +26,62 @@ export class StateleParser
   }
 
   extractScore(rawResult: string): string {
-    try {
-      const score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
+    let score = "";
+    let percentage = "";
+    let bonusScore: number;
 
-      try {
-        const bonus = findLine(rawResult, /⭐/);
-        let bonusScore = countOccurrences(bonus, "⭐");
-        bonusScore += countOccurrences(bonus, "🏙️");
-        bonusScore += countOccurrences(bonus, "🪙");
-        bonusScore += countOccurrences(bonus, "📏");
-        return score + ` bonus ${bonusScore}/6`;
-      } catch (error) {
-        return score + " bonus 0/6";
-      }
+    try {
+      score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      return extractData(getLine(rawResult, 1), /[0-9]+%/);
+      percentage = extractData(getLine(rawResult, 1), /[0-9]+%/);
     }
+
+    try {
+      const bonus = findLine(rawResult, /⭐/, false) || findLine(rawResult, /🏙️/, false) ||findLine(rawResult, /🪙/, false) || findLine(rawResult, /📏/);
+      bonusScore = countOccurrences(bonus, "⭐");
+      bonusScore += countOccurrences(bonus, "🏙️");
+      bonusScore += countOccurrences(bonus, "🪙");
+      bonusScore += countOccurrences(bonus, "📏");
+    } catch {
+      bonusScore = 0;
+    }
+
+    return `${score || percentage} bonus ${bonusScore}/6`;
   }
 
   extractDetailedScore(rawResult: string): StateleScoreInterface | null {
+    let score = "";
+    let percentage = 100;
+    let bonusScore: number;
+
     try {
-      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
+      score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      return {
-        attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
-        attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
-        percentage: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
-        bonuses: 0,
-        bonusesOver: 6,
-      };
+      percentage = +extractData(extractData(getLine(rawResult, 1), /[0-9]+%/), /[0-9]+/);
     }
 
-    const bonus = findLine(rawResult, /⭐/);
-    let bonusScore = countOccurrences(bonus, "⭐");
-    bonusScore += countOccurrences(bonus, "🏙️");
-    bonusScore += countOccurrences(bonus, "🪙");
-    bonusScore += countOccurrences(bonus, "📏");
+    try {
+      const bonus = findLine(rawResult, /⭐/, false) || findLine(rawResult, /🏙️/, false) ||findLine(rawResult, /🪙/, false) || findLine(rawResult, /📏/);
+      bonusScore = countOccurrences(bonus, "⭐");
+      bonusScore += countOccurrences(bonus, "🏙️");
+      bonusScore += countOccurrences(bonus, "🪙");
+      bonusScore += countOccurrences(bonus, "📏");
+    } catch {
+      bonusScore = 0;
+    }
 
     return {
       attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
-      attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
-      percentage: 100,
+      attemptsOver: +extractData(getLine(rawResult, 1), /[0-9]+/, percentage === 100 ? 3 : 2),
+      percentage,
       bonuses: bonusScore,
       bonusesOver: 6,
     };
   }
 
   extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("bonus")
+    return this.extractDetailedScore(rawResult)?.percentage === 100
       ? TurnResultEnum.WON
       : TurnResultEnum.LOST;
   }
 }
-
-
-/*
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-https://statele.teuteuf.fr
-
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-
-https://statele.teuteuf.fr
-
-
-#Statele #89 1/6 (100%)
-🟩🟩🟩🟩🟩🎉
-https://statele.teuteuf.fr
-
-
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-⭐
-https://statele.teuteuf.fr
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-
-https://statele.teuteuf.fr
-
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-⭐⭐
-https://statele.teuteuf.fr
-
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-⭐🪙
-https://statele.teuteuf.fr
-
-
-#Statele #89 X/6 (71%)
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-🟩🟩🟩🟨⬜⬅️
-⭐⭐⭐📏🏙️🪙
-https://statele.teuteuf.fr
-*/

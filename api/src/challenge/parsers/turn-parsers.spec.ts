@@ -431,7 +431,361 @@ sedecordle.com
     expectedDetailedScore: { attempts: 21, over: 21, missed: 0 },
     expectedResult: TurnResultEnum.WON,
   },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 X/6 (71%)
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+https://statele.teuteuf.fr`,
+    expectedScore: "71% bonus 0/6",
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 71, bonuses: 0, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 1/6 (100%)
+🟩🟩🟩🟩🟩🎉
+https://statele.teuteuf.fr`,
+    expectedScore: "1/6 bonus 0/6",
+    expectedDetailedScore: { attempts: 1, attemptsOver: 6, percentage: 100, bonuses: 0, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 X/6 (71%)
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+⭐
+https://statele.teuteuf.fr`,
+    expectedScore: "71% bonus 1/6",
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 71, bonuses: 1, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 X/6 (71%)
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+⭐⭐
+https://statele.teuteuf.fr`,
+    expectedScore: "71% bonus 2/6",
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 71, bonuses: 2, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 X/6 (71%)
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+⭐🪙
+https://statele.teuteuf.fr`,
+    expectedScore: "71% bonus 2/6",
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 71, bonuses: 2, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #89 X/6 (71%)
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+🟩🟩🟩🟨⬜⬅️
+⭐⭐⭐📏🏙️🪙
+https://statele.teuteuf.fr`,
+    expectedScore: "71% bonus 6/6",
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 71, bonuses: 6, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'statele',
+    rawResult: `#Statele #91 1/6 (100%)
+🟩🟩🟩🟩🟩🎉
+⭐⭐⭐📏🏙️🪙
+https://statele.teuteuf.fr`,
+    expectedScore: "1/6 bonus 6/6",
+    expectedDetailedScore: { attempts: 1, attemptsOver: 6, percentage: 100, bonuses: 6, bonusesOver: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'sutom',
+    rawResult: `#SUTOM #425 3/6
 
+🟥🟦🟡🟦🟦🟡
+🟥🟥🟦🟦🟦🟥
+🟥🟥🟥🟥🟥🟥
+
+https://sutom.nocle.fr`,
+    expectedScore: "3/6",
+    expectedDetailedScore: { attempts: 3, over: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'sutom',
+    rawResult: `#SUTOM #425 -/6
+
+🟥🟦🟡🟦🟦🟡
+🟥🟦🟡🟦🟦🟡
+🟥🟦🟡🟦🟦🟡
+🟥🟦🟡🟦🟦🟡
+🟥🟦🟡🟦🟦🟡
+🟥🟦🟡🟦🟦🟡
+
+https://sutom.nocle.fr`,
+    expectedScore: "",
+    expectedDetailedScore: { attempts: 6, over: 6 },
+    expectedResult: TurnResultEnum.LOST
+  },
+  {
+    parserClass: 'tusmo-series',
+    rawResult: `🇫🇷 TUSMO (@tusmo_xyz) Suite de mots #395
+
+6 lettres ✅  - 🔴🔴🔴🔴
+7 lettres ✅  - 🔴🔴🔴🔴
+8 lettres ✅  - 🔴🔴🔴🔴🔴
+9 lettres ✅  - 🔴🔴
+
+https://www.tusmo.xyz`,
+    expectedScore: "4 / 4",
+    expectedDetailedScore: { words: 4, over: 4, attempts: 15 },
+    expectedResult: TurnResultEnum.WON
+  },
+  {
+    parserClass: 'tusmo-series',
+    rawResult: `🇫🇷 TUSMO (@tusmo_xyz) Suite de mots #395
+
+6 lettres ✅  - 🔴🔴🔴🔴🔴
+7 lettres ✅  - 🔴🔴
+8 lettres ❌ 
+9 lettres ❌ 
+
+https://www.tusmo.xyz`,
+    expectedScore: "2 / 4",
+    expectedDetailedScore: { words: 2, over: 4, attempts: 7 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'tusmo-word',
+    rawResult: `🇫🇷 TUSMO (@tusmo_xyz) #402 - 3/6
+
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟥⬛️🟨🟨🟨⬛️⬛️
+🟥🟥🟥🟥🟥🟥🟥🟥
+
+https://www.tusmo.xyz`,
+    expectedScore: "3/6",
+    expectedDetailedScore: { attempts: 3, over: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'tusmo-word',
+    rawResult: `🇫🇷 TUSMO (@tusmo_xyz) #402 
+
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+🟥🟨⬛️⬛️🟨⬛️⬛️🟥
+
+https://www.tusmo.xyz`,
+    expectedScore: "",
+    expectedDetailedScore: { attempts: 6, over: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'unlockle',
+    rawResult: `Unlockle 381 6/6*
+
+⚪⚪🟢🟡⚪
+🟡🟡🟡🟢⚪
+🟡🟡🟡🟡🟡
+🟢🟡🟡🟡🟢
+🟢🟡🟡🟡🟢
+🟢🟢🟢🟢🟢
+
+@unlockle https://unlockle.app`,
+    expectedScore: "6/6",
+    expectedDetailedScore: { attempts: 6, over: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'unlockle',
+    rawResult: `Unlockle 381 X/6*
+
+⚪⚪🟢🟡⚪
+⚪⚪🟢🟡⚪
+⚪⚪🟢🟡⚪
+⚪⚪🟢🟡⚪
+⚪⚪🟢🟡⚪
+⚪⚪🟢🟡⚪
+
+@unlockle https://unlockle.app`,
+    expectedScore: "",
+    expectedDetailedScore: { attempts: 6, over: 6 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'waffle',
+    rawResult: `#waffle365 0/5
+
+🟩🟩🟩🟩🟩
+🟩⬜🟩⬜🟩
+🟩🟩🟩🟩🟩
+🟩⬜🟩⬜🟩
+🟩🟩🟩🟩🟩
+
+🔥 streak: 13
+wafflegame.net`,
+    expectedScore: '0/5',
+    expectedDetailedScore: { stars: 0, over: 5 },
+    expectedResult: TurnResultEnum.WON
+  },
+  {
+    parserClass: 'waffle',
+    rawResult: `#waffle411 5/5
+
+🟩🟩🟩🟩🟩
+🟩⭐🟩⭐🟩
+🟩🟩⭐🟩🟩
+🟩⭐🟩⭐🟩
+🟩🟩🟩🟩🟩
+
+🔥 streak: 1
+wafflegame.net`,
+    expectedScore: '5/5',
+    expectedDetailedScore: { stars: 5, over: 5 },
+    expectedResult: TurnResultEnum.WON
+  },
+  {
+    parserClass: 'waffle',
+    rawResult: `#waffle387 3/5
+
+🟩🟩🟩🟩🟩
+🟩⭐🟩⬜🟩
+🟩🟩⭐🟩🟩
+🟩⬜🟩⭐🟩
+🟩🟩🟩🟩🟩
+
+🔥 streak: 7
+wafflegame.net`,
+    expectedScore: '3/5',
+    expectedDetailedScore: { stars: 3, over: 5 },
+    expectedResult: TurnResultEnum.WON
+  },
+  {
+    parserClass: 'waffle',
+    rawResult: `#waffle394 X/5
+
+🟩🟩🟩🟩🟩
+🟩⬜⬛⬜🟩
+🟩🟩🟩🟩🟩
+🟩⬜⬛⬜🟩
+🟩🟩🟩🟩🟩
+
+💔 streak: 0
+wafflegame.net`,
+    expectedScore: "",
+    expectedDetailedScore: { stars: 0, over: 5 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'wordle',
+    rawResult: `Wordle 599 X/6
+
+🟨🟩🟨⬛⬛
+🟨🟨⬛⬛🟨
+⬛⬛⬛⬛⬛
+⬛⬛⬛⬛⬛
+⬛🟩🟩🟩⬛
+⬛🟩🟩🟩⬛`,
+    expectedScore: "",
+    expectedDetailedScore: { attempts: 6, over: 6},
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'wordle',
+    rawResult: `Wordle 597 6/6
+
+⬛⬛🟨⬛🟨
+⬛⬛⬛⬛⬛
+⬛🟩🟩⬛⬛
+⬛🟩🟩⬛⬛
+⬛🟩🟩⬛🟩
+🟩🟩🟩🟩🟩`,
+    expectedScore: '6/6',
+    expectedDetailedScore: { attempts: 6, over: 6 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'worldle',
+    rawResult: `#Worldle #381 X/6 (96%)
+🟩🟩🟨⬛⬛↙️
+🟩🟩🟩🟩⬛⬇️
+🟩🟩🟩🟨⬛⬇️
+🟩🟩🟩🟩🟨⬅️
+🟩🟩🟩🟩🟨⬅️
+🟩🟩🟩🟩⬛↙️
+https://worldle.teuteuf.fr`,
+    expectedScore: '96% bonus 0/5',
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 96, bonuses: 0, bonusesOver: 5 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'worldle',
+    rawResult: `#Worldle #405 X/6 (95%)
+🟩🟩🟨⬜⬜⬅️
+🟩🟩🟩🟨⬜⬇️
+🟩🟩🟩🟩⬜↘️
+🟩🟩🟩🟩🟨⬆️
+🟩🟩🟩🟨⬜↘️
+🟩🟩🟩🟩⬜⬆️
+⭐⭐🏙️
+https://worldle.teuteuf.fr`,
+    expectedScore: '95% bonus 3/5',
+    expectedDetailedScore: { attempts: 6, attemptsOver: 6, percentage: 95, bonuses: 3, bonusesOver: 5 },
+    expectedResult: TurnResultEnum.LOST,
+  },
+  {
+    parserClass: 'worldle',
+    rawResult: `#Worldle #395 4/6 (100%)
+🟩🟩🟨⬛⬛⬇️
+🟩🟩🟩🟩⬛⬇️
+🟩🟩🟩🟩🟨➡️
+🟩🟩🟩🟩🟩🎉
+⭐
+https://worldle.teuteuf.fr`,
+    expectedScore: '4/6 bonus 1/5',
+    expectedDetailedScore: { attempts: 4, attemptsOver: 6, percentage: 100, bonuses: 1, bonusesOver: 5 },
+    expectedResult: TurnResultEnum.WON,
+  },
+  {
+    parserClass: 'worldle',
+    rawResult: `#Worldle #394 1/6 (100%)
+🟩🟩🟩🟩🟩🎉
+⭐⭐⭐🏙️🪙
+https://worldle.teuteuf.fr`,
+    expectedScore: '1/6 bonus 5/5',
+    expectedDetailedScore: { attempts: 1, attemptsOver: 6, percentage: 100, bonuses: 5, bonusesOver: 5 },
+    expectedResult: TurnResultEnum.WON,
+  },
 ];
 
 // Implement to string to have a clean test output

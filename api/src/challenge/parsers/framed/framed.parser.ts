@@ -40,7 +40,10 @@ export class FramedParser implements TurnParserInterface<FramedScoreInterface> {
     const blackSquaresCount = countOccurrences(lineScore, "⬛");
 
     if (greenSquaresCount === 0) {
-      return null;
+      return {
+        attempts: redSquaresCount + blackSquaresCount,
+        over: redSquaresCount + blackSquaresCount,
+      };
     }
 
     return {

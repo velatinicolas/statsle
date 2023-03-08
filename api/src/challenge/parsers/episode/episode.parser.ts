@@ -42,7 +42,10 @@ export class EpisodeParser
     const blackSquaresCount = countOccurrences(lineScore, "⬛");
 
     if (greenSquaresCount === 0) {
-      return null;
+      return {
+        attempts: redSquaresCount + blackSquaresCount,
+        over: redSquaresCount + blackSquaresCount,
+      };
     }
 
     return {

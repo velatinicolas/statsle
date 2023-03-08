@@ -20,7 +20,7 @@ export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
 
   extractScore(rawResult: string): string {
     try {
-      return extractData(getLine(rawResult, 1), /[0-5]+\/[0-5]+/);
+      return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       return "";
     }
@@ -28,14 +28,17 @@ export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
 
   extractDetailedScore(rawResult: string): WaffleScoreInterface | null {
     try {
-      extractData(getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
-      return null;
+      return {
+        stars: 0,
+        over: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      };
     }
 
     return {
-      stars: +extractData(getLine(rawResult, 1), /[0-6]+/, 2),
-      over: +extractData(getLine(rawResult, 1), /[0-6]+/, 3),
+      stars: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
     };
   }
 
