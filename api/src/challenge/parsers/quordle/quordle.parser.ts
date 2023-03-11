@@ -21,30 +21,13 @@ export class QuordleParser
   }
 
   extractScore(rawResult: string): string {
-    const firstScoreLine = getLine(rawResult, 2);
-    const secondScoreLine = getLine(rawResult, 3);
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    let redSquares = 0;
-    redSquares += countOccurrences(getLine(rawResult, 2), "🟥");
-    redSquares += countOccurrences(getLine(rawResult, 3), "🟥");
-
-    if (redSquares > 0) {
-      return `${redSquares} missed`;
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.over}`;
     }
 
-    const highestOnFirstScoreLine =
-      9 -
-      ["9️⃣", "8️⃣", "7️⃣", "6️⃣", "5️⃣", "4️⃣", "3️⃣", "2️⃣", "1️⃣"].findIndex(
-        (score) => firstScoreLine.includes(score)
-      );
-    const highestOnSecondScoreLine =
-      9 -
-      ["9️⃣", "8️⃣", "7️⃣", "6️⃣", "5️⃣", "4️⃣", "3️⃣", "2️⃣", "1️⃣"].findIndex(
-        (score) => secondScoreLine.includes(score)
-      );
-    const score = Math.max(highestOnFirstScoreLine, highestOnSecondScoreLine);
-
-    return `${score} / 9`;
+    return `${detailedScore.missed} missed`;
   }
 
   extractDetailedScore(rawResult: string): QuordleScoreInterface {

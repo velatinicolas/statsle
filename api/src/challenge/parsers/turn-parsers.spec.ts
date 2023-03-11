@@ -64,7 +64,7 @@ Guesses: 36/37
 1️⃣5️⃣ 1️⃣6️⃣ 3️⃣6️⃣ 3️⃣2️⃣
 1️⃣8️⃣ 1️⃣9️⃣ 2️⃣0️⃣ 1️⃣7️⃣
 https://duotrigordle.com/`,
-    expectedScore: "36/37",
+    expectedScore: "36 / 37",
     expectedDetailedScore: {
       attempts: 36,
       over: 37,
@@ -85,7 +85,7 @@ Guesses: X/37
 2️⃣5️⃣ 3️⃣5️⃣ 0️⃣8️⃣ 0️⃣9️⃣
 3️⃣6️⃣ 1️⃣0️⃣ 3️⃣7️⃣ 1️⃣1️⃣
 https://duotrigordle.com/`,
-    expectedScore: "",
+    expectedScore: "3 missed",
     expectedDetailedScore: {
       attempts: 37,
       over: 37,
@@ -201,7 +201,7 @@ https://www.grumble.fr`,
 🟪🟪⬛🟪🟪🟩⬛⬛
 🟪⬛🟪⬛⬛🟩⬛⬛
 🟩🟩🟩🟩🟩🟩🟩🟩 https://nerdlegame.com/`,
-    expectedScore: "4/6",
+    expectedScore: "4 / 6",
     expectedDetailedScore: { attempts: 4, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -212,7 +212,7 @@ Numbers used: 3/6
 Final answer: 300
 5.878s
 https://numble.wtf`,
-    expectedScore: "5.878s, 3/6, 300",
+    expectedScore: "5.878s, 3 / 6, 300",
     expectedDetailedScore: {
       time: "5.878s",
       tilesUsed: 3,
@@ -229,7 +229,7 @@ Numbers used: 5/6
 Final answer: 939.5
 6m 27.799s
 https://numble.wtf`,
-    expectedScore: "6m 27.799s, 5/6, 939.5",
+    expectedScore: "6m 27.799s, 5 / 6, 939.5",
     expectedDetailedScore: {
       time: "6m 27.799s",
       tilesUsed: 5,
@@ -370,7 +370,7 @@ Guesses: 20/21
 1️⃣9️⃣ 2️⃣0️⃣
 https://sedecordle.com/
 #sedecordle  #sedecorder`,
-    expectedScore: "20/21",
+    expectedScore: "20 / 21",
     expectedDetailedScore: {
       attempts: 20,
       over: 21,
@@ -414,7 +414,7 @@ Guesses: 21/21
 2️⃣0️⃣ 2️⃣1️⃣
 https://sedecordle.com/
 #sedecordle  #sedecorder`,
-    expectedScore: "21/21",
+    expectedScore: "21 / 21",
     expectedDetailedScore: {
       attempts: 21,
       over: 21,
@@ -498,7 +498,7 @@ sedecordle.com
 🟩🟩🟩🟨⬜⬅️
 🟩🟩🟩🟨⬜⬅️
 https://statele.teuteuf.fr`,
-    expectedScore: "71% bonus 0/6",
+    expectedScore: "71%, bonus 0 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -513,7 +513,7 @@ https://statele.teuteuf.fr`,
     rawResult: `#Statele #89 1/6 (100%)
 🟩🟩🟩🟩🟩🎉
 https://statele.teuteuf.fr`,
-    expectedScore: "1/6 bonus 0/6",
+    expectedScore: "1 / 6, bonus 0 / 6",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -534,7 +534,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐
 https://statele.teuteuf.fr`,
-    expectedScore: "71% bonus 1/6",
+    expectedScore: "71%, bonus 1 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -555,7 +555,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐⭐
 https://statele.teuteuf.fr`,
-    expectedScore: "71% bonus 2/6",
+    expectedScore: "71%, bonus 2 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -576,7 +576,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "71% bonus 2/6",
+    expectedScore: "71%, bonus 2 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -597,7 +597,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐⭐⭐📏🏙️🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "71% bonus 6/6",
+    expectedScore: "71%, bonus 6 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -613,7 +613,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐⭐⭐📏🏙️🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "1/6 bonus 6/6",
+    expectedScore: "1 / 6, bonus 6 / 6",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -632,7 +632,7 @@ https://statele.teuteuf.fr`,
 🟥🟥🟥🟥🟥🟥
 
 https://sutom.nocle.fr`,
-    expectedScore: "3/6",
+    expectedScore: "3 / 6",
     expectedDetailedScore: { attempts: 3, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -664,7 +664,7 @@ https://sutom.nocle.fr`,
 9 lettres ✅  - 🔴🔴
 
 https://www.tusmo.xyz`,
-    expectedScore: "4 / 4",
+    expectedScore: "15",
     expectedDetailedScore: {
       words: 4,
       over: 4,
@@ -699,7 +699,7 @@ https://www.tusmo.xyz`,
 🟥🟥🟥🟥🟥🟥🟥🟥
 
 https://www.tusmo.xyz`,
-    expectedScore: "3/6",
+    expectedScore: "3 / 6",
     expectedDetailedScore: { attempts: 3, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -733,7 +733,7 @@ https://www.tusmo.xyz`,
 🟢🟢🟢🟢🟢
 
 @unlockle https://unlockle.app`,
-    expectedScore: "6/6",
+    expectedScore: "6 / 6",
     expectedDetailedScore: { attempts: 6, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -767,7 +767,7 @@ https://www.tusmo.xyz`,
 
 🔥 streak: 13
 wafflegame.net`,
-    expectedScore: "0/5",
+    expectedScore: "0 / 5",
     expectedDetailedScore: { stars: 0, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -782,7 +782,7 @@ wafflegame.net`,
 
 🔥 streak: 1
 wafflegame.net`,
-    expectedScore: "5/5",
+    expectedScore: "5 / 5",
     expectedDetailedScore: { stars: 5, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -797,7 +797,7 @@ wafflegame.net`,
 
 🔥 streak: 7
 wafflegame.net`,
-    expectedScore: "3/5",
+    expectedScore: "3 / 5",
     expectedDetailedScore: { stars: 3, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -842,7 +842,7 @@ wafflegame.net`,
 ⬛🟩🟩⬛⬛
 ⬛🟩🟩⬛🟩
 🟩🟩🟩🟩🟩`,
-    expectedScore: "6/6",
+    expectedScore: "6 / 6",
     expectedDetailedScore: { attempts: 6, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -855,7 +855,7 @@ wafflegame.net`,
 🟩🟩🟩🟩🟨⬅️
 🟩🟩🟩🟩⬛↙️
 https://worldle.teuteuf.fr`,
-    expectedScore: "96% bonus 0/5",
+    expectedScore: "96%, bonus 0 / 5",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -876,7 +876,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩⬜⬆️
 ⭐⭐🏙️
 https://worldle.teuteuf.fr`,
-    expectedScore: "95% bonus 3/5",
+    expectedScore: "95%, bonus 3 / 5",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -895,7 +895,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐
 https://worldle.teuteuf.fr`,
-    expectedScore: "4/6 bonus 1/5",
+    expectedScore: "4 / 6, bonus 1 / 5",
     expectedDetailedScore: {
       attempts: 4,
       attemptsOver: 6,
@@ -911,7 +911,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐⭐⭐🏙️🪙
 https://worldle.teuteuf.fr`,
-    expectedScore: "1/6 bonus 5/5",
+    expectedScore: "1 / 6, bonus 5 / 5",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -955,3 +955,13 @@ describe("Turn parsers", () => {
     }
   );
 });
+
+/*
+I got a score of 4254 on today's Chronophoto: 11/03/2023
+Round 1: 924
+Round 2: 849
+Round 3: 924
+Round 4: 708
+Round 5: 849
+https://www.chronophoto.app/daily.html
+*/

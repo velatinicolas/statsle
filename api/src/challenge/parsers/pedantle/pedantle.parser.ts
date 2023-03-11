@@ -21,7 +21,9 @@ export class PedantleParser
   }
 
   extractScore(rawResult: string): string {
-    return extractData(getLine(rawResult, 1), /[0-9]+/, 2);
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    return `${detailedScore.attempts}`;
   }
 
   extractDetailedScore(rawResult: string): PedantleScoreInterface {

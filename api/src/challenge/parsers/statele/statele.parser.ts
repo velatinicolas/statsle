@@ -26,40 +26,21 @@ export class StateleParser
   }
 
   extractScore(rawResult: string): string {
-    let score = "";
-    let percentage = "";
-    let bonusScore: number;
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    try {
-      score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
-    } catch {
-      percentage = extractData(getLine(rawResult, 1), /[0-9]+%/);
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.attemptsOver}, bonus ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
     }
 
-    try {
-      const bonus =
-        findLine(rawResult, /⭐/, false) ||
-        findLine(rawResult, /🏙️/, false) ||
-        findLine(rawResult, /🪙/, false) ||
-        findLine(rawResult, /📏/);
-      bonusScore = countOccurrences(bonus, "⭐");
-      bonusScore += countOccurrences(bonus, "🏙️");
-      bonusScore += countOccurrences(bonus, "🪙");
-      bonusScore += countOccurrences(bonus, "📏");
-    } catch {
-      bonusScore = 0;
-    }
-
-    return `${score || percentage} bonus ${bonusScore}/6`;
+    return `${detailedScore.percentage}%, bonus ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
   }
 
   extractDetailedScore(rawResult: string): StateleScoreInterface {
-    let score = "";
     let percentage = 100;
     let bonusScore: number;
 
     try {
-      score = extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
     } catch {
       percentage = +extractData(
         extractData(getLine(rawResult, 1), /[0-9]+%/),

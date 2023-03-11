@@ -19,11 +19,13 @@ export class WordleParser implements TurnParserInterface<WordleScoreInterface> {
   }
 
   extractScore(rawResult: string): string {
-    try {
-      return extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
-    } catch {
-      return "";
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.over}`;
     }
+
+    return "";
   }
 
   extractDetailedScore(rawResult: string): WordleScoreInterface {

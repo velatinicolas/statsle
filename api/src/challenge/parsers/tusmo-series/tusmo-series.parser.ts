@@ -30,10 +30,13 @@ export class TusmoSeriesParser
   }
 
   extractScore(rawResult: string): string {
-    const totalWords = findLines(rawResult, /[❌✅]/).length;
-    const wordsFound = findLines(rawResult, /✅/).length;
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${wordsFound} / ${totalWords}`;
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts}`;
+    }
+
+    return `${detailedScore.words} / ${detailedScore.over}`;
   }
 
   extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface {

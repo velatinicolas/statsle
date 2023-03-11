@@ -21,18 +21,13 @@ export class EpisodeParser
   }
 
   extractScore(rawResult: string): string {
-    const lineScore = getLine(rawResult, 2);
-    const redSquaresCount = countOccurrences(lineScore, "🟥");
-    const greenSquaresCount = countOccurrences(lineScore, "🟩");
-    const blackSquaresCount = countOccurrences(lineScore, "⬛");
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    if (greenSquaresCount === 0) {
-      return "";
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.over}`;
     }
 
-    return `${redSquaresCount + 1} / ${
-      redSquaresCount + greenSquaresCount + blackSquaresCount
-    }`;
+    return "";
   }
 
   extractDetailedScore(rawResult: string): EpisodeScoreInterface {

@@ -21,7 +21,9 @@ export class GrumbleParser
   }
 
   extractScore(rawResult: string): string {
-    return extractData(findLine(rawResult, /^Score/), /[0-9]+ \/ [0-9]+/);
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    return `${detailedScore.score} / ${detailedScore.over}`;
   }
 
   extractDetailedScore(rawResult: string): GrumbleScoreInterface {

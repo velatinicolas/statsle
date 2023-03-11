@@ -21,11 +21,13 @@ export class DuotrigordleParser
   }
 
   extractScore(rawResult: string): string {
-    try {
-      return extractData(getLine(rawResult, 2), /[0-9]+\/[0-9]+/);
-    } catch {
-      return "";
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.over}`;
     }
+
+    return `${detailedScore.missed} missed`;
   }
 
   extractDetailedScore(rawResult: string): DuotrigordleScoreInterface {

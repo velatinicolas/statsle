@@ -21,15 +21,13 @@ export class SedecorderParser
   }
 
   extractScore(rawResult: string): string {
-    try {
-      return extractData(getLine(rawResult, 2), /[0-9]+\/[0-9]+/);
-    } catch {
-      let redSquares = 0;
-      for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
-        redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
-      }
-      return `${redSquares / 2} missed`;
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `${detailedScore.attempts} / ${detailedScore.over}`;
     }
+
+    return `${detailedScore.missed} missed`;
   }
 
   extractDetailedScore(rawResult: string): SedecorderScoreInterface {
