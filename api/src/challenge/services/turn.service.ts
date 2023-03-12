@@ -128,26 +128,3 @@ export class TurnService {
     );
   }
 }
-/*
-Cemantle
-Cémantix
-Duotrigordle
-Episode
-Framed        OK
-Grumble
-Nerdle
-Numble
-Pedantle
-Pédantix
-Quordle
-Sedecorder
-Sedecordle
-Statele
-Sutom
-Tusmo mot
-Tusmo suite
-Unlockle
-Waffle
-Wordle        OK
-Worldle
-*/

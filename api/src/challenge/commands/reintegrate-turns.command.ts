@@ -7,7 +7,7 @@ import { Turn } from "../entities/turn.entity";
 import { TurnParserChain } from "../parsers/parser-chain.service";
 import { TurnService } from "../services/turn.service";
 
-@Command({ name: "reintegrateTurns", description: "A parameter parse" })
+@Command({ name: "reintegrateTurns", description: "reintegrate all turns, combos and scores will be updated." })
 export class ReintegrateTurnsCommand extends CommandRunner {
   private readonly logger = new Logger();
 
