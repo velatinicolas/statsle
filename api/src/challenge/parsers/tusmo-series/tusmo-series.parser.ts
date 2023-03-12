@@ -1,37 +1,58 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import {
+  countOccurrences,
+  extractData,
+  findLines,
+  getLine,
+} from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { TusmoSeriesScoreInterface } from "./tusmo-series-score.interface";
 
 @Injectable()
-export class TusmoSeriesParser extends TurnParser {
+export class TusmoSeriesParser
+  implements TurnParserInterface<TusmoSeriesScoreInterface>
+{
   getChallengeName(): string {
     return "Tusmo suite";
   }
 
   handles(rawResult: string): boolean {
     return (
-      this.getLine(rawResult, 1).match(
+      getLine(rawResult, 1).match(
         /TUSMO \(@tusmo_xyz\) Suite de mots #[0-9]+/
       ) !== null
     );
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const totalWords = this.findLines(rawResult, /[❌✅]/).length;
-    const wordsFound = this.findLines(rawResult, /✅/).length;
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${wordsFound} / ${totalWords}`;
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `Attempts: ${detailedScore.attempts}`;
+    }
+
+    return `Missed: ${detailedScore.over - detailedScore.words}`;
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
-    const score = this.extractScore(rawResult);
+  extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface {
+    let attempts = 0;
+    for (let lineNumber = 3; lineNumber <= 6; lineNumber++) {
+      attempts += countOccurrences(getLine(rawResult, lineNumber), "🔴");
+    }
 
-    return score.split(" / ")[0] === score.split(" / ")[1]
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
+    const words = findLines(rawResult, /✅/).length;
+    const over = findLines(rawResult, /[❌✅]/).length;
+
+    return {
+      words,
+      over,
+      attempts,
+      result: words === over ? TurnResultEnum.WON : TurnResultEnum.LOST,
+    };
   }
 }

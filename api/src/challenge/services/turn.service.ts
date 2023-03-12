@@ -91,8 +91,10 @@ export class TurnService {
   ): Observable<Turn> {
     return this.getLastCombo(turn.user, turn.game).pipe(
       map((lastCombo) => {
-        turn.result = turnParser.extractResult(turn.rawResult);
+        const detailedScore = turnParser.extractDetailedScore(turn.rawResult);
+        turn.result = detailedScore.result;
         turn.score = turnParser.extractScore(turn.rawResult);
+        turn.detailedScore = detailedScore;
         turn.combo = turn.result === TurnResultEnum.WON ? lastCombo + 1 : 0;
 
         return turn;

@@ -1,35 +1,44 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { NumbleScoreInterface } from "./numble-score.interface";
 
 @Injectable()
-export class NumbleParser extends TurnParser {
+export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
   getChallengeName(): string {
     return "Numble";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/^Numble [0-9]+$/) !== null;
+    return getLine(rawResult, 1).match(/^Numble [0-9]+$/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const number = this.extractData(
-      this.getLine(rawResult, 3),
-      /[0-9]+\/[0-9]+/
-    );
-    const answer = this.extractData(this.getLine(rawResult, 4), /[0-9]+/);
-    const time = this.getLine(rawResult, 5);
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${time}, ${number}, ${answer}`;
+    let score = `Time: ${detailedScore.time}, numbers used: ${detailedScore.numbersUsed} / ${detailedScore.over}`;
+
+    if (detailedScore.result === TurnResultEnum.LOST) {
+      score += `, final answer: ${detailedScore.answer}`;
+    }
+
+    return score;
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
-    const solved = this.extractData(this.getLine(rawResult, 2), /[❌✅]/);
+  extractDetailedScore(rawResult: string): NumbleScoreInterface {
+    const solved = extractData(getLine(rawResult, 2), /[❌✅]/);
 
-    return solved === "✅" ? TurnResultEnum.WON : TurnResultEnum.LOST;
+    return {
+      time: getLine(rawResult, 5),
+      answer: +extractData(getLine(rawResult, 4), /[0-9.]+/),
+      numbersUsed: +extractData(getLine(rawResult, 3), /[0-9]+/, 1),
+      over: +extractData(getLine(rawResult, 3), /[0-9]+/, 2),
+      result: solved === "✅" ? TurnResultEnum.WON : TurnResultEnum.LOST,
+    };
   }
 }

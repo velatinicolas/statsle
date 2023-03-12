@@ -1,46 +1,78 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import {
+  countOccurrences,
+  extractData,
+  findLine,
+  getLine,
+} from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { StateleScoreInterface } from "./statele-score.interface";
 
 @Injectable()
-export class StateleParser extends TurnParser {
+export class StateleParser
+  implements TurnParserInterface<StateleScoreInterface>
+{
   getChallengeName(): string {
     return "Statele";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/#Statele #[0-9]+/) !== null;
+    return getLine(rawResult, 1).match(/#Statele #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    try {
-      const score = this.extractData(
-        this.getLine(rawResult, 1),
-        /[0-9]+\/[0-9]+/
-      );
+    const detailedScore = this.extractDetailedScore(rawResult);
 
-      try {
-        const bonus = this.findLine(rawResult, /⭐/);
-        let bonusScore = this.countOccurrences(bonus, "⭐");
-        bonusScore += this.countOccurrences(bonus, "🏙️");
-        bonusScore += this.countOccurrences(bonus, "🪙");
-        bonusScore += this.countOccurrences(bonus, "📏");
-        return score + ` bonus ${bonusScore}/6`;
-      } catch (error) {
-        return score + " bonus 0/6";
-      }
-    } catch {
-      return this.extractData(this.getLine(rawResult, 1), /[0-9]+%/);
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.attemptsOver}, bonuses: ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
     }
+
+    return `Closest: ${detailedScore.percentage}%, bonuses: ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("bonus")
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
+  extractDetailedScore(rawResult: string): StateleScoreInterface {
+    let percentage = 100;
+    let bonusScore: number;
+
+    try {
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
+    } catch {
+      percentage = +extractData(
+        extractData(getLine(rawResult, 1), /[0-9]+%/),
+        /[0-9]+/
+      );
+    }
+
+    try {
+      const bonus =
+        findLine(rawResult, /⭐/, false) ||
+        findLine(rawResult, /🏙️/, false) ||
+        findLine(rawResult, /🪙/, false) ||
+        findLine(rawResult, /📏/);
+      bonusScore = countOccurrences(bonus, "⭐");
+      bonusScore += countOccurrences(bonus, "🏙️");
+      bonusScore += countOccurrences(bonus, "🪙");
+      bonusScore += countOccurrences(bonus, "📏");
+    } catch {
+      bonusScore = 0;
+    }
+
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      attemptsOver: +extractData(
+        getLine(rawResult, 1),
+        /[0-9]+/,
+        percentage === 100 ? 3 : 2
+      ),
+      percentage,
+      bonuses: bonusScore,
+      bonusesOver: 6,
+      result: percentage === 100 ? TurnResultEnum.WON : TurnResultEnum.LOST,
+    };
   }
 }

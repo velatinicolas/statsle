@@ -56,8 +56,8 @@ api-generate-jwt-key: ## Generate a JWT key
 api-generate-encryption-key: ## Generate an encryption key
 	openssl rand -base64 32 | cut -c1-32
 
-.PHONY: front-build
-api-build: ## Build project, specifies npm folder to bypass a right access bug
+.PHONY: api-build
+api-build: ## Build project
 	docker-compose exec api bash -c "npm run build"
 	cp api/.env.prod api/dist/.env
 	cp api/package*.json api/dist/

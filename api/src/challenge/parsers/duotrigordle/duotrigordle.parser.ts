@@ -1,34 +1,55 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { countOccurrences, extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { DuotrigordleScoreInterface } from "./duotrigordle-score.interface";
 
 @Injectable()
-export class DuotrigordleParser extends TurnParser {
+export class DuotrigordleParser
+  implements TurnParserInterface<DuotrigordleScoreInterface>
+{
   getChallengeName(): string {
     return "Duotrigordle";
   }
 
   handles(rawResult: string): boolean {
-    return (
-      this.getLine(rawResult, 1).match(/Daily Duotrigordle #[0-9]+/) !== null
-    );
+    return getLine(rawResult, 1).match(/Daily Duotrigordle #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    try {
-      return this.extractData(this.getLine(rawResult, 2), /[0-9]+\/[0-9]+/);
-    } catch {
-      return "";
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
     }
+
+    return `Missed: ${detailedScore.missed}`;
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
+  extractDetailedScore(rawResult: string): DuotrigordleScoreInterface {
+    let redSquares = 0;
+    for (let lineNumber = 3; lineNumber <= 10; lineNumber++) {
+      redSquares += countOccurrences(getLine(rawResult, lineNumber), "🟥");
+    }
+
+    if (redSquares > 0) {
+      return {
+        missed: redSquares / 2,
+        attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+        over: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+        result: TurnResultEnum.LOST,
+      };
+    }
+
+    return {
+      missed: 0,
+      attempts: +extractData(getLine(rawResult, 2), /[0-9]+/, 1),
+      over: +extractData(getLine(rawResult, 2), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
+    };
   }
 }

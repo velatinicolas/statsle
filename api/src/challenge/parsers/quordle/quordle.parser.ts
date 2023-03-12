@@ -1,31 +1,50 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { countOccurrences, extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { QuordleScoreInterface } from "./quordle-score.interface";
 
 @Injectable()
-export class QuordleParser extends TurnParser {
+export class QuordleParser
+  implements TurnParserInterface<QuordleScoreInterface>
+{
   getChallengeName(): string {
     return "Quordle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/Daily Quordle [0-9]+/) !== null;
+    return getLine(rawResult, 1).match(/Daily Quordle [0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    const firstScoreLine = this.getLine(rawResult, 2);
-    const secondScoreLine = this.getLine(rawResult, 3);
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
+    }
+
+    return `Missed: ${detailedScore.missed}`;
+  }
+
+  extractDetailedScore(rawResult: string): QuordleScoreInterface {
+    const firstScoreLine = getLine(rawResult, 2);
+    const secondScoreLine = getLine(rawResult, 3);
 
     let redSquares = 0;
-    redSquares += this.countOccurrences(this.getLine(rawResult, 2), "🟥");
-    redSquares += this.countOccurrences(this.getLine(rawResult, 3), "🟥");
+    redSquares += countOccurrences(getLine(rawResult, 2), "🟥");
+    redSquares += countOccurrences(getLine(rawResult, 3), "🟥");
 
     if (redSquares > 0) {
-      return `${redSquares} missed`;
+      return {
+        attempts: 9,
+        over: 9,
+        missed: redSquares,
+        result: TurnResultEnum.LOST,
+      };
     }
 
     const highestOnFirstScoreLine =
@@ -40,12 +59,11 @@ export class QuordleParser extends TurnParser {
       );
     const score = Math.max(highestOnFirstScoreLine, highestOnSecondScoreLine);
 
-    return `${score} / 9`;
-  }
-
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult).includes("missed")
-      ? TurnResultEnum.LOST
-      : TurnResultEnum.WON;
+    return {
+      attempts: score,
+      over: 9,
+      missed: 0,
+      result: TurnResultEnum.WON,
+    };
   }
 }

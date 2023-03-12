@@ -1,34 +1,50 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { TusmoWordScoreInterface } from "./tusmo-word-score.interface";
 
 @Injectable()
-export class TusmoWordParser extends TurnParser {
+export class TusmoWordParser
+  implements TurnParserInterface<TusmoWordScoreInterface>
+{
   getChallengeName(): string {
     return "Tusmo mot";
   }
 
   handles(rawResult: string): boolean {
-    return (
-      this.getLine(rawResult, 1).match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null
-    );
+    return getLine(rawResult, 1).match(/TUSMO \(@tusmo_xyz\) #[0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    try {
-      return this.extractData(this.getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
-    } catch {
-      return "";
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    if (detailedScore.result === TurnResultEnum.WON) {
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
     }
+
+    return "";
   }
 
-  extractResult(rawResult: string): TurnResultEnum {
-    return this.extractScore(rawResult)
-      ? TurnResultEnum.WON
-      : TurnResultEnum.LOST;
+  extractDetailedScore(rawResult: string): TusmoWordScoreInterface {
+    try {
+      extractData(getLine(rawResult, 1), /[0-9]+\/[0-9]+/);
+    } catch {
+      return {
+        attempts: 6, // TODO count real lines
+        over: 6, // TODO count real lines
+        result: TurnResultEnum.LOST,
+      };
+    }
+
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
+    };
   }
 }

@@ -1,26 +1,35 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { PedantixScoreInterface } from "./pedantix-score.interface";
 
 @Injectable()
-export class PedantixParser extends TurnParser {
+export class PedantixParser
+  implements TurnParserInterface<PedantixScoreInterface>
+{
   getChallengeName(): string {
     return "Pédantix";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/#pedantix/) !== null;
+    return getLine(rawResult, 1).match(/#pedantix/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    return this.extractData(this.getLine(rawResult, 1), /[0-9]+/, 2);
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    return `Attempts: ${detailedScore.attempts}`;
   }
 
-  extractResult(): TurnResultEnum {
-    return TurnResultEnum.WON;
+  extractDetailedScore(rawResult: string): PedantixScoreInterface {
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      result: TurnResultEnum.WON,
+    };
   }
 }

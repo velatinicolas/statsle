@@ -1,26 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { TurnResultEnum } from "../../enums/turn-result.enum";
-import { TurnParser } from "../turn-parser.interface";
+import { extractData, getLine } from "../raw-result.helper";
+import { TurnParserInterface } from "../turn-parser.interface";
+import { NerdleScoreInterface } from "./nerdle-score.interface";
 
 @Injectable()
-export class NerdleParser extends TurnParser {
+export class NerdleParser implements TurnParserInterface<NerdleScoreInterface> {
   getChallengeName(): string {
     return "Nerdle";
   }
 
   handles(rawResult: string): boolean {
-    return this.getLine(rawResult, 1).match(/nerdlegame [0-9]+/) !== null;
+    return getLine(rawResult, 1).match(/nerdlegame [0-9]+/) !== null;
   }
 
   extractGameNumber(rawResult: string): number {
-    return +this.extractData(this.getLine(rawResult, 1), /[0-9]+/);
+    return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
   extractScore(rawResult: string): string {
-    return this.extractData(this.getLine(rawResult, 1), /[0-6]+\/[0-6]+/);
+    const detailedScore = this.extractDetailedScore(rawResult);
+
+    return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
   }
 
-  extractResult(): TurnResultEnum {
-    return TurnResultEnum.WON;
+  extractDetailedScore(rawResult: string): NerdleScoreInterface {
+    return {
+      attempts: +extractData(getLine(rawResult, 1), /[0-9]+/, 2),
+      over: +extractData(getLine(rawResult, 1), /[0-9]+/, 3),
+      result: TurnResultEnum.WON,
+    };
   }
 }
