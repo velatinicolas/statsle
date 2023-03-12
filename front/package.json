@@ -3,7 +3,7 @@
   "version": "0.14.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --clearScreen=false",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest --environment jsdom --root src/",

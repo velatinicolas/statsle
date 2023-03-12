@@ -6,6 +6,7 @@ services:
     network_mode: host
     stdin_open: true
     tty: true
+    command: ["npm", "run", "start:dev"]
     volumes:
       - ./api:/usr/app/
   db:
@@ -22,6 +23,7 @@ services:
     network_mode: host
     stdin_open: true
     tty: true
+    command: ["npm", "run", "dev"]
     working_dir: /usr/app
     volumes:
       - ./front:/usr/app/
