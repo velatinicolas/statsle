@@ -21,7 +21,13 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
   extractScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${detailedScore.time}, ${detailedScore.tilesUsed} / ${detailedScore.over}, ${detailedScore.answer}`;
+    let score = `Time: ${detailedScore.time}, numbers used: ${detailedScore.numbersUsed} / ${detailedScore.over}`;
+
+    if (detailedScore.result === TurnResultEnum.LOST) {
+      score += `, final answer: ${detailedScore.answer}`;
+    }
+
+    return score;
   }
 
   extractDetailedScore(rawResult: string): NumbleScoreInterface {
@@ -30,7 +36,7 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
     return {
       time: getLine(rawResult, 5),
       answer: +extractData(getLine(rawResult, 4), /[0-9.]+/),
-      tilesUsed: +extractData(getLine(rawResult, 3), /[0-9]+/, 1),
+      numbersUsed: +extractData(getLine(rawResult, 3), /[0-9]+/, 1),
       over: +extractData(getLine(rawResult, 3), /[0-9]+/, 2),
       result: solved === "✅" ? TurnResultEnum.WON : TurnResultEnum.LOST,
     };

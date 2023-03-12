@@ -16,7 +16,7 @@ const testDatas: TurnParsersTestData[] = [
   🥳
   🔥
   https://cemantix.certitudes.org/`,
-    expectedScore: "2",
+    expectedScore: "Attempts: 2",
     expectedDetailedScore: { attempts: 2, result: TurnResultEnum.WON },
   },
   {
@@ -25,7 +25,7 @@ const testDatas: TurnParsersTestData[] = [
   🥳
   🔥
   https://cemantix.certitudes.org/`,
-    expectedScore: "236",
+    expectedScore: "Attempts: 236",
     expectedDetailedScore: { attempts: 236, result: TurnResultEnum.WON },
   },
   {
@@ -37,7 +37,7 @@ const testDatas: TurnParsersTestData[] = [
 😎1️⃣6️⃣
 🥶🥶🥶🥶4️⃣2️⃣
 🧊3️⃣`,
-    expectedScore: "74",
+    expectedScore: "Attempts: 74",
     expectedDetailedScore: { attempts: 74, result: TurnResultEnum.WON },
   },
   {
@@ -48,7 +48,7 @@ const testDatas: TurnParsersTestData[] = [
 😎2️⃣
 🥶1️⃣8️⃣
 🧊3️⃣`,
-    expectedScore: "25",
+    expectedScore: "Attempts: 25",
     expectedDetailedScore: { attempts: 25, result: TurnResultEnum.WON },
   },
   {
@@ -64,7 +64,7 @@ Guesses: 36/37
 1️⃣5️⃣ 1️⃣6️⃣ 3️⃣6️⃣ 3️⃣2️⃣
 1️⃣8️⃣ 1️⃣9️⃣ 2️⃣0️⃣ 1️⃣7️⃣
 https://duotrigordle.com/`,
-    expectedScore: "36 / 37",
+    expectedScore: "Attempts: 36 / 37",
     expectedDetailedScore: {
       attempts: 36,
       over: 37,
@@ -85,7 +85,7 @@ Guesses: X/37
 2️⃣5️⃣ 3️⃣5️⃣ 0️⃣8️⃣ 0️⃣9️⃣
 3️⃣6️⃣ 1️⃣0️⃣ 3️⃣7️⃣ 1️⃣1️⃣
 https://duotrigordle.com/`,
-    expectedScore: "3 missed",
+    expectedScore: "Missed: 3",
     expectedDetailedScore: {
       attempts: 37,
       over: 37,
@@ -99,7 +99,7 @@ https://duotrigordle.com/`,
 📺 🟩 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 
 https://episode.wtf`,
-    expectedScore: "1 / 10",
+    expectedScore: "Attempts: 1 / 10",
     expectedDetailedScore: {
       attempts: 1,
       over: 10,
@@ -112,7 +112,7 @@ https://episode.wtf`,
 📺 🟥 🟥 🟥 🟩 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 
 https://episode.wtf`,
-    expectedScore: "4 / 10",
+    expectedScore: "Attempts: 4 / 10",
     expectedDetailedScore: {
       attempts: 4,
       over: 10,
@@ -151,7 +151,7 @@ https://framed.wtf`,
 🎥 🟥 🟥 🟥 🟥 🟥 🟩
 
 https://framed.wtf`,
-    expectedScore: "6 / 6",
+    expectedScore: "Attempts: 6 / 6",
     expectedDetailedScore: { attempts: 6, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -160,7 +160,7 @@ https://framed.wtf`,
 🎥 🟩 ⬛ ⬛ ⬛ ⬛ ⬛
 
 https://framed.wtf`,
-    expectedScore: "1 / 6",
+    expectedScore: "Attempts: 1 / 6",
     expectedDetailedScore: { attempts: 1, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -173,7 +173,7 @@ https://framed.wtf`,
 Score: 65 / 65
 
 https://www.grumble.fr`,
-    expectedScore: "65 / 65",
+    expectedScore: "Points: 65 / 65",
     expectedDetailedScore: { score: 65, over: 65, result: TurnResultEnum.WON },
   },
   {
@@ -186,7 +186,7 @@ https://www.grumble.fr`,
 Score: 58 / 65
 
 https://www.grumble.fr`,
-    expectedScore: "58 / 65",
+    expectedScore: "Points: 58 / 65",
     expectedDetailedScore: {
       score: 58,
       over: 65,
@@ -201,7 +201,7 @@ https://www.grumble.fr`,
 🟪🟪⬛🟪🟪🟩⬛⬛
 🟪⬛🟪⬛⬛🟩⬛⬛
 🟩🟩🟩🟩🟩🟩🟩🟩 https://nerdlegame.com/`,
-    expectedScore: "4 / 6",
+    expectedScore: "Attempts: 4 / 6",
     expectedDetailedScore: { attempts: 4, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -212,10 +212,10 @@ Numbers used: 3/6
 Final answer: 300
 5.878s
 https://numble.wtf`,
-    expectedScore: "5.878s, 3 / 6, 300",
+    expectedScore: "Time: 5.878s, numbers used: 3 / 6",
     expectedDetailedScore: {
       time: "5.878s",
-      tilesUsed: 3,
+      numbersUsed: 3,
       over: 6,
       answer: 300,
       result: TurnResultEnum.WON,
@@ -229,10 +229,10 @@ Numbers used: 5/6
 Final answer: 939.5
 6m 27.799s
 https://numble.wtf`,
-    expectedScore: "6m 27.799s, 5 / 6, 939.5",
+    expectedScore: "Time: 6m 27.799s, numbers used: 5 / 6, final answer: 939.5",
     expectedDetailedScore: {
       time: "6m 27.799s",
-      tilesUsed: 5,
+      numbersUsed: 5,
       over: 6,
       answer: 939.5,
       result: TurnResultEnum.LOST,
@@ -243,7 +243,7 @@ https://numble.wtf`,
     rawResult: `J'ai trouvé #pedantix nº293 en 32 coups !
 🟩🟩🟩🟩🟩🟧🟧🟧🟧🟧🟧🟧🟥🟥🟥🟥🟥🟥🟥🟥
 https://cemantix.certitudes.org/pedantix`,
-    expectedScore: "32",
+    expectedScore: "Attempts: 32",
     expectedDetailedScore: { attempts: 32, result: TurnResultEnum.WON },
   },
   {
@@ -251,14 +251,14 @@ https://cemantix.certitudes.org/pedantix`,
     rawResult: `J'ai trouvé #pedantix nº293 en 632 coups !
 🟩🟩🟩🟩🟩🟧🟧🟧🟧🟧🟧🟧🟥🟥🟥🟥🟥🟥🟥🟥
 https://cemantix.certitudes.org/pedantix`,
-    expectedScore: "632",
+    expectedScore: "Attempts: 632",
     expectedDetailedScore: { attempts: 632, result: TurnResultEnum.WON },
   },
   {
     parserClass: "pedantle",
     rawResult: `I found #pedantle #288 in 43 guesses!
 🟩🟩🟩🟩🟩🟧🟧🟧🟧🟧🟧🟥🟥🟥🟥🟥🟥🟥🟥🟥`,
-    expectedScore: "43",
+    expectedScore: "Attempts: 43",
     expectedDetailedScore: { attempts: 43, result: TurnResultEnum.WON },
   },
   {
@@ -284,7 +284,7 @@ quordle.com
 ⬛⬛⬛⬛⬛ ⬜⬜🟩🟨🟩
 ⬛⬛⬛⬛⬛ 🟩🟩🟩🟩🟩
 `,
-    expectedScore: "8 / 9",
+    expectedScore: "Attempts: 8 / 9",
     expectedDetailedScore: {
       attempts: 8,
       over: 9,
@@ -315,7 +315,7 @@ quordle.com
 ⬜🟨⬜🟨🟨 ⬛⬛⬛⬛⬛
 🟩🟩🟩🟩🟩 ⬛⬛⬛⬛⬛
 `,
-    expectedScore: "1 missed",
+    expectedScore: "Missed: 1",
     expectedDetailedScore: {
       attempts: 9,
       over: 9,
@@ -348,7 +348,7 @@ quordle.com
 ⬜⬜🟨⬜⬜ ⬛⬛⬛⬛⬛
 🟩🟩🟩🟩🟩 ⬛⬛⬛⬛⬛
 `,
-    expectedScore: "9 / 9",
+    expectedScore: "Attempts: 9 / 9",
     expectedDetailedScore: {
       attempts: 9,
       over: 9,
@@ -370,7 +370,7 @@ Guesses: 20/21
 1️⃣9️⃣ 2️⃣0️⃣
 https://sedecordle.com/
 #sedecordle  #sedecorder`,
-    expectedScore: "20 / 21",
+    expectedScore: "Attempts: 20 / 21",
     expectedDetailedScore: {
       attempts: 20,
       over: 21,
@@ -392,7 +392,7 @@ Guesses: X/21
 2️⃣1️⃣ 🟥🟥
 https://sedecordle.com/
 #sedecordle  #sedecorder`,
-    expectedScore: "1 missed",
+    expectedScore: "Missed: 1",
     expectedDetailedScore: {
       attempts: 21,
       over: 21,
@@ -414,7 +414,7 @@ Guesses: 21/21
 2️⃣0️⃣ 2️⃣1️⃣
 https://sedecordle.com/
 #sedecordle  #sedecorder`,
-    expectedScore: "21 / 21",
+    expectedScore: "Attempts: 21 / 21",
     expectedDetailedScore: {
       attempts: 21,
       over: 21,
@@ -436,7 +436,7 @@ https://sedecordle.com/
 sedecordle.com
 #sedecordle
 `,
-    expectedScore: "20 / 21",
+    expectedScore: "Attempts: 20 / 21",
     expectedDetailedScore: {
       attempts: 20,
       over: 21,
@@ -458,7 +458,7 @@ sedecordle.com
 sedecordle.com
 #sedecordle
 `,
-    expectedScore: "2 missed",
+    expectedScore: "Missed: 2",
     expectedDetailedScore: {
       attempts: 21,
       over: 21,
@@ -480,7 +480,7 @@ sedecordle.com
 sedecordle.com
 #sedecordle
 `,
-    expectedScore: "21 / 21",
+    expectedScore: "Attempts: 21 / 21",
     expectedDetailedScore: {
       attempts: 21,
       over: 21,
@@ -498,7 +498,7 @@ sedecordle.com
 🟩🟩🟩🟨⬜⬅️
 🟩🟩🟩🟨⬜⬅️
 https://statele.teuteuf.fr`,
-    expectedScore: "71%, bonus 0 / 6",
+    expectedScore: "Closest: 71%, bonuses: 0 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -513,7 +513,7 @@ https://statele.teuteuf.fr`,
     rawResult: `#Statele #89 1/6 (100%)
 🟩🟩🟩🟩🟩🎉
 https://statele.teuteuf.fr`,
-    expectedScore: "1 / 6, bonus 0 / 6",
+    expectedScore: "Attempts: 1 / 6, bonuses: 0 / 6",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -534,7 +534,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐
 https://statele.teuteuf.fr`,
-    expectedScore: "71%, bonus 1 / 6",
+    expectedScore: "Closest: 71%, bonuses: 1 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -555,7 +555,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐⭐
 https://statele.teuteuf.fr`,
-    expectedScore: "71%, bonus 2 / 6",
+    expectedScore: "Closest: 71%, bonuses: 2 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -576,7 +576,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "71%, bonus 2 / 6",
+    expectedScore: "Closest: 71%, bonuses: 2 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -597,7 +597,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟨⬜⬅️
 ⭐⭐⭐📏🏙️🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "71%, bonus 6 / 6",
+    expectedScore: "Closest: 71%, bonuses: 6 / 6",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -613,7 +613,7 @@ https://statele.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐⭐⭐📏🏙️🪙
 https://statele.teuteuf.fr`,
-    expectedScore: "1 / 6, bonus 6 / 6",
+    expectedScore: "Attempts: 1 / 6, bonuses: 6 / 6",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -632,7 +632,7 @@ https://statele.teuteuf.fr`,
 🟥🟥🟥🟥🟥🟥
 
 https://sutom.nocle.fr`,
-    expectedScore: "3 / 6",
+    expectedScore: "Attempts: 3 / 6",
     expectedDetailedScore: { attempts: 3, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -664,7 +664,7 @@ https://sutom.nocle.fr`,
 9 lettres ✅  - 🔴🔴
 
 https://www.tusmo.xyz`,
-    expectedScore: "15",
+    expectedScore: "Attempts: 15",
     expectedDetailedScore: {
       words: 4,
       over: 4,
@@ -682,7 +682,7 @@ https://www.tusmo.xyz`,
 9 lettres ❌ 
 
 https://www.tusmo.xyz`,
-    expectedScore: "2 / 4",
+    expectedScore: "Missed: 2",
     expectedDetailedScore: {
       words: 2,
       over: 4,
@@ -699,7 +699,7 @@ https://www.tusmo.xyz`,
 🟥🟥🟥🟥🟥🟥🟥🟥
 
 https://www.tusmo.xyz`,
-    expectedScore: "3 / 6",
+    expectedScore: "Attempts: 3 / 6",
     expectedDetailedScore: { attempts: 3, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -733,7 +733,7 @@ https://www.tusmo.xyz`,
 🟢🟢🟢🟢🟢
 
 @unlockle https://unlockle.app`,
-    expectedScore: "6 / 6",
+    expectedScore: "Attempts: 6 / 6",
     expectedDetailedScore: { attempts: 6, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -767,7 +767,7 @@ https://www.tusmo.xyz`,
 
 🔥 streak: 13
 wafflegame.net`,
-    expectedScore: "0 / 5",
+    expectedScore: "Stars: 0 / 5",
     expectedDetailedScore: { stars: 0, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -782,7 +782,7 @@ wafflegame.net`,
 
 🔥 streak: 1
 wafflegame.net`,
-    expectedScore: "5 / 5",
+    expectedScore: "Stars: 5 / 5",
     expectedDetailedScore: { stars: 5, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -797,7 +797,7 @@ wafflegame.net`,
 
 🔥 streak: 7
 wafflegame.net`,
-    expectedScore: "3 / 5",
+    expectedScore: "Stars: 3 / 5",
     expectedDetailedScore: { stars: 3, over: 5, result: TurnResultEnum.WON },
   },
   {
@@ -842,7 +842,7 @@ wafflegame.net`,
 ⬛🟩🟩⬛⬛
 ⬛🟩🟩⬛🟩
 🟩🟩🟩🟩🟩`,
-    expectedScore: "6 / 6",
+    expectedScore: "Attempts: 6 / 6",
     expectedDetailedScore: { attempts: 6, over: 6, result: TurnResultEnum.WON },
   },
   {
@@ -855,7 +855,7 @@ wafflegame.net`,
 🟩🟩🟩🟩🟨⬅️
 🟩🟩🟩🟩⬛↙️
 https://worldle.teuteuf.fr`,
-    expectedScore: "96%, bonus 0 / 5",
+    expectedScore: "Closest: 96%, bonuses: 0 / 5",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -876,7 +876,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩⬜⬆️
 ⭐⭐🏙️
 https://worldle.teuteuf.fr`,
-    expectedScore: "95%, bonus 3 / 5",
+    expectedScore: "Closest: 95%, bonuses: 3 / 5",
     expectedDetailedScore: {
       attempts: 6,
       attemptsOver: 6,
@@ -895,7 +895,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐
 https://worldle.teuteuf.fr`,
-    expectedScore: "4 / 6, bonus 1 / 5",
+    expectedScore: "Attempts: 4 / 6, bonuses: 1 / 5",
     expectedDetailedScore: {
       attempts: 4,
       attemptsOver: 6,
@@ -911,7 +911,7 @@ https://worldle.teuteuf.fr`,
 🟩🟩🟩🟩🟩🎉
 ⭐⭐⭐🏙️🪙
 https://worldle.teuteuf.fr`,
-    expectedScore: "1 / 6, bonus 5 / 5",
+    expectedScore: "Attempts: 1 / 6, bonuses: 5 / 5",
     expectedDetailedScore: {
       attempts: 1,
       attemptsOver: 6,
@@ -955,13 +955,3 @@ describe("Turn parsers", () => {
     }
   );
 });
-
-/*
-I got a score of 4254 on today's Chronophoto: 11/03/2023
-Round 1: 924
-Round 2: 849
-Round 3: 924
-Round 4: 708
-Round 5: 849
-https://www.chronophoto.app/daily.html
-*/

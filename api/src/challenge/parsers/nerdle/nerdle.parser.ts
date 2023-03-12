@@ -21,7 +21,7 @@ export class NerdleParser implements TurnParserInterface<NerdleScoreInterface> {
   extractScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${detailedScore.attempts} / ${detailedScore.over}`;
+    return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
   }
 
   extractDetailedScore(rawResult: string): NerdleScoreInterface {

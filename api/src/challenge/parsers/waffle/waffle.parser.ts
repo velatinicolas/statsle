@@ -22,7 +22,7 @@ export class WaffleParser implements TurnParserInterface<WaffleScoreInterface> {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {
-      return `${detailedScore.stars} / ${detailedScore.over}`;
+      return `Stars: ${detailedScore.stars} / ${detailedScore.over}`;
     }
 
     return "";

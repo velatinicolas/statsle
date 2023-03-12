@@ -29,10 +29,10 @@ export class WorldleParser
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {
-      return `${detailedScore.attempts} / ${detailedScore.attemptsOver}, bonus ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.attemptsOver}, bonuses: ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
     }
 
-    return `${detailedScore.percentage}%, bonus ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
+    return `Closest: ${detailedScore.percentage}%, bonuses: ${detailedScore.bonuses} / ${detailedScore.bonusesOver}`;
   }
 
   extractDetailedScore(rawResult: string): WorldleScoreInterface {

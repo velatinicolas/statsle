@@ -22,7 +22,7 @@ export class SutomParser implements TurnParserInterface<SutomScoreInterface> {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {
-      return `${detailedScore.attempts} / ${detailedScore.over}`;
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
     }
 
     return "";

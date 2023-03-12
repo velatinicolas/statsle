@@ -33,10 +33,10 @@ export class TusmoSeriesParser
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {
-      return `${detailedScore.attempts}`;
+      return `Attempts: ${detailedScore.attempts}`;
     }
 
-    return `${detailedScore.words} / ${detailedScore.over}`;
+    return `Missed: ${detailedScore.over - detailedScore.words}`;
   }
 
   extractDetailedScore(rawResult: string): TusmoSeriesScoreInterface {

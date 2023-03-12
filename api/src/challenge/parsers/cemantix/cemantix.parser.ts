@@ -23,7 +23,7 @@ export class CemantixParser
   extractScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${detailedScore.attempts}`;
+    return `Attempts: ${detailedScore.attempts}`;
   }
 
   extractDetailedScore(rawResult: string): CemantixScoreInterface {

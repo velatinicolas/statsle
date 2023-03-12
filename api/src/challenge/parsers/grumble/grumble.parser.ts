@@ -23,7 +23,7 @@ export class GrumbleParser
   extractScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
-    return `${detailedScore.score} / ${detailedScore.over}`;
+    return `Points: ${detailedScore.score} / ${detailedScore.over}`;
   }
 
   extractDetailedScore(rawResult: string): GrumbleScoreInterface {

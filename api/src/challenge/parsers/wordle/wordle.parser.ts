@@ -22,7 +22,7 @@ export class WordleParser implements TurnParserInterface<WordleScoreInterface> {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {
-      return `${detailedScore.attempts} / ${detailedScore.over}`;
+      return `Attempts: ${detailedScore.attempts} / ${detailedScore.over}`;
     }
 
     return "";
