@@ -1,6 +1,6 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { from, mergeMap, Observable, of } from "rxjs";
+import { from, map, mergeMap, Observable, of } from "rxjs";
 import { Repository } from "typeorm";
 import { Challenge } from "../entities/challenge.entity";
 import { Game } from "../entities/game.entity";
@@ -14,7 +14,7 @@ export class GameFinder {
     @InjectRepository(Game) private readonly gameRepository: Repository<Game>
   ) {}
 
-  find(rawResult: string, turnParser: TurnParserInterface): Observable<Game> {
+  findOrCreate(rawResult: string, turnParser: TurnParserInterface): Observable<Game> {
     const challengeName = turnParser.getChallengeName();
     const gameNumber = turnParser.extractGameNumber(rawResult);
 
@@ -50,5 +50,19 @@ export class GameFinder {
         );
       })
     );
+  }
+
+  find(identifier: number): Observable<Game> {
+    return from(
+      this.gameRepository.findOneBy({ identifier })
+    ).pipe(
+      map(game => {
+        if (!game) {
+          throw new NotFoundException()
+        }
+
+        return game
+      })
+    )
   }
 }

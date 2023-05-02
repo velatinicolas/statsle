@@ -85,6 +85,18 @@ export class TurnService {
     );
   }
 
+  findByGame(game: Game): Observable<Turn[]> {
+    return from(
+      this.turnRepository.find({
+        where: {
+          game: {
+            identifier: game.identifier
+          }
+        }
+      })
+    )
+  }
+
   calculateScoreAndCombo(
     turn: Turn,
     turnParser: TurnParserInterface

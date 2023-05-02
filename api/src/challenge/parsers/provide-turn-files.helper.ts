@@ -2,9 +2,14 @@ import { FactoryProvider } from "@nestjs/common";
 import { lstatSync, readdirSync } from "fs";
 import { TurnFileConstructorInterface } from "./turn-file-constructor.interface";
 import { TurnParserInterface } from "./turn-parser.interface";
+import { TurnsSorterInterface } from "./turns-sorter.interface";
 
-export function providerTurnParsers(): FactoryProvider<TurnParserInterface[]> {
+export function provideTurnParsers(): FactoryProvider<TurnParserInterface[]> {
   return provideTurnFiles<TurnParserInterface>("TURN_PARSERS", "parser.js");
+}
+
+export function provideTurnsSorters(): FactoryProvider<TurnsSorterInterface[]> {
+  return provideTurnFiles<TurnsSorterInterface>("TURNS_SORTERS", "sorter.js")
 }
 
 function provideTurnFiles<T>(

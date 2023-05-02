@@ -37,7 +37,7 @@ export class TurnController {
     const turnParser = this.turnParserChain.findParserHandling(rawResult);
 
     return this.gameFinder
-      .find(rawResult, turnParser)
+      .findOrCreate(rawResult, turnParser)
       .pipe(
         mergeMap((game) =>
           this.turnService.create(user, game, rawResult, turnParser)
