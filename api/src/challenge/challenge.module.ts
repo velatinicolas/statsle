@@ -12,6 +12,7 @@ import { Game } from "./entities/game.entity";
 import { Turn } from "./entities/turn.entity";
 import { provideTurnParsers, provideTurnsSorters } from "./parsers/provide-turn-files.helper";
 import { GameController } from "./controllers/game.controller";
+import { TurnsSorterChain } from "./parsers/turns-sorter-chain.service";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Challenge, Game, Turn])],

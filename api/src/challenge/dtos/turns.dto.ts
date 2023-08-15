@@ -30,6 +30,10 @@ class TurnsOrderDto {
   @IsEnum(OrderSortEnum)
   createdAt?: OrderSortEnum;
 
+  // @IsOptional()
+  // @IsEnum(OrderSortEnum)
+  // score?: OrderSortEnum
+
   @IsOptional()
   @ValidateNested()
   game?: GamesOrderDto;

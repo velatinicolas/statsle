@@ -11,11 +11,11 @@ import { mergeMap, Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { TurnService } from "../services/turn.service";
 import { TurnDto } from "../dtos/turn.dto";
-import { TurnParserChain } from "../parsers/parser-chain.service";
 import { TurnsDto } from "../dtos/turns.dto";
 import { GameFinder } from "../services/game-finder.service";
 import { PassportRequest } from "src/auth/interfaces/passport-request.interface";
 import { Turn } from "../entities/turn.entity";
+import { TurnParserChain } from "../parsers/turn-parser-chain.service";
 
 @Controller()
 export class TurnController {

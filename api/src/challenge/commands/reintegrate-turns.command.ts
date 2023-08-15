@@ -4,7 +4,7 @@ import { Command, CommandRunner } from "nest-commander";
 import { catchError, from, lastValueFrom, map, mergeMap, of } from "rxjs";
 import { Repository } from "typeorm";
 import { Turn } from "../entities/turn.entity";
-import { TurnParserChain } from "../parsers/parser-chain.service";
+import { TurnParserChain } from "../parsers/turn-parser-chain.service";
 import { TurnService } from "../services/turn.service";
 
 @Command({

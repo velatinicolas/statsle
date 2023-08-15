@@ -4,7 +4,7 @@ import {
   Injectable,
   InternalServerErrorException,
 } from "@nestjs/common";
-import { TurnParserInterface } from "./turn-parser.interface";
+import { Game } from "../entities/game.entity";
 import { TurnsSorterInterface } from "./turns-sorter.interface";
 
 @Injectable()
@@ -14,23 +14,23 @@ export class TurnsSorterChain {
     private readonly turnsSorters: TurnsSorterInterface[]
   ) {}
 
-  addTurnParser(turnParser: TurnParserInterface): void {
-    this.turnParsers.push(turnParser);
+  addTurnSorter(turnsSorter: TurnsSorterInterface): void {
+    this.turnsSorters.push(turnsSorter);
   }
 
-  findParserHandling(rawResult: string): TurnParserInterface {
-    const validTurnParsers = this.turnParsers.filter((turnParser) =>
-      turnParser.handles(rawResult)
+  findSorterHandling(game: Game): TurnsSorterInterface {
+    const validTurnsSorters = this.turnsSorters.filter((turnsSorter) =>
+      turnsSorter.handles(game)
     );
 
-    if (validTurnParsers.length === 0) {
+    if (validTurnsSorters.length === 0) {
       throw new BadRequestException("Challenge not recognized!");
-    } else if (validTurnParsers.length > 1) {
+    } else if (validTurnsSorters.length > 1) {
       throw new InternalServerErrorException(
-        "More than one parser handle this result!"
+        "More than one sorter handle this result!"
       );
     }
 
-    return validTurnParsers[0];
+    return validTurnsSorters[0];
   }
 }
