@@ -2,12 +2,12 @@ import { createApp, h } from "vue";
 
 import "./assets/main.css";
 import "./assets/loader.css";
-import StatleApp from "./StatleApp.vue";
+import StatsleApp from "./StatsleApp.vue";
 import { createPinia } from "pinia";
 import router from "./router";
 
 const app = createApp({
-  render: () => h(StatleApp),
+  render: () => h(StatsleApp),
 });
 
 const pinia = createPinia();

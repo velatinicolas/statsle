@@ -24,15 +24,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useUserStore } from "@/stores/user";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { useToasterStore } from "@/stores/toaster";
 
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
     const toasterStore = useToasterStore();
-    const statleApiClientStore = useStatleApiClientStore();
-    return { userStore, toasterStore, statleApiClientStore };
+    const statsleApiClientStore = useStatsleApiClientStore();
+    return { userStore, toasterStore, statsleApiClientStore };
   },
   data() {
     return {
@@ -46,11 +46,11 @@ export default defineComponent({
       this.password = "";
     },
     tryLogin() {
-      this.statleApiClientStore.client
+      this.statsleApiClientStore.client
         .login(this.username, this.password)
         .then((jwt) => {
           window.localStorage.setItem("jwt", jwt.access_token);
-          this.statleApiClientStore.client.me().then((user) => {
+          this.statsleApiClientStore.client.me().then((user) => {
             this.userStore.user.username = user.username;
             this.$router.push("/welcome");
           });

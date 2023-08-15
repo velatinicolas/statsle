@@ -27,7 +27,7 @@ deploy-all: api-deploy front-deploy ## Deploy Front and API
 
 .PHONY: postgres
 postgres: ## Open a postgresql client in database container
-	docker-compose exec db bash -c "psql -U statle statle"
+	docker-compose exec db bash -c "psql -U statsle statsle"
 
 ### API
 

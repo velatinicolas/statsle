@@ -22,14 +22,14 @@ import {
   type TurnsInterfaceGroups,
 } from "@/helpers/group-by.helper";
 import { sortBy, TurnsSortByEnum } from "@/helpers/sort-by.helper";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { defineComponent } from "vue";
 import TurnsGroup from "./TurnsGroup.vue";
 
 export default defineComponent({
   setup() {
-    const statleApiClientStore = useStatleApiClientStore();
-    return { statleApiClientStore };
+    const statsleApiClientStore = useStatsleApiClientStore();
+    return { statsleApiClientStore };
   },
   data(): {
     turnsList: TurnsInterfaceGroups;
@@ -46,7 +46,7 @@ export default defineComponent({
   methods: {
     loadTurnsList() {
       this.loading = true;
-      return this.statleApiClientStore.client
+      return this.statsleApiClientStore.client
         .getSelfTurns()
         .then((turnsList) => {
           this.turnsList = groupBy(turnsList, TurnsGroupByEnum.DATE);

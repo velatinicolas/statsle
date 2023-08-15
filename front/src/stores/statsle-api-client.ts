@@ -11,8 +11,8 @@ export interface User {
   username: string;
 }
 
-export const useStatleApiClientStore = defineStore("statle-api-client", () => {
-  const baseUrl = import.meta.env.VITE_STATLE_API_BASE_URL;
+export const useStatsleApiClientStore = defineStore("statsle-api-client", () => {
+  const baseUrl = import.meta.env.VITE_STATSLE_API_BASE_URL;
   const client = {
     getChallengesList(): Promise<ChallengeResourceInterface[]> {
       return axios

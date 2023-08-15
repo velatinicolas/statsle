@@ -17,15 +17,15 @@
 
 <script lang="ts">
 import type { TurnInterface } from "@/interfaces/from-api.interface";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { timer } from "rxjs";
 import { defineComponent, type PropType } from "vue";
 import TurnDisplay from "./TurnDisplay.vue";
 
 export default defineComponent({
   setup() {
-    const statleApiClientStore = useStatleApiClientStore();
-    return { statleApiClientStore };
+    const statsleApiClientStore = useStatsleApiClientStore();
+    return { statsleApiClientStore };
   },
   data() {
     return {

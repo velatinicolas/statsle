@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { useUserStore } from "@/stores/user";
 import { defineComponent } from "vue";
 import ChallengesList from "./ChallengesList.vue";
@@ -26,9 +26,9 @@ import { useToasterStore } from "../stores/toaster";
 export default defineComponent({
   setup() {
     const userStore = useUserStore();
-    const statleApiClientStore = useStatleApiClientStore();
+    const statsleApiClientStore = useStatsleApiClientStore();
     const toasterStore = useToasterStore();
-    return { userStore, statleApiClientStore, toasterStore };
+    return { userStore, statsleApiClientStore, toasterStore };
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     submitTurn() {
-      return this.statleApiClientStore.client
+      return this.statsleApiClientStore.client
         .createTurn(this.turnResult)
         .then(() => {
           this.turnResult = "";
