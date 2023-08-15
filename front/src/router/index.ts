@@ -4,7 +4,7 @@ import PasswordForgottenForm from "@/components/PasswordForgottenForm.vue";
 import RecoverPasswordForm from "@/components/RecoverPasswordForm.vue";
 import TurnForm from "@/components/TurnForm.vue";
 import TurnsList from "@/components/TurnsList.vue";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { useToasterStore } from "@/stores/toaster";
 import { useUserStore } from "@/stores/user";
 import { createRouter, createWebHistory } from "vue-router";
@@ -31,7 +31,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   const toasterStore = useToasterStore();
   const userStore = useUserStore();
-  const statleApiClientStore = useStatleApiClientStore();
+  const statsleApiClientStore = useStatsleApiClientStore();
 
   const handleExpiredConnexion = () => {
     userStore.reset();
@@ -67,7 +67,7 @@ router.beforeEach((to) => {
 
   if (to.path === "/") {
     if (userStore.isLoggedIn) {
-      return statleApiClientStore.client
+      return statsleApiClientStore.client
         .checkAuthenticated()
         .then(() => ({
           path: "welcome",
@@ -78,7 +78,7 @@ router.beforeEach((to) => {
         });
     }
 
-    return statleApiClientStore.client
+    return statsleApiClientStore.client
       .me()
       .then((user) => {
         userStore.user.username = user.username;
@@ -91,7 +91,7 @@ router.beforeEach((to) => {
   }
 
   if (userStore.isLoggedIn) {
-    return statleApiClientStore.client
+    return statsleApiClientStore.client
       .checkAuthenticated()
       .then(() => true)
       .catch(() => {
@@ -100,7 +100,7 @@ router.beforeEach((to) => {
       });
   }
 
-  return statleApiClientStore.client
+  return statsleApiClientStore.client
     .me()
     .then((user) => {
       userStore.user.username = user.username;

@@ -26,14 +26,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { useToasterStore } from "@/stores/toaster";
 
 export default defineComponent({
   setup() {
-    const statleApiClientStore = useStatleApiClientStore();
+    const statsleApiClientStore = useStatsleApiClientStore();
     const toasterStore = useToasterStore();
-    return { statleApiClientStore, toasterStore };
+    return { statsleApiClientStore, toasterStore };
   },
   data() {
     return {
@@ -57,7 +57,7 @@ export default defineComponent({
         return;
       }
 
-      return this.statleApiClientStore.client
+      return this.statsleApiClientStore.client
         .createUser(this.username, this.password, this.email)
         .then(() => {
           this.toasterStore.info("Successfully signed in! You can now log in.");

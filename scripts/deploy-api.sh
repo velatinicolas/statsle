@@ -10,7 +10,7 @@ API_SERVER_PATH=`loadValue API_SERVER_PATH`
 API_SERVER_ROOT=`loadValue API_SERVER_ROOT`
 
 echo "#####################"
-echo "# DEPLOY STATLE API #"
+echo "# DEPLOY STATSLE API #"
 echo "#####################"
 
 echo "Building project..."
@@ -23,6 +23,6 @@ echo "Installing node_modules..."
 ssh $API_SERVER_USER@$API_SERVER_HOST "cd $API_SERVER_PATH && npm install"
 
 echo "Restarting API..."
-ssh $API_SERVER_ROOT@$API_SERVER_HOST "pm2 restart statle-api"
+ssh $API_SERVER_ROOT@$API_SERVER_HOST "pm2 restart statsle-api"
 
 echo "Done!"

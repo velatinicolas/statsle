@@ -13,11 +13,11 @@ services:
     image: postgres:15
     network_mode: host
     volumes: 
-      - statle-db:/var/lib/postgresql/data
+      - statsle-db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=statle
-      - POSTGRES_USER=statle
-      - POSTGRES_PASSWORD=statle
+      - POSTGRES_DB=statsle
+      - POSTGRES_USER=statsle
+      - POSTGRES_PASSWORD=statsle
   front:
     image: node:18
     network_mode: host
@@ -28,5 +28,5 @@ services:
     volumes:
       - ./front:/usr/app/
 volumes:
-  statle-db:
+  statsle-db:
     external: true

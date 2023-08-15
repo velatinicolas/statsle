@@ -10,7 +10,7 @@ FRONT_SERVER_PATH=`loadValue FRONT_SERVER_PATH`
 
 
 echo "#######################"
-echo "# DEPLOY STATLE FRONT #"
+echo "# DEPLOY STATSLE FRONT #"
 echo "#######################"
 
 echo "Building project..."

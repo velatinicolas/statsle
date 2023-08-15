@@ -1,6 +1,6 @@
 {
-  "name": "statle-front",
-  "version": "0.14.0",
+  "name": "statsle-front",
+  "version": "0.14.1",
   "private": true,
   "scripts": {
     "dev": "vite --clearScreen=false",

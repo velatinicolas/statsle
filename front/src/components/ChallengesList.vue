@@ -17,13 +17,13 @@
 
 <script lang="ts">
 import type { ChallengeResourceInterface } from "@/interfaces/from-api.interface";
-import { useStatleApiClientStore } from "@/stores/statle-api-client";
+import { useStatsleApiClientStore } from "@/stores/statsle-api-client";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
-    const statleApiClientStore = useStatleApiClientStore();
-    return { statleApiClientStore };
+    const statsleApiClientStore = useStatsleApiClientStore();
+    return { statsleApiClientStore };
   },
   data(): {
     challengesList: ChallengeResourceInterface[];
@@ -40,7 +40,7 @@ export default defineComponent({
   methods: {
     loadChallengesList() {
       this.loading = true;
-      return this.statleApiClientStore.client
+      return this.statsleApiClientStore.client
         .getChallengesList()
         .then((challengesList) => {
           this.challengesList = challengesList.sort((a, b) =>
