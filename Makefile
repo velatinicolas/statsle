@@ -20,6 +20,9 @@ down: ## Down the containers
 logs: ## Display all containers logs
 	docker-compose logs -f
 
+.PHONE: install
+install-all: api-install front-install ## Install API and front node_modules
+
 .PHONY: deploy-all
 deploy-all: api-deploy front-deploy ## Deploy Front and API
 
@@ -34,6 +37,10 @@ postgres: ## Open a postgresql client in database container
 .PHONY: api-shell
 api-shell: ## Open a bash shell in API container
 	docker-compose exec api bash
+
+.PHONY: api-install
+api-install: ## Install API node_modules
+	docker-compose run api npm install
 
 .PHONY: api-format
 api-format: ## Run lint and prettier on API
@@ -75,6 +82,10 @@ api-update-version: ## Update version in package-lock.json according to package.
 .PHONY: front-shell
 front-shell: ## Open a bash shell in Front container
 	docker-compose exec front bash
+
+.PHONY: front-install
+front-install: ## Install Front node_modules
+	docker-compose run front npm install
 
 .PHONY: front-format
 front-format: ## Run lint and prettier on API
