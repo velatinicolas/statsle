@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SigninForm from "./SigninForm.vue";
+import SignupForm from "./SignupForm.vue";
 import LoginForm from "./LoginForm.vue";
 import { useUserStore } from "@/stores/user";
 
@@ -15,7 +15,7 @@ const userStore = useUserStore();
       <h2>or</h2>
     </div>
     <div class="user-action">
-      <SigninForm></SigninForm>
+      <SignupForm></SignupForm>
     </div>
   </div>
 </template>

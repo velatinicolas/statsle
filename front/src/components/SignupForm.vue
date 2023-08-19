@@ -1,6 +1,6 @@
 <template>
   <div class="user-form">
-    <h2>Sign in</h2>
+    <h2>Sign up</h2>
     <div>
       <input type="text" v-model="username" placeholder="username" />
     </div>
@@ -13,13 +13,13 @@
     <div>
       <input
         type="password"
-        @keyup.enter="trySignin()"
+        @keyup.enter="trySignup()"
         v-model="confirm"
         placeholder="confirm password"
       />
     </div>
     <div>
-      <button v-on:click="trySignin()">Sign in</button>
+      <button v-on:click="trySignup()">Sign in</button>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default defineComponent({
       this.password = "";
       this.confirm = "";
     },
-    trySignin() {
+    trySignup() {
       if (this.password !== this.confirm) {
         this.toasterStore.error("Password and confirmation don't match!");
         this.reinitInputs();
@@ -60,7 +60,7 @@ export default defineComponent({
       return this.statsleApiClientStore.client
         .createUser(this.username, this.password, this.email)
         .then(() => {
-          this.toasterStore.info("Successfully signed in! You can now log in.");
+          this.toasterStore.info("Successfully signed up! You can now log in.");
           this.reinitInputs();
         })
         .catch((error) => {
