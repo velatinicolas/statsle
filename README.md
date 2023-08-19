@@ -19,7 +19,7 @@ git clone git@github.com:velatinicolas/statsle.git
 cd statsle
 ```
 
-### Steps to be done once
+### First steps
 
 Create a volume for the database:
 
