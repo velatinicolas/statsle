@@ -1,9 +1,9 @@
-import { ScoreInterface } from "./score.interface";
+import { DetailedScoreInterface } from "./detailed-score.interface";
 
-export interface TurnParserInterface<T = ScoreInterface> {
+export interface TurnParserInterface<T = DetailedScoreInterface> {
   getChallengeName(): string;
   handles(rawResult: string): boolean;
   extractGameNumber(rawResult: string): number;
-  extractScore(rawResult: string): string;
+  extractSummarizedScore(rawResult: string): string;
   extractDetailedScore(rawResult: string): T;
 }

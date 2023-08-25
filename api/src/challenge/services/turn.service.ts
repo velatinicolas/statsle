@@ -10,9 +10,9 @@ import { User } from "src/user/entities/user.entity";
 import { Repository } from "typeorm";
 import { TurnParserInterface } from "../parsers/turn-parser.interface";
 import { TurnResultEnum } from "../enums/turn-result.enum";
-import { TurnsDto } from "../dtos/turns.dto";
 import { Turn } from "../entities/turn.entity";
 import { Game } from "../entities/game.entity";
+import { TurnsOrderDto } from "../dtos/turns.dto";
 
 @Injectable()
 export class TurnService {
@@ -56,7 +56,7 @@ export class TurnService {
         return turn;
       }),
       mergeMap((turn) =>
-        this.calculateScoreAndCombo(turn, turnParser).pipe(
+        this.calculateScoresAndCombo(turn, turnParser).pipe(
           catchError((error) => {
             this.logger.error(
               `Failed extracting data for user ${turn.user.identifier}, game ${turn.game.identifier}, raw result "${rawResult}": ${error}`
@@ -71,7 +71,7 @@ export class TurnService {
     );
   }
 
-  findByUser(user: User, turns?: TurnsDto): Observable<Turn[]> {
+  findByUser(user: User, turnsOrder?: TurnsOrderDto): Observable<Turn[]> {
     return from(
       this.turnRepository.find({
         relations: ["game", "game.challenge"],
@@ -80,24 +80,25 @@ export class TurnService {
             identifier: user.identifier,
           },
         },
-        order: turns?.orders,
+        order: turnsOrder,
       })
     );
   }
 
-  findByGame(game: Game): Observable<Turn[]> {
+  findByGame(game: Game, turnsOrder?: TurnsOrderDto): Observable<Turn[]> {
     return from(
       this.turnRepository.find({
         where: {
           game: {
             identifier: game.identifier
           }
-        }
+        },
+        order: turnsOrder,
       })
     )
   }
 
-  calculateScoreAndCombo(
+  calculateScoresAndCombo(
     turn: Turn,
     turnParser: TurnParserInterface
   ): Observable<Turn> {
@@ -105,7 +106,7 @@ export class TurnService {
       map((lastCombo) => {
         const detailedScore = turnParser.extractDetailedScore(turn.rawResult);
         turn.result = detailedScore.result;
-        turn.score = turnParser.extractScore(turn.rawResult);
+        turn.summarizedScore = turnParser.extractSummarizedScore(turn.rawResult);
         turn.detailedScore = detailedScore;
         turn.combo = turn.result === TurnResultEnum.WON ? lastCombo + 1 : 0;
 

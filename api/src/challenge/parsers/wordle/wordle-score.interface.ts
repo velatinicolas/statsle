@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface WordleScoreInterface extends ScoreInterface {
+export interface WordleScoreInterface extends DetailedScoreInterface {
   attempts: number;
   over: number;
 }

@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface DeluxeWaffleScoreInterface extends ScoreInterface {
+export interface DeluxeWaffleScoreInterface extends DetailedScoreInterface {
   stars: number;
   over: number;
 }

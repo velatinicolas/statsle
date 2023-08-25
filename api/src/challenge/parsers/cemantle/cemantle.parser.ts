@@ -20,7 +20,7 @@ export class CemantleParser
     return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
-  extractScore(rawResult: string): string {
+  extractSummarizedScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     return `Attempts: ${detailedScore.attempts}`;

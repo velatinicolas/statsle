@@ -20,7 +20,7 @@ export class SedecorderParser
     return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
-  extractScore(rawResult: string): string {
+  extractSummarizedScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     if (detailedScore.result === TurnResultEnum.WON) {

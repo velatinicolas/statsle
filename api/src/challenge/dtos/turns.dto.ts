@@ -21,7 +21,7 @@ class GamesOrderDto {
   number?: OrderSortEnum;
 }
 
-class TurnsOrderDto {
+export class TurnsOrderDto {
   @IsOptional()
   @IsEnum(OrderSortEnum)
   date?: OrderSortEnum;
@@ -30,9 +30,9 @@ class TurnsOrderDto {
   @IsEnum(OrderSortEnum)
   createdAt?: OrderSortEnum;
 
-  // @IsOptional()
-  // @IsEnum(OrderSortEnum)
-  // score?: OrderSortEnum
+  @IsOptional()
+  @IsEnum(OrderSortEnum)
+  score?: OrderSortEnum
 
   @IsOptional()
   @ValidateNested()
@@ -44,3 +44,6 @@ export class TurnsDto {
   @ValidateNested()
   orders?: TurnsOrderDto;
 }
+
+export type TurnsDatabaseOrderDto = Omit<TurnsOrderDto, 'score'>
+export type TurnsAdditionalOrderDto = Pick<TurnsOrderDto, 'score'>

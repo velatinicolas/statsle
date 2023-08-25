@@ -1,5 +1,5 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface CemantleScoreInterface extends ScoreInterface {
+export interface CemantleScoreInterface extends DetailedScoreInterface {
   attempts: number;
 }

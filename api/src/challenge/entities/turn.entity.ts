@@ -9,10 +9,10 @@ import {
 } from "typeorm";
 import { TurnResultEnum } from "../enums/turn-result.enum";
 import { Game } from "./game.entity";
-import { ScoreInterface } from "../parsers/score.interface";
+import { DetailedScoreInterface } from "../parsers/detailed-score.interface";
 
 @Entity("turns")
-export class Turn<T = ScoreInterface> {
+export class Turn<T = DetailedScoreInterface> {
   @PrimaryGeneratedColumn("uuid")
   identifier: string;
 
@@ -29,7 +29,7 @@ export class Turn<T = ScoreInterface> {
   result: TurnResultEnum;
 
   @Column({ type: "text" })
-  score: string;
+  summarizedScore: string;
 
   @Column({ type: "jsonb", nullable: true })
   detailedScore: T;

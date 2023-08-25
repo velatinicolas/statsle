@@ -1,5 +1,5 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface PedantixScoreInterface extends ScoreInterface {
+export interface PedantixScoreInterface extends DetailedScoreInterface {
   attempts: number;
 }

@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface WorldleScoreInterface extends ScoreInterface {
+export interface WorldleScoreInterface extends DetailedScoreInterface {
   attempts: number;
   attemptsOver: number;
   percentage: number;

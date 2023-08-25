@@ -64,8 +64,8 @@ export default defineComponent({
 
         let line = `➜ ${turn.game.challenge.name} #${turn.game.number} ${result}`;
 
-        if (turn.score) {
-          line += ` - ${turn.score}`;
+        if (turn.summarizedScore) {
+          line += ` - ${turn.summarizedScore}`;
         }
 
         if (turn.combo > 1) {

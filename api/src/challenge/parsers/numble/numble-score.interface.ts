@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface NumbleScoreInterface extends ScoreInterface {
+export interface NumbleScoreInterface extends DetailedScoreInterface {
   time: string;
   numbersUsed: number;
   over: number;

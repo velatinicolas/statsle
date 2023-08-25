@@ -50,7 +50,7 @@ export class ReintegrateTurnsCommand extends CommandRunner {
         mergeMap(
           (turn) =>
             this.turnService
-              .calculateScoreAndCombo(
+              .calculateScoresAndCombo(
                 turn,
                 this.turnParserChain.findParserHandling(turn.rawResult)
               )

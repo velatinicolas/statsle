@@ -1,5 +1,5 @@
 import { TurnResultEnum } from "../enums/turn-result.enum";
 
-export interface ScoreInterface {
+export interface DetailedScoreInterface {
   result: TurnResultEnum;
 }

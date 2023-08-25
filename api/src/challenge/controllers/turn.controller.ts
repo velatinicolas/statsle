@@ -51,6 +51,6 @@ export class TurnController {
     @Req() req: PassportRequest,
     @Query() turnsMine: TurnsDto
   ): Observable<Turn[]> {
-    return this.turnService.findByUser(req.user, turnsMine);
+    return this.turnService.findByUser(req.user, turnsMine.orders);
   }
 }

@@ -18,7 +18,7 @@ export class NumbleParser implements TurnParserInterface<NumbleScoreInterface> {
     return +extractData(getLine(rawResult, 1), /[0-9]+/);
   }
 
-  extractScore(rawResult: string): string {
+  extractSummarizedScore(rawResult: string): string {
     const detailedScore = this.extractDetailedScore(rawResult);
 
     let score = `Time: ${detailedScore.time}, numbers used: ${detailedScore.numbersUsed} / ${detailedScore.over}`;

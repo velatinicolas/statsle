@@ -9,7 +9,7 @@
     >
     #{{ turn.game.number }}
     {{ resultIcon }}
-    <span v-if="turn.score"> - {{ turn.score }}</span>
+    <span v-if="turn.summarizedScore"> - {{ turn.summarizedScore }}</span>
     <span v-if="turn.combo > 1"> - combo {{ turn.combo }} 🔥</span>
     <button title="Share" class="share-raw-result" @click="share()">
       {{ shareButtonLabel }}

@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface TusmoWordScoreInterface extends ScoreInterface {
+export interface TusmoWordScoreInterface extends DetailedScoreInterface {
   attempts: number;
   over: number;
 }

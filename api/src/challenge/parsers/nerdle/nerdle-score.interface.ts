@@ -1,6 +1,6 @@
-import { ScoreInterface } from "../score.interface";
+import { DetailedScoreInterface } from "../detailed-score.interface";
 
-export interface NerdleScoreInterface extends ScoreInterface {
+export interface NerdleScoreInterface extends DetailedScoreInterface {
   attempts: number;
   over: number;
 }
