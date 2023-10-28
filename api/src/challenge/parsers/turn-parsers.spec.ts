@@ -624,6 +624,40 @@ https://statele.teuteuf.fr`,
     },
   },
   {
+    parserClass: "statele",
+    rawResult: `#Statele #1 2/6 (100%)
+🟩🟩🟩🟨⬜↙️
+🟩🟩🟩🟩🟩🎉
+📏🏙️🪙
+https://statele.teuteuf.fr`,
+    expectedScore: "Attempts: 2 / 6, bonuses: 3 / 6",
+    expectedDetailedScore: {
+      attempts: 2,
+      attemptsOver: 6,
+      percentage: 100,
+      bonuses: 3,
+      bonusesOver: 6,
+      result: TurnResultEnum.WON,
+    },
+  },
+  {
+    parserClass: "statele",
+    rawResult: `#Statele #1 2/6 (100%)
+🟩🟩🟩🟨⬜↙️
+🟩🟩🟩🟩🟩🎉
+🪙
+https://statele.teuteuf.fr`,
+    expectedScore: "Attempts: 2 / 6, bonuses: 1 / 6",
+    expectedDetailedScore: {
+      attempts: 2,
+      attemptsOver: 6,
+      percentage: 100,
+      bonuses: 1,
+      bonusesOver: 6,
+      result: TurnResultEnum.WON,
+    },
+  },
+  {
     parserClass: "sutom",
     rawResult: `#SUTOM #425 3/6
 
@@ -917,6 +951,22 @@ https://worldle.teuteuf.fr`,
       attemptsOver: 6,
       percentage: 100,
       bonuses: 5,
+      bonusesOver: 5,
+      result: TurnResultEnum.WON,
+    },
+  },
+  {
+    parserClass: "worldle",
+    rawResult: `#Worldle #394 1/6 (100%)
+🟩🟩🟩🟩🟩🎉
+🏙️🪙
+https://worldle.teuteuf.fr`,
+    expectedScore: "Attempts: 1 / 6, bonuses: 2 / 5",
+    expectedDetailedScore: {
+      attempts: 1,
+      attemptsOver: 6,
+      percentage: 100,
+      bonuses: 2,
       bonusesOver: 5,
       result: TurnResultEnum.WON,
     },
