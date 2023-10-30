@@ -13,10 +13,6 @@ export class TurnParserChain {
     private readonly turnParsers: TurnParserInterface[]
   ) {}
 
-  addTurnParser(turnParser: TurnParserInterface): void {
-    this.turnParsers.push(turnParser);
-  }
-
   findParserHandling(rawResult: string): TurnParserInterface {
     const validTurnParsers = this.turnParsers.filter((turnParser) =>
       turnParser.handles(rawResult)
